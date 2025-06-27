@@ -1,0 +1,48 @@
+{
+  "expo": {
+    "name": "chatghoul",
+    "slug": "chatghoul",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/images/empty.png",
+    "scheme": "chatghoul",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
+    "ios": {
+      "supportsTablet": true
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/images/empty.png",
+        "backgroundColor": "#000000"
+      },
+      "edgeToEdgeEnabled": true,
+      "package": "com.webghoul.chatghoul"
+    },
+    "web": {
+      "bundler": "metro",
+      "output": "static",
+      "favicon": "./assets/images/empty.png"
+    },
+    "plugins": [
+      "expo-router",
+      [
+        "expo-splash-screen",
+        {
+          "image": "./assets/images/empty.png",
+          "resizeMode": "contain",
+          "backgroundColor": "#000000"
+        }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    },
+    "extra": {
+      "router": {},
+      "eas": {
+        "projectId": "0adbd492-af57-4e8e-a098-e8a333ff0e90"
+      }
+    }
+  }
+}
