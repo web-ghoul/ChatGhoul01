@@ -1,10 +1,9 @@
 import Container from '@/components/Container'
 import ChatsSection from '@/sections/ChatsSection'
-import React from 'react'
 
 const ChatsScreen = () => {
   return (
-    <Container className={`bg-primary_bg flex-1`}>
+    <Container className={`bg-primary_bg`} style={{ gap: 10 }}>
       <ChatsSection />
     </Container>
   )

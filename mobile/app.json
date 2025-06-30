@@ -4,7 +4,7 @@
     "slug": "chatghoul",
     "version": "1.0.0",
     "orientation": "portrait",
-    "icon": "./assets/images/empty.png",
+    "icon": "./assets/images/logo.png",
     "scheme": "chatghoul",
     "userInterfaceStyle": "automatic",
     "newArchEnabled": true,
@@ -13,7 +13,7 @@
     },
     "android": {
       "adaptiveIcon": {
-        "foregroundImage": "./assets/images/empty.png",
+        "foregroundImage": "./assets/images/logo.png",
         "backgroundColor": "#000000"
       },
       "edgeToEdgeEnabled": true,
@@ -22,14 +22,14 @@
     "web": {
       "bundler": "metro",
       "output": "static",
-      "favicon": "./assets/images/empty.png"
+      "favicon": "./assets/images/logo.png"
     },
     "plugins": [
       "expo-router",
       [
         "expo-splash-screen",
         {
-          "image": "./assets/images/empty.png",
+          "image": "./assets/images/logo.png",
           "resizeMode": "contain",
           "backgroundColor": "#000000"
         }

@@ -6,7 +6,7 @@ import { height } from '@/constants';
 
 export default function TabLayout() {
     return (
-        <Tabs screenOptions={{ tabBarShowLabel: false, tabBarStyle: { backgroundColor: "#000000", height: height * 0.125, paddingTop: 20 } }}>
+        <Tabs screenOptions={{ tabBarShowLabel: false, tabBarStyle: { backgroundColor: "#000000", height: height * 0.07, paddingTop: 25 } }}>
             <Tabs.Screen
                 name="index"
                 options={{
@@ -15,7 +15,7 @@ export default function TabLayout() {
                     tabBarPosition: "bottom",
                     tabBarButton: (props) => (
                         <TouchableWithoutFeedback onPress={props.onPress}>
-                            <View className={`flex-1 justify-center items-center`}>{props.children}</View>
+                            <View className={`flex justify-center items-center`}>{props.children}</View>
                         </TouchableWithoutFeedback>
                     ),
                     tabBarIcon: ({ focused }) => <TabBarIcon icon={<MaterialCommunityIcons name="chat-processing" size={24} color={"white"} />} title={"Chats"} focused={focused} />
@@ -29,7 +29,7 @@ export default function TabLayout() {
                     tabBarPosition: "bottom",
                     tabBarButton: (props) => (
                         <TouchableWithoutFeedback onPress={props.onPress}>
-                            <View className={`flex-1 justify-center items-center`}>{props.children}</View>
+                            <View className={`flex justify-center items-center`}>{props.children}</View>
                         </TouchableWithoutFeedback>
                     ),
                     tabBarIcon: ({ focused }) =>
@@ -44,7 +44,7 @@ export default function TabLayout() {
                     tabBarPosition: "bottom",
                     tabBarButton: (props) => (
                         <TouchableWithoutFeedback onPress={props.onPress}>
-                            <View className={`flex-1 justify-center items-center`}>{props.children}</View>
+                            <View className={`flex justify-center items-center`}>{props.children}</View>
                         </TouchableWithoutFeedback>
                     ),
                     tabBarIcon: ({ focused }) =>

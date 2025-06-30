@@ -4,7 +4,6 @@ import { useModals } from '@/contexts/ModalsContext'
 import EditAvatarModal from '@/modals/EditAvatarModal'
 import RemoveAvatarModal from '@/modals/RemoveAvatarModal'
 import ViewAvatarModal from '@/modals/ViewAvatarModal'
-import React, { useState } from 'react'
 import { Image, Text, TouchableWithoutFeedback } from 'react-native'
 
 const AvatarSection = () => {
