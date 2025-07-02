@@ -14,7 +14,7 @@ const RemoveAvatarModal = () => {
             animationIn="slideInUp"
             animationOut="slideOutDown"
         >
-            <View className={`bg-[#222222]`} style={{ borderRadius: 20, padding: 20, gap: 15 }}>
+            <View className={`bg-[#222222]`} style={{ borderRadius: 20, padding: 20, gap: 30 }}>
                 <Text className={`text-white text-xl font-ubuntu_regular`}>Remove Profile Photo ?</Text>
                 <View className={`flex flex-row items-center`} style={{ gap: 25, justifyContent: "flex-end" }}>
                     <Pressable onPress={() => dispatchModals({ type: "removeAvatarModal", payload: false })}>

@@ -19,7 +19,7 @@ const FormTemplate = ({
             >
                 <Image source={image} style={{ width: width * 0.85, height: width * 0.85 }} className={`m-auto`} />
                 <View className={`flex flex-col items-center`} style={{ gap: 30 }}>
-                    <View className={`flex flex-col items-end w-full`} style={{ gap: 5 }}>
+                    <View className={`flex flex-col items-start w-full`} style={{ gap: 5 }}>
                         <Text className={`font-ubuntu_medium text-4xl text-primary`} >{title}</Text>
                         <Text className={`font-ubuntu_regular text-lg text-white`} >{description}</Text>
                     </View>

@@ -4,7 +4,6 @@ import Modal from 'react-native-modal';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import Entypo from '@expo/vector-icons/Entypo';
-import AntDesign from '@expo/vector-icons/AntDesign';
 import { height, width } from '@/constants';
 
 const EditAvatarModal = () => {
@@ -37,19 +36,22 @@ const EditAvatarModal = () => {
                     </TouchableWithoutFeedback>
                 </View>
                 <View className={`flex-row justify-between items-center`} style={{ gap: 5 }}>
-                    <TouchableWithoutFeedback onPress={() => dispatchModals({ type: "editAvatarModal", payload: false })}>
+                    {/* <TouchableWithoutFeedback onPress={() => dispatchModals({ type: "editAvatarModal", payload: false })}>
                         <View className={boxClasses} style={boxStyles}>
                             <AntDesign name="camerao" size={24} color="#0092E4" />
                             <Text className={`text-lg font-ubuntu_regular text-white`}>Camera</Text>
                         </View>
-                    </TouchableWithoutFeedback>
+                    </TouchableWithoutFeedback> */}
                     <TouchableWithoutFeedback onPress={() => dispatchModals({ type: "editAvatarModal", payload: false })}>
                         <View className={boxClasses} style={boxStyles}>
                             <Entypo name="image" size={24} color="#0092E4" />
                             <Text className={`text-lg font-ubuntu_regular text-white`}>Gallery</Text>
                         </View>
                     </TouchableWithoutFeedback>
-                    <TouchableWithoutFeedback onPress={() => dispatchModals({ type: "editAvatarModal", payload: false })}>
+                    <TouchableWithoutFeedback onPress={() => {
+                        dispatchModals({ type: "editAvatarModal", payload: false })
+                        dispatchModals({ type: "chooseAvatarModal", payload: true })
+                    }}>
                         <View className={boxClasses} style={boxStyles}>
                             <MaterialIcons name="face-retouching-natural" size={24} color="#0092E4" />
                             <Text className={`text-lg font-ubuntu_regular text-white`}>Avatar</Text>

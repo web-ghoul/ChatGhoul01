@@ -3,9 +3,19 @@ import { useState } from 'react'
 import { Pressable, View } from 'react-native'
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import useNotifications from '@/hooks/useNotifications';
+// import { useApp } from '@/contexts/AppContext';
 
 const ChatInputSection = () => {
     const [message, setMessage] = useState('')
+    const { handlePushNotification } = useNotifications()
+    // const { dispatch: dispatchApp } = useApp()
+
+    // const handleReset = () => {
+    //     dispatchApp({ type: "chosenMessages", payload: {} })
+    //     dispatchApp({ type: "chosenMessagesLength", payload: 0 })
+    //     dispatchApp({ type: "chosenMsgsOwnLength", payload: 0 })
+    // }
 
     const handleChange = (value: string) => {
         console.log(value)
@@ -14,6 +24,7 @@ const ChatInputSection = () => {
 
     const handleSendMessage = () => {
         console.log(message)
+        handlePushNotification()
     }
 
     return (

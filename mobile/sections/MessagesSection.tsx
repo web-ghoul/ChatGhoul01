@@ -11,7 +11,7 @@ const MessagesSection = () => {
                 inverted
                 keyExtractor={(_, index) => index.toString()}
                 renderItem={({ item }) => <MessageCard sender={item % 2 === 0} item={item} />}
-                ItemSeparatorComponent={() => <View className={`py-2`}></View>}
+                // ItemSeparatorComponent={() => <View className={`py-2`}></View>}
                 ListFooterComponent={
                     <ChatInfo />
                 }

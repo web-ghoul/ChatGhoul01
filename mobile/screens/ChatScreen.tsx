@@ -1,4 +1,5 @@
-import Container from "@/components/Container"
+import ChooseChatThemeModal from "@/modals/ChooseChatThemeModal"
+import DeleteMessagesModal from "@/modals/DeleteMessagesModal"
 import ChatInputSection from "@/sections/ChatInputSection"
 import MessagesSection from "@/sections/MessagesSection"
 import { ImageBackground } from "react-native"
@@ -10,10 +11,10 @@ const ChatScreen = () => {
       resizeMode="cover"
       className={`flex-1`}
     >
-      <Container className="flex flex-col items-center flex-1">
-        <MessagesSection />
-        <ChatInputSection />
-      </Container>
+      <MessagesSection />
+      <ChatInputSection />
+      <ChooseChatThemeModal/>
+      <DeleteMessagesModal/>
     </ImageBackground>
   )
 }

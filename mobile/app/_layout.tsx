@@ -14,6 +14,8 @@ import * as SplashScreen from 'expo-splash-screen';
 import { MenuProvider } from 'react-native-popup-menu';
 import { BackHandler, ToastAndroid } from 'react-native';
 import { os } from '@/constants';
+import { AppProvider } from '@/contexts/AppContext';
+import useNotifications from '@/hooks/useNotifications';
 
 SplashScreen.preventAutoHideAsync();
 
@@ -27,6 +29,11 @@ export default function RootLayout() {
   const [ready, setReady] = useState(false)
   const navigation = useNavigation();
   const backPressedOnce = useRef(false);
+  const { handleInitNotifications } = useNotifications()
+
+  useEffect(() => {
+    handleInitNotifications()
+  }, [])
 
   useEffect(() => {
     const backAction = () => {
@@ -66,26 +73,28 @@ export default function RootLayout() {
 
   return (
     <MenuProvider>
-      <ModalsProvider>
-        <ThemeProvider value={DarkTheme}>
-          <SafeAreaView
-            style={{ flex: 1 }}
-            edges={['top', 'bottom']}
-            className="bg-primary_bg"
-          >
-            <Header />
-            <Stack>
-              <Stack.Screen name="chat" options={{ headerShown: false }} />
-              <Stack.Screen name="user" options={{ headerShown: false }} />
-              <Stack.Screen name="(auth)" options={{ headerShown: false }} />
-              <Stack.Screen name="welcome" options={{ headerShown: false }} />
-              <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-            </Stack>
-            <StatusBar style="auto" />
-          </SafeAreaView>
-          <Toast />
-        </ThemeProvider>
-      </ModalsProvider>
+      <AppProvider>
+        <ModalsProvider>
+          <ThemeProvider value={DarkTheme}>
+            <SafeAreaView
+              style={{ flex: 1 }}
+              edges={['top', 'bottom']}
+              className="bg-primary_bg"
+            >
+              <Header />
+              <Stack>
+                <Stack.Screen name="chat" options={{ headerShown: false }} />
+                <Stack.Screen name="user" options={{ headerShown: false }} />
+                <Stack.Screen name="(auth)" options={{ headerShown: false }} />
+                <Stack.Screen name="welcome" options={{ headerShown: false }} />
+                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
+              </Stack>
+              <StatusBar style="auto" />
+            </SafeAreaView>
+            <Toast />
+          </ThemeProvider>
+        </ModalsProvider>
+      </AppProvider>
     </MenuProvider>
   );
 }

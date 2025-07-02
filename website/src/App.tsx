@@ -1,8 +1,13 @@
-const App = () => {
+import Header from "./components/Header";
+import Footer from "./components/Footer";
+
+const App = (props:any) => {
   return (
-    <div class={`text-4xl text-blue-400`}>
-      Hello
-    </div>
+    <main>
+      <Header />
+      {props.children}
+      <Footer />
+    </main>
   );
 };
 

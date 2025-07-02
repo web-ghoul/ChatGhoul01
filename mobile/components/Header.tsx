@@ -2,7 +2,7 @@ import React from 'react'
 import { usePathname } from 'expo-router';
 import ChatsHeader from './ChatsHeader';
 import ProfileHeader from './ProfileHeader';
-import ChatHeader from './ChatHeader';
+import ChatHeader from './ChatHeader/ChatHeader';
 
 const Header = () => {
     const pathname = usePathname();

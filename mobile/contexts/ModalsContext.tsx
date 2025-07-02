@@ -5,12 +5,18 @@ type ModalsState = {
   isOpenViewAvatarModal: boolean;
   isOpenEditAvatarModal: boolean;
   isOpenRemoveAvatarModal: boolean;
+  isOpenChooseChatThemeModal: boolean;
+  isOpenChooseAvatarModal: boolean;
+  isOpenDeleteMessagesModal: boolean;
 };
 
 type ModalsAction =
   | { type: "viewAvatarModal"; payload: boolean }
   | { type: "editAvatarModal"; payload: boolean }
   | { type: "removeAvatarModal"; payload: boolean }
+  | { type: "chooseChatThemeModal"; payload: boolean }
+  | { type: "chooseAvatarModal"; payload: boolean }
+  | { type: "deleteMessagesModal"; payload: boolean }
 
 type ModalsContextType = {
   state: ModalsState;
@@ -23,6 +29,9 @@ const initialState: ModalsState = {
   isOpenViewAvatarModal: false,
   isOpenEditAvatarModal: false,
   isOpenRemoveAvatarModal: false,
+  isOpenChooseChatThemeModal: false,
+  isOpenChooseAvatarModal: false,
+  isOpenDeleteMessagesModal: false,
 };
 
 function ModalsReducer(state: ModalsState, action: ModalsAction): ModalsState {
@@ -33,6 +42,12 @@ function ModalsReducer(state: ModalsState, action: ModalsAction): ModalsState {
       return { ...state, isOpenEditAvatarModal: action.payload };
     case "removeAvatarModal":
       return { ...state, isOpenRemoveAvatarModal: action.payload };
+    case "chooseChatThemeModal":
+      return { ...state, isOpenChooseChatThemeModal: action.payload };
+    case "chooseAvatarModal":
+      return { ...state, isOpenChooseAvatarModal: action.payload };
+    case "deleteMessagesModal":
+      return { ...state, isOpenDeleteMessagesModal: action.payload };
     default:
       return state;
   }

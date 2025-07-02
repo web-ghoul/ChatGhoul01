@@ -5,8 +5,11 @@ import Entypo from '@expo/vector-icons/Entypo';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { useModals } from '@/contexts/ModalsContext';
 
 const ChatHeaderMenu = () => {
+    const { dispatch: dispatchModals } = useModals()
+
     return (
         <Menu>
             <MenuTrigger customStyles={{
@@ -44,7 +47,7 @@ const ChatHeaderMenu = () => {
                     <Text className={`text-lg font-ubuntu_regular text-white`}>Search</Text>
                 </MenuOption>
                 <MenuOption
-                    onSelect={() => { }}
+                    onSelect={() => dispatchModals({ type: "chooseChatThemeModal", payload: true })}
                     customStyles={{
                         optionWrapper: {
                             flexDirection: 'row',
