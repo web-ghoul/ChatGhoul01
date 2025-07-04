@@ -6,8 +6,10 @@ import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useModals } from '@/contexts/ModalsContext';
+import { useApp } from '@/contexts/AppContext';
 
 const ChatHeaderMenu = () => {
+    const { dispatch: dispatchApp } = useApp()
     const { dispatch: dispatchModals } = useModals()
 
     return (
@@ -33,7 +35,7 @@ const ChatHeaderMenu = () => {
                 }}
             >
                 <MenuOption
-                    onSelect={() => { }}
+                    onSelect={() => dispatchApp({ type: "openChatSearch", payload: true })}
                     customStyles={{
                         optionWrapper: {
                             flexDirection: 'row',
@@ -61,7 +63,7 @@ const ChatHeaderMenu = () => {
                     <Text className={`text-lg font-ubuntu_regular text-white`}>Chat Theme</Text>
                 </MenuOption>
                 <MenuOption
-                    onSelect={() => { }}
+                    onSelect={() => dispatchModals({ type: "blockModal", payload: true })}
                     customStyles={{
                         optionWrapper: {
                             flexDirection: 'row',

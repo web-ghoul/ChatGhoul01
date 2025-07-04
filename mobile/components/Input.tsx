@@ -1,25 +1,36 @@
 // Input.tsx
-import { Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { Pressable, Text, TextInput, TouchableOpacity, View } from 'react-native'
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useState } from 'react';
 import { InputTypes } from '@/types/components';
 
 const Input = ({
   icon,
+  iconClick,
   onChange,
   onBlur,
   value,
   placeholder = "Search...",
   error,
   type,
+  inputRef
 }: InputTypes) => {
   const [showPassword, setShowPassword] = useState(false);
 
   return (
     <View className="flex flex-col items-start flex-1" style={{ gap: 1 }}>
       <View className="bg-[#333333] !rounded-full py-1 px-4 flex flex-row justify-stretch items-center" style={{ gap: 10 }}>
-        {icon}
+        {
+          iconClick ?
+            <Pressable onPress={iconClick}>
+              {icon}
+            </Pressable> :
+            <>
+              {icon}
+            </>
+        }
         <TextInput
+          ref={inputRef}
           onChangeText={onChange}
           onBlur={onBlur}
           className={`text-white text-xl flex-1`}

@@ -2,10 +2,11 @@ import { effect } from "solid-js/web"
 import Container from "./Container"
 import Logo from "./Logo"
 import { ArrowDownToLine, ChevronRight } from 'lucide-solid';
-import { A } from "@solidjs/router";
+import { A, useLocation } from "@solidjs/router";
 
 const Header = () => {
-  const listItemClasses = "text-xl transition"
+  const { pathname } = useLocation()
+  const listItemClasses = `text-lg transition-all text-white hover:translate-y-[-2px] p-2`
 
   effect(() => {
     window.addEventListener("scroll", () => {
@@ -13,46 +14,46 @@ const Header = () => {
     })
   })
   return (
-    <header class="h-[70px] flex justify-stretch items-center">
-      <Container class="flex justify-between items-center gap-4">
+    <header class="h-[70px] w-screen flex justify-stretch items-center">
+      <Container class="flex justify-between items-center gap-4 w-full">
         <Logo />
         <nav>
-          <ul class="flex justify-center items-center gap-4">
+          <ul class="flex justify-center items-center gap-6">
             <li>
-              <A href={`${import.meta.env.VITE_HOME_ROUTE}`} class={"text-xl transition-all !text-white hover:translate-y-[-2px]"}>
+              <A href={`${import.meta.env.VITE_HOME_ROUTE}`} class={`${listItemClasses} ${pathname === `${import.meta.env.VITE_HOME_ROUTE}` && "!text-primary"}`}>
                 Home
               </A>
             </li>
             <li class={listItemClasses}>
-              <A href={`${import.meta.env.VITE_ABOUT_US_ROUTE}`} >
+              <A href={`${import.meta.env.VITE_ABOUT_US_ROUTE}`} class={`${listItemClasses} ${pathname === `${import.meta.env.VITE_ABOUT_US_ROUTE}` && "!text-primary"}`}>
                 About
               </A>
             </li>
             <li class={listItemClasses}>
-              <A href={`${import.meta.env.VITE_DOWNLOAD_ROUTE}`} >
+              <A href={`${import.meta.env.VITE_DOWNLOAD_ROUTE}`} class={`${listItemClasses} ${pathname === `${import.meta.env.VITE_DOWNLOAD_ROUTE}` && "!text-primary"}`}>
                 Download
               </A>
             </li>
             <li class={listItemClasses}>
-              <A href={`${import.meta.env.VITE_ANDROID_ROUTE}`} >
+              <A href={`${import.meta.env.VITE_ANDROID_ROUTE}`} class={`${listItemClasses} ${pathname === `${import.meta.env.VITE_ANDROID_ROUTE}` && "!text-primary"}`}>
                 Android
               </A>
             </li>
             <li class={listItemClasses}>
-              <A href={`${import.meta.env.VITE_PRIVACY_ROUTE}`} >
+              <A href={`${import.meta.env.VITE_PRIVACY_ROUTE}`} class={`${listItemClasses} ${pathname === `${import.meta.env.VITE_PRIVACY_ROUTE}` && "!text-primary"}`}>
                 Privacy
               </A>
             </li>
           </ul>
         </nav>
-        <div class="flex justify-center items-center gap-2">
-          <button class={"basic"}>
+        <div class="flex justify-center items-center gap-6">
+          <button class={"basic_button"}>
             Log in
-            <ChevronRight color={"white"} />
+            <ChevronRight size={18} />
           </button>
-          <button class={'primary'}>
+          <button class={'primary_button'}>
             Download
-            <ArrowDownToLine color={"white"} />
+            <ArrowDownToLine size={18} />
           </button>
         </div>
       </Container>

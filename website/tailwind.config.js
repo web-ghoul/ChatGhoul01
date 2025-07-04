@@ -12,6 +12,8 @@ export default {
       },
       backgroundImage: {
         hero: 'url("./images/hero.jpg")',
+        primary_gradient:
+          "linear-gradient(135deg, #000 0%, #111 100%)",
       },
     },
   },

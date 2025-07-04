@@ -9,7 +9,7 @@ const Container = (props: ContainerProps) => {
   const resolved = children(() => props.children);
 
   return (
-    <div class={`!px-12 ${props.class ?? ''}`}>
+    <div class={`!px-12 !py-12 ${props.class ?? ''}`}>
       {resolved()}
     </div>
   );

@@ -11,6 +11,9 @@
 body {
     background-color: #000;
     font-family: "Ubuntu", sans-serif;
+    width: 100vw;
+    min-height: 100vh;
+    overflow-x: hidden;
 }
 
 main {
@@ -27,6 +30,60 @@ header.glassy {
     border: 1px solid rgba(255, 255, 255, 0.1);
 }
 
-.hero_section{
+.hero_section {
     height: calc(100vh - 70px);
+}
+
+.no-scrollbar::-webkit-scrollbar {
+    display: none;
+}
+
+.no-scrollbar {
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+}
+
+/* Scroll Bar */
+::-webkit-scrollbar-track {
+    background-color: #111;
+}
+
+::-webkit-scrollbar {
+    width: 6px;
+    height: 6px;
+    background-color: #111;
+}
+
+::-webkit-scrollbar-thumb {
+    background-color: #0092E4;
+    border-radius: 100px;
+}
+
+/* Scroll Bar */
+
+
+@layer components {
+    .primary_button {
+        @apply !rounded-full !border-[2px] bg-primary text-white !px-4 !py-2 border-solid border-primary !shadow-none !outline-none flex justify-center items-center gap-2 transition-all hover:bg-white hover:text-primary;
+
+        svg {
+            @apply w-5 h-5;
+        }
+    }
+
+    .basic_button {
+        @apply !rounded-full !border-[2px] bg-black text-white !px-4 !py-2 border-solid border-white !shadow-none !outline-none flex justify-center items-center gap-2 transition-all hover:bg-white hover:text-black;
+
+        svg {
+            @apply w-5 h-5;
+        }
+    }
+
+    .slider_button {
+        @apply !rounded-full w-[50px] h-[50px] flex justify-center items-center border-[2px] border-solid border-primary bg-transparent text-white transition-all hover:bg-primary hover:text-white
+    }
+
+    .social_link{
+        @apply bg-[#111] w-[50px] h-[50px] rounded-full border-[2px] border-solid border-[#fff] flex justify-center items-center text-white transition-all hover:cursor-pointer hover:bg-primary
+    }
 }

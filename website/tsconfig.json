@@ -2,6 +2,7 @@
   "compilerOptions": {
     "forceConsistentCasingInFileNames": true,
     "strict": true,
+    "resolveJsonModule": true,
     "target": "ESNext",
     "module": "ESNext",
     "moduleResolution": "node",

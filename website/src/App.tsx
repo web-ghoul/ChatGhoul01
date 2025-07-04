@@ -1,7 +1,7 @@
 import Header from "./components/Header";
 import Footer from "./components/Footer";
 
-const App = (props:any) => {
+const App = (props: any) => {
   return (
     <main>
       <Header />

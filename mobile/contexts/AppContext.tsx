@@ -7,6 +7,7 @@ type AppState = {
     chosenMessages: { [key: string]: string | undefined }
     chosenMsgsOwnLength: number;
     chosenMessagesLength: number;
+    openChatSearch: boolean;
 };
 
 type AppAction =
@@ -15,6 +16,7 @@ type AppAction =
     | { type: "chosenMessages"; payload: { [key: string]: string | undefined } }
     | { type: "chosenMsgsOwnLength"; payload: number }
     | { type: "chosenMessagesLength"; payload: number }
+    | { type: "openChatSearch"; payload: boolean }
 
 type AppContextType = {
     state: AppState;
@@ -29,6 +31,7 @@ const initialState: AppState = {
     chosenMessages: {},
     chosenMsgsOwnLength: 0,
     chosenMessagesLength: 0,
+    openChatSearch: false,
 };
 
 function AppReducer(state: AppState, action: AppAction): AppState {
@@ -43,6 +46,8 @@ function AppReducer(state: AppState, action: AppAction): AppState {
             return { ...state, chosenMsgsOwnLength: action.payload };
         case "chosenMessagesLength":
             return { ...state, chosenMessagesLength: action.payload };
+        case "openChatSearch":
+            return { ...state, openChatSearch: action.payload };
         default:
             return state;
     }
