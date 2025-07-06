@@ -19,10 +19,10 @@ const SliderSection = () => {
   };
 
   return (
-    <Container class={`grid justify-stretch items-center gap-6 grid-cols-[35%,1fr] min-h-screen rounded-b-[50px] bg-[#111]`}>
+    <Container class={`grid justify-stretch items-center gap-6 grid-cols-[35%,1fr] min-h-screen rounded-b-[50px] bg-primary_gradient_reverse`}>
       <div class={`grid justify-stretch items-stretch gap-10 content-between`}>
         <div class="grid justify-stretch items-center gap-4">
-          <h2 class='text-4xl !font-[700] text-white'>Stay up to date</h2>
+          <h2 class='text-5xl !font-[700] text-white'>Stay up to date</h2>
           <h6 class='text-xl text-white !font-[300]'>
             Get the latest from WhatsApp: news, useful tips, and our newest features to help you stay connected.
           </h6>

@@ -2,7 +2,7 @@ import React from 'react'
 import { Pressable, Text, TouchableHighlight, View } from 'react-native'
 import { headerHeight } from '@/constants'
 import Entypo from '@expo/vector-icons/Entypo';
-import Container from '../Container';
+import Container from '../../Container';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import Feather from '@expo/vector-icons/Feather';
 import { useApp } from '@/contexts/AppContext';

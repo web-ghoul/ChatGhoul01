@@ -5,16 +5,19 @@ import useLoginSchema from './LoginForm/useLoginSchema';
 import RegisterForm from './RegisterForm/RegisterForm';
 import useRegisterSchema from './RegisterForm/useRegisterSchema';
 import { FormTypes, LoginTypes } from '@/types/forms';
-import useForgotPasswordSchema from './ForgotPassword/useForgotPasswordSchema';
-import ForgotPasswordForm from './ForgotPassword/ForgotPasswordForm';
+import useForgotPasswordSchema from './ForgotPasswordForm/useForgotPasswordSchema';
+import ForgotPasswordForm from './ForgotPasswordForm/ForgotPasswordForm';
 import { router } from 'expo-router';
 import useLoginSubmit from './LoginForm/useLoginSubmit';
+import useUpdateUsernameSchema from './UpdateUsernameForm/useUpdateUsernameSchema';
+import UpdateUsernameForm from './UpdateUsernameForm/UpdateUsernameForm';
 
 const Forms = ({ type }: { type: FormTypes }) => {
     const { loginSchema, loginInitialValues } = useLoginSchema()
     const { handleLogin } = useLoginSubmit()
     const { registerSchema, registerInitialValues } = useRegisterSchema()
     const { forgotPasswordSchema, forgotPasswordInitialValues } = useForgotPasswordSchema()
+    const { updateUsernameInitialValues, updateUsernameSchema } = useUpdateUsernameSchema()
 
     return type === "login" ? (
         <Formik
@@ -37,7 +40,7 @@ const Forms = ({ type }: { type: FormTypes }) => {
         >
             {(formik) => <RegisterForm {...formik} />}
         </Formik>
-    ) : (
+    ) : type === "forgotPassword" ? (
         <Formik
             initialValues={forgotPasswordInitialValues}
             validationSchema={forgotPasswordSchema}
@@ -46,6 +49,16 @@ const Forms = ({ type }: { type: FormTypes }) => {
             }}
         >
             {(formik) => <ForgotPasswordForm {...formik} />}
+        </Formik>
+    ): type === "updateUsername" && (
+        <Formik
+            initialValues={updateUsernameInitialValues}
+            validationSchema={updateUsernameSchema}
+            onSubmit={(values) => {
+                console.log(values);
+            }}
+        >
+            {(formik) => <UpdateUsernameForm {...formik} />}
         </Formik>
     )
 }

@@ -1,7 +1,7 @@
 import React, { useEffect, useRef, useState } from 'react'
 import { headerHeight } from '@/constants'
-import Container from '../Container';
-import Input from '../Input';
+import Container from '../../Container';
+import Input from '../../Input';
 import Entypo from '@expo/vector-icons/Entypo';
 import { useApp } from '@/contexts/AppContext';
 import { TextInput, TouchableHighlight, View } from 'react-native';

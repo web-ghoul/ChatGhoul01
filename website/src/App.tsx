@@ -3,7 +3,7 @@ import Footer from "./components/Footer";
 
 const App = (props: any) => {
   return (
-    <main>
+    <main class="!pt-[70px]">
       <Header />
       {props.children}
       <Footer />

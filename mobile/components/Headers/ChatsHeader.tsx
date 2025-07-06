@@ -1,8 +1,7 @@
-import React from 'react'
-import Logo from './Logo'
 import { headerHeight, width } from '@/constants'
-import Container from './Container';
-import HeaderMenu from './HeaderMenu';
+import Container from '../Container'
+import HeaderMenu from './HeaderMenu'
+import Logo from '../Logo'
 
 const ChatsHeader = () => {
     return (

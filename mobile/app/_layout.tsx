@@ -6,7 +6,7 @@ import { useEffect, useRef, useState } from 'react';
 import MySplashScreen from '@/screens/MySplashScreen';
 import 'react-native-reanimated';
 import { SafeAreaView } from 'react-native-safe-area-context';
-import Header from '@/components/Header';
+import Header from '@/components/Headers/Header';
 import "./global.css"
 import { ModalsProvider } from '../contexts/ModalsContext';
 import Toast from 'react-native-toast-message';
@@ -77,12 +77,12 @@ export default function RootLayout() {
             >
               <Header />
               <Stack>
+                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
                 <Stack.Screen name="chat" options={{ headerShown: false }} />
                 <Stack.Screen name="user" options={{ headerShown: false }} />
                 <Stack.Screen name="link-devices" options={{ headerShown: false }} />
                 <Stack.Screen name="(auth)" options={{ headerShown: false }} />
                 <Stack.Screen name="welcome" options={{ headerShown: false }} />
-                <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
               </Stack>
               <StatusBar style="auto" />
             </SafeAreaView>

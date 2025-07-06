@@ -3,18 +3,25 @@ import Container from "./Container"
 import Logo from "./Logo"
 import { ArrowDownToLine, ChevronRight } from 'lucide-solid';
 import { A, useLocation } from "@solidjs/router";
+import { createSignal } from "solid-js";
 
 const Header = () => {
+  const [glassy, setGlassy] = createSignal(false)
   const { pathname } = useLocation()
   const listItemClasses = `text-lg transition-all text-white hover:translate-y-[-2px] p-2`
 
   effect(() => {
     window.addEventListener("scroll", () => {
       console.log(window.scrollY)
+      if (window.scrollY > 0) {
+        setGlassy(true)
+      } else {
+        setGlassy(false)
+      }
     })
   })
   return (
-    <header class="h-[70px] w-screen flex justify-stretch items-center">
+    <header class={`h-[70px] fixed top-0 z-[100] w-screen flex justify-stretch items-center ${glassy() && "glassy"}`}>
       <Container class="flex justify-between items-center gap-4 w-full">
         <Logo />
         <nav>

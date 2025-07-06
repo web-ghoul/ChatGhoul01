@@ -1,8 +1,7 @@
-import React from 'react'
 import { Image, Pressable, Text, TouchableHighlight, View } from 'react-native'
 import { headerHeight, width } from '@/constants'
 import Entypo from '@expo/vector-icons/Entypo';
-import Container from '../Container';
+import Container from '../../Container';
 import { router } from 'expo-router';
 import ChatHeaderMenu from '../ChatHeaderMenu';
 
@@ -13,7 +12,7 @@ const DefaultHeader = () => {
                 <Pressable onPress={() => router.push("/(tabs)")}>
                     <View className={`flex flex-row items-center`} style={{ gap: 2 }}>
                         <Entypo name="chevron-left" size={24} color="white" />
-                        <Image source={require("../../assets/images/avatar1.jpg")} style={{ width: width * 0.125, height: width * 0.125 }} className={`rounded-full`} />
+                        <Image source={require("../../../assets/images/avatar1.jpg")} style={{ width: width * 0.125, height: width * 0.125 }} className={`rounded-full`} />
                     </View>
                 </Pressable>
                 <TouchableHighlight onPress={() => router.push("/user")}>
