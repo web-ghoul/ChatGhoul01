@@ -1,8 +1,9 @@
 import { ChevronLeft, ChevronRight } from 'lucide-solid';
 import Container from '../components/Container';
 import SliderCard from '../components/SliderCard';
+import data from "../data/stay_up_to_date.json"
 
-const SliderSection = () => {
+const StayUpToDateSection = () => {
   let sliderRef: HTMLDivElement | undefined;
   let cardRef: HTMLDivElement | undefined;
 
@@ -10,7 +11,7 @@ const SliderSection = () => {
     if (!sliderRef || !cardRef) return;
     const cardWidth = cardRef.offsetWidth;
     const style = window.getComputedStyle(cardRef);
-    const gap = parseInt(style.marginRight || '0', 10); 
+    const gap = parseInt(style.marginRight || '0', 10);
     const scrollAmount = cardWidth + gap;
     sliderRef.scrollBy({
       left: direction === 'right' ? scrollAmount : -scrollAmount,
@@ -20,10 +21,10 @@ const SliderSection = () => {
 
   return (
     <Container class={`grid justify-stretch items-center gap-6 grid-cols-[35%,1fr] min-h-screen rounded-b-[50px] bg-primary_gradient_reverse`}>
-      <div class={`grid justify-stretch items-stretch gap-10 content-between`}>
-        <div class="grid justify-stretch items-center gap-4">
+      <div class={`grid justify-stretch items-stretch gap-10 !h-[400px] content-between bg-transparent`}>
+        <div class="grid justify-stretch items-center gap-5">
           <h2 class='text-5xl !font-[700] text-white'>Stay up to date</h2>
-          <h6 class='text-xl text-white !font-[300]'>
+          <h6 class='text-lg text-white !font-[300]'>
             Get the latest from WhatsApp: news, useful tips, and our newest features to help you stay connected.
           </h6>
         </div>
@@ -48,9 +49,9 @@ const SliderSection = () => {
         ref={(el) => (sliderRef = el)}
         class={`flex gap-6 overflow-x-auto scroll-smooth no-scrollbar w-full relative snap-x snap-mandatory`}
       >
-        {[...Array(30)].map((_, i) => (
+        {data.map((item, i) => (
           <div ref={i === 0 ? (el) => (cardRef = el) : undefined} class="snap-start">
-            <SliderCard index={i} />
+            <SliderCard data={item} />
           </div>
         ))}
       </div>
@@ -58,4 +59,4 @@ const SliderSection = () => {
   );
 };
 
-export default SliderSection;
+export default StayUpToDateSection;

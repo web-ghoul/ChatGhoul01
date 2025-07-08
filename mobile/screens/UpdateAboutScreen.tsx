@@ -1,10 +1,8 @@
-import { View } from 'react-native'
+import Forms from '@/forms/Forms'
 
 const UpdateAboutScreen = () => {
   return (
-    <View>
-      
-    </View>
+    <Forms type={"updateAbout"} />
   )
 }
 

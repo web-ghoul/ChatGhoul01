@@ -9,8 +9,8 @@ const Footer = () => {
 
   return (
     <footer class="!pt-8">
-      <Container class={`grid justify-stretch items-center gap-10 w-3/4 !m-auto`}>
-        <div class={`flex justify-between items-stretch content-stretch gap-6`}>
+      <Container class={`grid justify-stretch items-center gap-12 w-3/4 !m-auto`}>
+        <div class={`flex justify-between items-start content-stretch gap-6`}>
           <div class={`grid justify-stretch items-stretch content-between gap-10 !h-full`}>
             <Logo theme={"light"} />
             <button class={'primary_button'}>
@@ -40,14 +40,11 @@ const Footer = () => {
               </li>
             </ul>
           </div>
-          <div class={`grid justify-stretch items-stretch gap-6`}>
+          <div class={`grid justify-stretch items-start gap-6`}>
             <h6 class="text-lg !font-[700] text-gray-400">Need help?</h6>
-            <ul class="grid justify-stretch items-center gap-4">
+            <ul class="grid justify-stretch items-start gap-4">
               <li class={itemClasses}>
                 <A href={`${import.meta.env.VITE_CONTACT_ROUTE}`}>Contact Us</A>
-              </li>
-              <li class={itemClasses}>
-                <A href={`${import.meta.env.VITE_ANDROID_ROUTE}`}>Apps</A>
               </li>
             </ul>
           </div>

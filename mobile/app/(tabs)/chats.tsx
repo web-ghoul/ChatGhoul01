@@ -1,10 +1,9 @@
 import ChatsScreen from '@/screens/ChatsScreen'
-import React from 'react'
 
-const ChatsTab = () => {
+const Chats = () => {
   return (
     <ChatsScreen />
   )
 }
 
-export default ChatsTab
+export default Chats

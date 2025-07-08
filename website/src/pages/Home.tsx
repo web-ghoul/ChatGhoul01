@@ -1,6 +1,6 @@
 import HeroSection from "../sections/HeroSection"
 import MessagesSection from "../sections/MessagesSection"
-import SliderSection from "../sections/SliderSection"
+import StayUpToDateSection from "../sections/StayUpToDateSection"
 import SpeakFreelySection from "../sections/SpeakFreelySection"
 
 const Home = () => {
@@ -9,7 +9,7 @@ const Home = () => {
       <HeroSection />
       <MessagesSection />
       <SpeakFreelySection />
-      <SliderSection />
+      <StayUpToDateSection />
     </>
   )
 }

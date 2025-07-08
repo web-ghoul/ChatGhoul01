@@ -5,9 +5,11 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import Entypo from '@expo/vector-icons/Entypo';
 import { height, width } from '@/constants';
+import useImagePicker from '@/hooks/useImagePicker';
 
 const EditAvatarModal = () => {
     const { state: stateModals, dispatch: dispatchModals } = useModals()
+    const { handlePickImage } = useImagePicker()
     const boxClasses = `border-[#444444] border-[1px] border-solid rounded-xl flex-col justify-center items-center`
     const boxStyles = { gap: 4, paddingHorizontal: 15, paddingVertical: 10, borderRadius: 15, borderColor: "#333333" }
 
@@ -42,7 +44,7 @@ const EditAvatarModal = () => {
                             <Text className={`text-lg font-ubuntu_regular text-white`}>Camera</Text>
                         </View>
                     </TouchableWithoutFeedback> */}
-                    <TouchableWithoutFeedback onPress={() => dispatchModals({ type: "editAvatarModal", payload: false })}>
+                    <TouchableWithoutFeedback onPress={handlePickImage}>
                         <View className={boxClasses} style={boxStyles}>
                             <Entypo name="image" size={24} color="#0092E4" />
                             <Text className={`text-lg font-ubuntu_regular text-white`}>Gallery</Text>

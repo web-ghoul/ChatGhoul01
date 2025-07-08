@@ -25,7 +25,7 @@ const Header = () => {
       <Container class="flex justify-between items-center gap-4 w-full">
         <Logo />
         <nav>
-          <ul class="flex justify-center items-center gap-6">
+          <ul class="flex justify-center items-center gap-10">
             <li>
               <A href={`${import.meta.env.VITE_HOME_ROUTE}`} class={`${listItemClasses} ${pathname === `${import.meta.env.VITE_HOME_ROUTE}` && "!text-primary"}`}>
                 Home
@@ -44,11 +44,6 @@ const Header = () => {
             <li class={listItemClasses}>
               <A href={`${import.meta.env.VITE_ANDROID_ROUTE}`} class={`${listItemClasses} ${pathname === `${import.meta.env.VITE_ANDROID_ROUTE}` && "!text-primary"}`}>
                 Android
-              </A>
-            </li>
-            <li class={listItemClasses}>
-              <A href={`${import.meta.env.VITE_PRIVACY_ROUTE}`} class={`${listItemClasses} ${pathname === `${import.meta.env.VITE_PRIVACY_ROUTE}` && "!text-primary"}`}>
-                Privacy
               </A>
             </li>
           </ul>

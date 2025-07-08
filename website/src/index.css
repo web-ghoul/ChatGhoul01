@@ -23,6 +23,12 @@ main {
     /* gap: 10px; */
 }
 
+button {
+    padding: 0px;
+    outline: none;
+    border: none;
+}
+
 header.glassy {
     background: rgba(255, 255, 255, 0.01);
     -webkit-backdrop-filter: blur(10px);
@@ -42,6 +48,7 @@ header.glassy {
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
+
 
 /* Scroll Bar */
 ::-webkit-scrollbar-track {
@@ -83,7 +90,7 @@ header.glassy {
         @apply !rounded-full w-[50px] h-[50px] flex justify-center items-center border-[2px] border-solid border-primary bg-transparent text-white transition-all hover:bg-primary hover:text-white
     }
 
-    .social_link{
+    .social_link {
         @apply bg-[#111] w-[50px] h-[50px] rounded-full border-[2px] border-solid border-[#fff] flex justify-center items-center text-white transition-all hover:cursor-pointer hover:bg-primary
     }
 }

@@ -14,7 +14,7 @@ export default {
         hero: 'url("./images/hero.jpg")',
         primary_gradient: "linear-gradient(135deg, #000 0%, #111 100%)",
         primary_gradient_reverse: "linear-gradient(135deg, #111 0%, #000 100%)",
-      },
+      }
     },
   },
   plugins: [],

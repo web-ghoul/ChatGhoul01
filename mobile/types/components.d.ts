@@ -8,7 +8,7 @@ interface InputTypes {
     value: string;
     placeholder?: string;
     error?: string;
-    type?: "password" | "tel-device",
+    type?: "password" | "tel-device" | "gender",
     inputRef?: RefObject<TextInput>;
 }
 

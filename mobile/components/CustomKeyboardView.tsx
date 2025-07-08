@@ -1,26 +1,19 @@
 import { os } from "@/constants";
 import { ReactNode } from "react";
-import { KeyboardAvoidingView, ScrollView, View } from "react-native";
+import { KeyboardAvoidingView, ScrollView } from "react-native";
 
 
-export default function CustomKeyboardView({ children, className }: { children: ReactNode; className?: string }) {
+export default function CustomKeyboardView({ children }: { children: ReactNode; }) {
     return (
         <KeyboardAvoidingView
-            behavior={os === "ios" ? "padding" : "height"}
-            className="flex-1"
-            keyboardVerticalOffset={os === "ios" ? 80 : 0}
+            behavior={os === 'ios' ? 'padding' : 'height'}
+            className={`flex w-full`}
         >
             <ScrollView
-                contentContainerStyle={{
-                    flexGrow: 1,
-                    justifyContent: "center",
-                }}
-                keyboardShouldPersistTaps="handled"
-                showsVerticalScrollIndicator={false}
+                contentContainerStyle={{ flexGrow: 1, width: '100%', gap: 10 }}
+                style={{ width: '100%' }}
             >
-                <View className={`flex-1 justify-center items-center ${className ?? ''}`}>
-                    {children}
-                </View>
+                {children}
             </ScrollView>
         </KeyboardAvoidingView>
     );

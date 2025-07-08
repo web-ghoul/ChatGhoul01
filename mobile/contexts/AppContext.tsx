@@ -1,7 +1,9 @@
+import { ImagePickerAsset } from "expo-image-picker";
 import type { ReactNode } from "react";
 import { createContext, useContext, useReducer } from "react";
 
 type AppState = {
+    profileAvatar?: ImagePickerAsset
     chosenChatTheme: string
     chosenAvatar?: string
     chosenMessages: { [key: string]: string | undefined }
@@ -11,6 +13,7 @@ type AppState = {
 };
 
 type AppAction =
+    | { type: "profileAvatar"; payload?: ImagePickerAsset }
     | { type: "chosenChatTheme"; payload: string }
     | { type: "chosenAvatar"; payload?: string }
     | { type: "chosenMessages"; payload: { [key: string]: string | undefined } }
@@ -26,6 +29,7 @@ type AppContextType = {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 const initialState: AppState = {
+    profileAvatar: undefined,
     chosenChatTheme: '0',
     chosenAvatar: undefined,
     chosenMessages: {},
@@ -36,10 +40,12 @@ const initialState: AppState = {
 
 function AppReducer(state: AppState, action: AppAction): AppState {
     switch (action.type) {
+        case "profileAvatar":
+            return { ...state, profileAvatar: action.payload, chosenAvatar: undefined };
         case "chosenChatTheme":
             return { ...state, chosenChatTheme: action.payload };
         case "chosenAvatar":
-            return { ...state, chosenAvatar: action.payload };
+            return { ...state, chosenAvatar: action.payload, profileAvatar: undefined };
         case "chosenMessages":
             return { ...state, chosenMessages: action.payload };
         case "chosenMsgsOwnLength":

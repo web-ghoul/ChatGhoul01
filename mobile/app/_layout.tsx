@@ -77,10 +77,8 @@ export default function RootLayout() {
             >
               <Header />
               <Stack>
+                <Stack.Screen name="(chat)" options={{ headerShown: false }} />
                 <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
-                <Stack.Screen name="chat" options={{ headerShown: false }} />
-                <Stack.Screen name="user" options={{ headerShown: false }} />
-                <Stack.Screen name="link-devices" options={{ headerShown: false }} />
                 <Stack.Screen name="(auth)" options={{ headerShown: false }} />
                 <Stack.Screen name="welcome" options={{ headerShown: false }} />
               </Stack>

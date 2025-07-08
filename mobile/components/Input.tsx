@@ -18,7 +18,7 @@ const Input = ({
   const [showPassword, setShowPassword] = useState(false);
 
   return (
-    <View className="flex flex-col items-start flex-1" style={{ gap: 1 }}>
+    <View className="flex flex-col items-start" style={{ gap: 1 }}>
       <View className="bg-[#333333] !rounded-full py-1 px-4 flex flex-row justify-stretch items-center" style={{ gap: 10 }}>
         {
           iconClick ?

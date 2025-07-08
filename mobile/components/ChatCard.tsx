@@ -1,13 +1,12 @@
 import { width } from '@/constants'
 import { router } from 'expo-router'
-import React from 'react'
 import { Image, Text, TouchableHighlight, View } from 'react-native'
 
 const ChatCard = ({ data }: { data: number }) => {
   const avatarSize = { width: width * 0.15, height: width * 0.15 }
 
   return (
-    <TouchableHighlight onPress={() => router.push("/chat")}>
+    <TouchableHighlight onPress={() => router.push("/(chat)")}>
       <View className='flex flex-row justify-center items-center my-2' style={{ gap: 10 }}>
         {/* <View className={`bg-[#222222] rounded-full flex justify-center items-center`} style={...avatarSize}>
         <Feather name="user" size={26} color="white" />

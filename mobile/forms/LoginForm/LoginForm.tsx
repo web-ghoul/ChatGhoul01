@@ -41,9 +41,10 @@ const LoginForm = ({
                     />
                     <Link
                         href="/(auth)/forgotpassword"
-                        className="text-primary w-full font-ubuntu_regular text-md self-end text-right"
                     >
-                        Forgot Password?
+                        <View className={`flex items-end w-full`}>
+                            <Text className={`text-primary font-ubuntu_regular text-md px-4`}>Forgot Password?</Text>
+                        </View>
                     </Link>
                 </View>
             </View>

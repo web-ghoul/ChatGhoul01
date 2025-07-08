@@ -20,6 +20,14 @@ type ForgotPasswordFormProps = FormikProps<{ email: string }>;
 
 type UpdateUsernameFormProps = FormikProps<{ username: string }>;
 
+type UpdateEmailFormProps = FormikProps<{ email: string }>;
+
+type UpdateGenderFormProps = FormikProps<{ gender: string }>;
+
+type UpdatePhoneFormProps = FormikProps<{ phone: string }>;
+
+type UpdateAboutFormProps = FormikProps<{ about: string }>;
+
 interface FormTemplateTypes {
     image: ImageSourcePropType;
     title: string;
@@ -27,6 +35,6 @@ interface FormTemplateTypes {
     children: ReactNode
 }
 
-type FormTypes = "login" | "register" | "forgotPassword" | "updateUsername"
+type FormTypes = "login" | "register" | "forgotPassword" | "updateUsername" | "updateUsername" | "updateEmail" | "updatePhone" | "updateGender" | "updateAbout"
 
-export type { LoginFormProps, LoginTypes, RegisterFormProps, ForgotPasswordFormProps, UpdateUsernameFormProps, FormTemplateTypes, FormTypes }
+export type { LoginFormProps, LoginTypes, RegisterFormProps, ForgotPasswordFormProps, UpdateUsernameFormProps, FormTemplateTypes, FormTypes, UpdateEmailFormProps, UpdateGenderFormProps, UpdatePhoneFormProps, UpdateAboutFormProps }

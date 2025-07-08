@@ -9,11 +9,11 @@ const Header = () => {
 
     console.log(pathname)
 
-    return pathname === "/" ? (
+    return pathname === "/chats" ? (
         <ChatsHeader />
     ) : pathname === "/profile" ? (
         <BasicHeader head={"Profile"} />
-    ) : pathname === "/chat" ? (
+    ) : pathname === "/" ? (
         <ChatHeader />
     ) : pathname === "/link-devices" ? (
         <BasicHeader head={"Link Devices"} />

@@ -3,12 +3,13 @@ import MaterialCommunityIcons from '@expo/vector-icons/MaterialCommunityIcons';
 import TabBarIcon from '@/components/TabBarIcon';
 import { TouchableWithoutFeedback, View } from 'react-native';
 import { height } from '@/constants';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 
 export default function TabLayout() {
     return (
         <Tabs screenOptions={{ tabBarShowLabel: false, tabBarStyle: { backgroundColor: "#000000", height: height * 0.07, paddingTop: 25 } }}>
             <Tabs.Screen
-                name="index"
+                name="chats"
                 options={{
                     title: 'Chats',
                     headerShown: false,
@@ -22,9 +23,9 @@ export default function TabLayout() {
                 }}
             />
             <Tabs.Screen
-                name="updates"
+                name="link-devices"
                 options={{
-                    title: 'Updates',
+                    title: 'Link Devices',
                     headerShown: false,
                     tabBarPosition: "bottom",
                     tabBarButton: (props) => (
@@ -33,7 +34,7 @@ export default function TabLayout() {
                         </TouchableWithoutFeedback>
                     ),
                     tabBarIcon: ({ focused }) =>
-                        <TabBarIcon icon={<MaterialCommunityIcons name="wechat" size={28} color={"white"} />} title={"Updates"} focused={focused} />,
+                        <TabBarIcon icon={<MaterialIcons name="devices" size={28} color="white" />} title={"Link Devices"} focused={focused} />,
                 }}
             />
             <Tabs.Screen

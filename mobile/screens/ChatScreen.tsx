@@ -1,26 +1,54 @@
 import { useApp } from "@/contexts/AppContext"
-import BlockModal from "@/modals/BlockModal"
-import ChooseChatThemeModal from "@/modals/ChooseChatThemeModal"
-import DeleteMessagesModal from "@/modals/DeleteMessagesModal"
 import ChatInputSection from "@/sections/ChatInputSection"
 import MessagesSection from "@/sections/MessagesSection"
-import { ImageBackground } from "react-native"
+import { ImageBackground, Keyboard, KeyboardAvoidingView, StatusBar, View } from "react-native"
+import { os, wallpapers } from '@/constants'
+import BlockModal from '@/modals/BlockModal'
+import ChooseChatThemeModal from '@/modals/ChooseChatThemeModal'
+import DeleteMessagesModal from '@/modals/DeleteMessagesModal'
+import { useEffect, useState } from "react"
 
 const ChatScreen = () => {
   const { state: stateApp } = useApp()
+  const [chatInputHeight, setChatInputHeight] = useState(0)
+  const [isKeyboardOpen, setIsKeyboardOpen] = useState(false)
+
+  useEffect(() => {
+    const showSub = Keyboard.addListener('keyboardDidShow', () => setIsKeyboardOpen(true))
+    const hideSub = Keyboard.addListener('keyboardDidHide', () => setIsKeyboardOpen(false))
+
+    return () => {
+      showSub.remove()
+      hideSub.remove()
+    }
+  }, [])
+
+  const keyboardOffset = isKeyboardOpen
+    ? (os === 'ios'
+      ? 80
+      : (StatusBar.currentHeight || 0) + chatInputHeight)
+    : 0
 
   return (
-    <ImageBackground
-      source={require('../assets/images/wallpaper (59).jpg')}
-      resizeMode="cover"
-      className={`flex-1`}
-    >
-      <MessagesSection />
-      {!stateApp.openChatSearch && <ChatInputSection />}
+    <View style={{ flex: 1 }}>
+      <KeyboardAvoidingView
+        style={{ flex: 1 }}
+        behavior={os === 'ios' ? 'padding' : 'height'}
+        keyboardVerticalOffset={keyboardOffset}
+      >
+        <ImageBackground
+          source={stateApp.chosenChatTheme ? wallpapers[+stateApp.chosenChatTheme] : require('../assets/images/wallpaper (59).jpg')}
+          resizeMode="cover"
+          style={{ flex: 1 }}
+        >
+          <MessagesSection />
+          {!stateApp.openChatSearch && <ChatInputSection onHeightChange={setChatInputHeight} />}
+        </ImageBackground>
+      </KeyboardAvoidingView>
       <ChooseChatThemeModal />
       <DeleteMessagesModal />
       <BlockModal />
-    </ImageBackground>
+    </View>
   )
 }
 
