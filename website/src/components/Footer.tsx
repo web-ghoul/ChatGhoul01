@@ -22,7 +22,7 @@ const Footer = () => {
             <h6 class="text-lg !font-[700] text-gray-400">Who we are</h6>
             <ul class="grid justify-stretch items-center gap-4">
               <li class={itemClasses}>
-                <A href={`${import.meta.env.VITE_ABOUT_ROUTE}`}>About Us</A>
+                <A href={`${import.meta.env.VITE_ABOUT_US_ROUTE}`}>About Us</A>
               </li>
               <li class={itemClasses}>
                 <A href={`${import.meta.env.VITE_PRIVACY_ROUTE}`}>Privacy</A>

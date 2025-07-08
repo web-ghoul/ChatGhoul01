@@ -12,7 +12,6 @@ const Header = () => {
 
   effect(() => {
     window.addEventListener("scroll", () => {
-      console.log(window.scrollY)
       if (window.scrollY > 0) {
         setGlassy(true)
       } else {
@@ -20,6 +19,7 @@ const Header = () => {
       }
     })
   })
+
   return (
     <header class={`h-[70px] fixed top-0 z-[100] w-screen flex justify-stretch items-center ${glassy() && "glassy"}`}>
       <Container class="flex justify-between items-center gap-4 w-full">
@@ -37,8 +37,8 @@ const Header = () => {
               </A>
             </li>
             <li class={listItemClasses}>
-              <A href={`${import.meta.env.VITE_DOWNLOAD_ROUTE}`} class={`${listItemClasses} ${pathname === `${import.meta.env.VITE_DOWNLOAD_ROUTE}` && "!text-primary"}`}>
-                Download
+              <A href={`${import.meta.env.VITE_CONTACT_ROUTE}`} class={`${listItemClasses} ${pathname === `${import.meta.env.VITE_CONTACT_ROUTE}` && "!text-primary"}`}>
+                Contact Us
               </A>
             </li>
             <li class={listItemClasses}>

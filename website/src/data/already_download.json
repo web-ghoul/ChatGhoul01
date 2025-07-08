@@ -1,18 +1,18 @@
 [
   {
     "title": "Message privately",
-    "image": "./images/hero.jpg"
+    "image": "./images/privacy.jpg"
   },
   {
     "title": "Stay connected",
-    "image": "./images/hero.jpg"
+    "image": "./images/connect.jpg"
   },
   {
     "title": "Express yourself",
-    "image": "./images/hero.jpg"
+    "image": "./images/express.jpg"
   },
   {
     "title": "Desktop Comming Soon",
-    "image": "./images/hero.jpg"
+    "image": "./images/desktop.jpg"
   }
 ]

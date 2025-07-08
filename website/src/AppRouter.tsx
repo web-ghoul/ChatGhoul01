@@ -1,6 +1,5 @@
 import { Route, Router } from '@solidjs/router'
 import Home from "./pages/Home";
-import Download from "./pages/Download";
 import Android from "./pages/Android";
 import About from "./pages/About";
 import App from './App'
@@ -10,12 +9,11 @@ import Contact from './pages/Contact';
 const AppRouter = () => {
     return (
         <Router root={App}>
-            <Route path="/" component={Home} />
-            <Route path="/about-us" component={About} />
-            <Route path="/contact-us" component={Contact} />
-            <Route path="/android" component={Android} />
-            <Route path="/download" component={Download} />
-            <Route path="/privacy" component={Privacy} />
+            <Route path={`${import.meta.env.VITE_HOME_ROUTE}`} component={Home} />
+            <Route path={`${import.meta.env.VITE_ABOUT_US_ROUTE}`} component={About} />
+            <Route path={`${import.meta.env.VITE_CONTACT_ROUTE}`} component={Contact} />
+            <Route path={`${import.meta.env.VITE_ANDROID_ROUTE}`} component={Android} />
+            <Route path={`${import.meta.env.VITE_PRIVACY_ROUTE}`} component={Privacy} />
         </Router>
     )
 }
