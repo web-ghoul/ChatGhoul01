@@ -1,6 +1,4 @@
-import { IsString } from 'class-validator';
 
 export class UpdateChatThemeDto {
-    @IsString()
-    chat_theme: string;
+    chat_theme: Express.Multer.File;
 }

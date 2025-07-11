@@ -23,4 +23,10 @@ export class UpdateUserDto {
     @IsOptional()
     @IsString()
     about?: string;
+
+
+    @IsOptional()
+    @IsString()
+    @IsIn(['completed', 'undefined'])
+    tour_status?: string;
 }

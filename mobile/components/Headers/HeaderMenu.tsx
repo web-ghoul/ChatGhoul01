@@ -1,10 +1,10 @@
-import React from 'react';
-import { Text, TouchableOpacity } from 'react-native';
-import { Menu, MenuOptions, MenuOption, MenuTrigger } from 'react-native-popup-menu';
+import useSecureStore from '@/hooks/useSecureStore';
 import Entypo from '@expo/vector-icons/Entypo';
 import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons';
 import { useRouter } from 'expo-router';
-import useSecureStore from '@/hooks/useSecureStore';
+import React from 'react';
+import { Text, TouchableOpacity } from 'react-native';
+import { Menu, MenuOption, MenuOptions, MenuTrigger } from 'react-native-popup-menu';
 
 const HeaderMenu = () => {
     const router = useRouter();

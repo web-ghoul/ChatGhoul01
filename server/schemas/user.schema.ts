@@ -14,14 +14,17 @@ export class User {
     @Prop({ required: true })
     phone: string;
 
-    @Prop({ required: true, default: '' })
+    @Prop({ default: '' })
     avatar: string;
 
-    @Prop({ required: true, default: '' })
+    @Prop({ default: '' })
     chat_theme: string;
 
-    @Prop({ required: true, default: '' })
+    @Prop({ default: '' })
     about: string;
+
+    @Prop({ enum: ['completed', "undefined"], default: "undefined" })
+    tour_status: string
 
     @Prop({ required: true })
     password: string;

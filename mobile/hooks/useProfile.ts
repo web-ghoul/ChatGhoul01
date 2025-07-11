@@ -1,9 +1,10 @@
-import { useQuery } from '@tanstack/react-query';
-import axios from 'axios';
 import { useProfileStore } from '@/store/useProfileStore';
 import { ProfileTypes } from '@/types/app';
-import Toast from 'react-native-toast-message';
+import { useQuery } from '@tanstack/react-query';
+import axios from 'axios';
 import { router } from 'expo-router';
+import { useEffect } from 'react';
+import Toast from 'react-native-toast-message';
 
 const handleFetchProfile = async (token?: string): Promise<ProfileTypes> => {
     try {
@@ -29,9 +30,11 @@ export const useProfile = (enabled?: string) => {
         retry: false,
     });
 
-    if (query.data) {
-        setProfile(query.data);
-    }
+    useEffect(() => {
+        if (query.data) {
+            setProfile(query.data);
+        }
+    }, [query.data]);
 
     return query;
 };

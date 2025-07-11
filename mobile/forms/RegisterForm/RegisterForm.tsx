@@ -1,15 +1,15 @@
-import { RegisterFormProps } from '@/types/forms'
-import { Text, TouchableOpacity, View } from 'react-native'
+import Container from '@/components/Container';
+import Input from '@/components/Input';
+import Radio from '@/components/Radio';
+import { RegisterFormProps } from '@/types/forms';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import Input from '@/components/Input'
-import { Link } from 'expo-router'
-import FormTemplate from '../FormTemplate'
 import Fontisto from "@expo/vector-icons/Fontisto";
-import Radio from '@/components/Radio';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { Link } from 'expo-router';
+import { Text, TouchableOpacity, View } from 'react-native';
 import { widthPercentageToDP as wp } from "react-native-responsive-screen";
-import Container from '@/components/Container';
+import FormTemplate from '../FormTemplate';
 
 const RegisterForm = ({
     values,
@@ -34,6 +34,7 @@ const RegisterForm = ({
                     onBlur={() => handleBlur('email')}
                     error={touched.email && errors.email ? errors.email : ''}
                     placeholder="Email"
+                    type={'email'}
                 />
                 <Input
                     icon={<AntDesign name="user" size={18} color="#999" />}
@@ -42,6 +43,7 @@ const RegisterForm = ({
                     onBlur={() => handleBlur('username')}
                     error={touched.username && errors.username ? errors.username : ''}
                     placeholder="Username"
+                    type={'username'}
                 />
                 <Input
                     icon={<Ionicons name="call-outline" size={18} color="#999" />}
@@ -90,6 +92,16 @@ const RegisterForm = ({
                     error={touched.password && errors.password ? errors.password : ''}
                     type="password"
                     placeholder="Password"
+                />
+
+                <Input
+                    icon={<FontAwesome name="lock" size={18} color="#999" />}
+                    value={values.confirmPassword}
+                    onChange={handleChange('confirmPassword')}
+                    onBlur={() => handleBlur('confirmPassword')}
+                    error={touched.confirmPassword && errors.confirmPassword ? errors.confirmPassword : ''}
+                    type="password"
+                    placeholder="Confirm Password"
                 />
             </View>
 

@@ -1,16 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete, Put, UploadedFiles, UseInterceptors, Res, Req, UploadedFile } from '@nestjs/common';
-import { UsersService } from './users.service';
-import { UpdateAvatarDto } from './dto/updateAvatar.dto';
-import { UpdateChatThemeDto } from './dto/updateChatTheme.dto';
-import { UpdateUserDto } from './dto/updateUser.dto';
-import { FileInterceptor, FilesInterceptor } from '@nestjs/platform-express';
-import multerOptions from 'src/utils/multerConfig.util';
+import { Body, Controller, Get, Put, Req, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
 import { FileSizeValidation } from 'src/pipes/file_size_validation.pipe';
+import multerOptions from 'src/utils/multerConfig.util';
+import { UpdateUserDto } from './dto/updateUser.dto';
+import { UsersService } from './users.service';
 
 @Controller('users')
 export class UsersController {
-  constructor(private readonly usersService: UsersService) {}
+  constructor(private readonly usersService: UsersService) { }
 
   @Get("profile")
   async profile(@Req() req, @Res() res: Response) {
@@ -43,8 +41,10 @@ export class UsersController {
       }
       const user = req.user
       if (user && file) {
-        await this.usersService.updateAvatar(file, user._id);
+        const avatar = await this.usersService.updateAvatar(file, user._id);
+        console.log(avatar)
         return res.status(200).json({
+          avatar,
           message: "Avatar is uploaded successfully"
         })
       }
@@ -71,8 +71,9 @@ export class UsersController {
       }
       const user = req.user
       if (user && file) {
-        await this.usersService.updateChatTheme(file, user._id);
+        const chat_theme = await this.usersService.updateChatTheme(file, user._id);
         return res.status(200).json({
+          chat_theme,
           message: "Chat Theme is uploaded successfully"
         })
       }
@@ -91,7 +92,7 @@ export class UsersController {
     try {
       const user = req.user
       if (user) {
-        await this.usersService.update(body, user._id);
+        await this.usersService.update(body.email ? { ...body, email: body.email.toLowerCase() } : body, user._id);
         return res.status(200).json({
           message: "User is uploaded successfully"
         })

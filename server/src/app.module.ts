@@ -1,12 +1,13 @@
 import { Module } from '@nestjs/common';
+import { MongooseModule } from '@nestjs/mongoose';
+import { ThrottlerModule } from '@nestjs/throttler';
+import * as dotenv from "dotenv";
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { UsersModule } from './users/users.module';
-import { MessagesModule } from './messages/messages.module';
 import { AuthModule } from './auth/auth.module';
-import { MongooseModule } from '@nestjs/mongoose';
-import * as dotenv from "dotenv"
-import { ThrottlerModule } from '@nestjs/throttler';
+import { AvatarsModule } from './avatars/avatars.module';
+import { MessagesModule } from './messages/messages.module';
+import { UsersModule } from './users/users.module';
 
 dotenv.config();
 
@@ -21,7 +22,8 @@ dotenv.config();
     MongooseModule.forRoot(`${process.env.DB || ''}`),
     UsersModule,
     MessagesModule,
-    AuthModule
+    AuthModule,
+    AvatarsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

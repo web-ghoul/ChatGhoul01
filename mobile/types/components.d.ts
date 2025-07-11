@@ -8,7 +8,7 @@ interface InputTypes {
     value: string;
     placeholder?: string;
     error?: string;
-    type?: "password" | "tel-device" | "gender",
+    type?: "password" | "tel-device" | "gender" | "email" | "username",
     inputRef?: RefObject<TextInput>;
 }
 
@@ -24,4 +24,5 @@ interface LogoTypes {
     "horizontal", textClassName?: string; style?: { [key: string]: string | number }; noTitle?: boolean
 }
 
-export type { InputTypes, LogoTypes, ProfileInfoCardTypes }
+export type { InputTypes, LogoTypes, ProfileInfoCardTypes };
+

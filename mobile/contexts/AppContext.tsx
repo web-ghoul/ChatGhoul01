@@ -3,6 +3,7 @@ import type { ReactNode } from "react";
 import { createContext, useContext, useReducer } from "react";
 
 type AppState = {
+    openBackDrop?: boolean
     profileAvatar?: ImagePickerAsset
     chosenChatTheme: string
     chosenAvatar?: string
@@ -13,6 +14,7 @@ type AppState = {
 };
 
 type AppAction =
+    | { type: "openBackDrop"; payload: boolean }
     | { type: "profileAvatar"; payload?: ImagePickerAsset }
     | { type: "chosenChatTheme"; payload: string }
     | { type: "chosenAvatar"; payload?: string }
@@ -29,6 +31,7 @@ type AppContextType = {
 const AppContext = createContext<AppContextType | undefined>(undefined);
 
 const initialState: AppState = {
+    openBackDrop: false,
     profileAvatar: undefined,
     chosenChatTheme: '0',
     chosenAvatar: undefined,
@@ -40,6 +43,8 @@ const initialState: AppState = {
 
 function AppReducer(state: AppState, action: AppAction): AppState {
     switch (action.type) {
+        case "openBackDrop":
+            return { ...state, openBackDrop: action.payload, chosenAvatar: undefined };
         case "profileAvatar":
             return { ...state, profileAvatar: action.payload, chosenAvatar: undefined };
         case "chosenChatTheme":

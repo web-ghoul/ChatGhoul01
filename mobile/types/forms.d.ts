@@ -12,6 +12,7 @@ interface RegisterTypes {
     gender: string;
     phone: string;
     password: string
+    confirmPassword: string
 }
 
 type RegisterFormProps = FormikProps<RegisterTypes>;
@@ -47,4 +48,5 @@ interface FormTemplateTypes {
 
 type FormTypes = "login" | "register" | "forgotPassword" | "updateUsername" | "updateUsername" | "updateEmail" | "updatePhone" | "updateGender" | "updateAbout"
 
-export type { LoginFormProps, LoginTypes, RegisterFormProps, ForgotPasswordFormProps, UpdateUsernameFormProps, FormTemplateTypes, FormTypes, UpdateEmailFormProps, UpdateGenderFormProps, UpdatePhoneFormProps, UpdateAboutFormProps, UpdateAboutTypes, UpdatePhoneTypes, UpdateGenderTypes, UpdateEmailTypes, UpdateUsernameTypes }
+export type { ForgotPasswordFormProps, FormTemplateTypes, FormTypes, LoginFormProps, LoginTypes, RegisterFormProps, RegisterTypes, UpdateAboutFormProps, UpdateAboutTypes, UpdateEmailFormProps, UpdateEmailTypes, UpdateGenderFormProps, UpdateGenderTypes, UpdatePhoneFormProps, UpdatePhoneTypes, UpdateUsernameFormProps, UpdateUsernameTypes };
+

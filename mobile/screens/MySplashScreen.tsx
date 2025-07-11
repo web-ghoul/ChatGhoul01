@@ -1,17 +1,19 @@
-import { useEffect, useState } from 'react';
-import { View } from 'react-native';
+import Logo from '@/components/Logo';
+import { useProfile } from '@/hooks/useProfile';
+import useSecureStore from '@/hooks/useSecureStore';
+import { useAuthStore } from '@/store/useAuthStore';
+import { router } from 'expo-router';
 import * as SplashScreen from 'expo-splash-screen';
 import { StatusBar } from 'expo-status-bar';
-import Logo from '@/components/Logo';
-import { router } from 'expo-router';
-import useSecureStore from '@/hooks/useSecureStore';
-import { useProfile } from '@/hooks/useProfile';
+import { useEffect, useState } from 'react';
+import { View } from 'react-native';
 
 SplashScreen.preventAutoHideAsync();
 
 const MySplashScreen = () => {
   const [tokenChecked, setTokenChecked] = useState(false);
   const [authToken, setAuthToken] = useState<string | undefined>(undefined);
+  const { setAuth } = useAuthStore((state) => state)
   const { handleFetch } = useSecureStore();
   const { isLoading, isError, data } = useProfile(authToken);
 
@@ -19,6 +21,7 @@ const MySplashScreen = () => {
     const checkToken = async () => {
       const token = await handleFetch(`${process.env.EXPO_PUBLIC_TOKEN_STORE}`);
       setAuthToken(token || undefined);
+      setAuth({ token: token || undefined })
       setTokenChecked(true);
     };
 
@@ -28,13 +31,16 @@ const MySplashScreen = () => {
   useEffect(() => {
     if (!tokenChecked) return;
 
+    SplashScreen.hideAsync();
     if (authToken && !isLoading && data) {
-      SplashScreen.hideAsync();
-      router.replace("/(tabs)/chats");
+      if (data.tour_status === "undefined") {
+        router.replace("/welcome");
+      } else {
+        router.replace("/(tabs)/chats");
+      }
     }
 
     if (!authToken || isError) {
-      SplashScreen.hideAsync();
       router.replace("/(auth)/login");
     }
   }, [authToken, tokenChecked, isLoading, isError, data]);

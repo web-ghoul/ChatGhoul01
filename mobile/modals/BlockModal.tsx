@@ -29,7 +29,7 @@ const BlockModal = () => {
                             text1: 'Hello 👋',
                             text2: 'Toast is working!',
                         });
-                        router.push("/(tabs)")
+                        router.push("/(tabs)/chats")
                     }}>
                         <Text className={`text-red-600 text-lg font-ubuntu_light`}>Block</Text>
                     </Pressable>

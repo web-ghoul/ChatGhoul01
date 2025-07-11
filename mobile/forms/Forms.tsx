@@ -1,36 +1,46 @@
-import React from 'react';
+import { FormTypes, LoginTypes } from '@/types/forms';
 import { Formik } from 'formik';
+import React from 'react';
+import ForgotPasswordForm from './ForgotPasswordForm/ForgotPasswordForm';
+import useForgotPasswordSchema from './ForgotPasswordForm/useForgotPasswordSchema';
 import LoginForm from './LoginForm/LoginForm';
 import useLoginSchema from './LoginForm/useLoginSchema';
+import useLoginSubmit from './LoginForm/useLoginSubmit';
 import RegisterForm from './RegisterForm/RegisterForm';
 import useRegisterSchema from './RegisterForm/useRegisterSchema';
-import { FormTypes, LoginTypes } from '@/types/forms';
-import useForgotPasswordSchema from './ForgotPasswordForm/useForgotPasswordSchema';
-import ForgotPasswordForm from './ForgotPasswordForm/ForgotPasswordForm';
-import useLoginSubmit from './LoginForm/useLoginSubmit';
-import useUpdateUsernameSchema from './UpdateUsernameForm/useUpdateUsernameSchema';
-import UpdateUsernameForm from './UpdateUsernameForm/UpdateUsernameForm';
-import UpdateEmailForm from './UpdateEmailForm/UpdateEmailForm';
-import UpdatePhoneForm from './UpdatePhoneForm/UpdatePhoneForm';
-import UpdateGenderForm from './UpdateGenderForm/UpdateGenderForm';
+import useRegisterSubmit from './RegisterForm/useRegisterSubmit';
 import UpdateAboutForm from './UpdateAboutForm/UpdateAboutForm';
-import useUpdateEmailSchema from './UpdateEmailForm/useUpdateEmailSchema';
-import useUpdateGenderSchema from './UpdateGenderForm/useUpdateGenderSchema';
-import useUpdatePhoneSchema from './UpdatePhoneForm/useUpdatePhoneSchema';
 import useUpdateAboutSchema from './UpdateAboutForm/useUpdateAboutSchema';
+import useUpdateAboutSubmit from './UpdateAboutForm/useUpdateAboutSubmit';
+import UpdateEmailForm from './UpdateEmailForm/UpdateEmailForm';
+import useUpdateEmailSchema from './UpdateEmailForm/useUpdateEmailSchema';
+import useUpdateEmailSubmit from './UpdateEmailForm/useUpdateEmailSubmit';
+import UpdateGenderForm from './UpdateGenderForm/UpdateGenderForm';
+import useUpdateGenderSchema from './UpdateGenderForm/useUpdateGenderSchema';
+import useUpdateGenderSubmit from './UpdateGenderForm/useUpdateGenderSubmit';
+import UpdatePhoneForm from './UpdatePhoneForm/UpdatePhoneForm';
+import useUpdatePhoneSchema from './UpdatePhoneForm/useUpdatePhoneSchema';
+import useUpdatePhoneSubmit from './UpdatePhoneForm/useUpdatePhoneSubmit';
+import UpdateUsernameForm from './UpdateUsernameForm/UpdateUsernameForm';
+import useUpdateUsernameSchema from './UpdateUsernameForm/useUpdateUsernameSchema';
 import useUpdateUsernameSubmit from './UpdateUsernameForm/useUpdateUsernameSubmit';
 
 const Forms = ({ type }: { type: FormTypes }) => {
     const { loginSchema, loginInitialValues } = useLoginSchema()
     const { handleLogin } = useLoginSubmit()
     const { registerSchema, registerInitialValues } = useRegisterSchema()
+    const { handleRegister } = useRegisterSubmit()
     const { forgotPasswordSchema, forgotPasswordInitialValues } = useForgotPasswordSchema()
     const { updateUsernameInitialValues, updateUsernameSchema } = useUpdateUsernameSchema()
     const { handleUpdateUsername } = useUpdateUsernameSubmit()
     const { updateEmailInitialValues, updateEmailSchema } = useUpdateEmailSchema()
+    const { handleUpdateEmail } = useUpdateEmailSubmit()
     const { updateGenderInitialValues, updateGenderSchema } = useUpdateGenderSchema()
+    const { handleUpdateGender } = useUpdateGenderSubmit()
     const { updatePhoneInitialValues, updatePhoneSchema } = useUpdatePhoneSchema()
+    const { handleUpdatePhone } = useUpdatePhoneSubmit()
     const { updateAboutInitialValues, updateAboutSchema } = useUpdateAboutSchema()
+    const { handleUpdateAbout } = useUpdateAboutSubmit()
 
     return type === "login" ? (
         <Formik
@@ -47,7 +57,7 @@ const Forms = ({ type }: { type: FormTypes }) => {
             initialValues={registerInitialValues}
             validationSchema={registerSchema}
             onSubmit={(values) => {
-                console.log(values);
+                handleRegister(values);
             }}
         >
             {(formik) => <RegisterForm {...formik} />}
@@ -77,7 +87,7 @@ const Forms = ({ type }: { type: FormTypes }) => {
             initialValues={updateEmailInitialValues}
             validationSchema={updateEmailSchema}
             onSubmit={(values) => {
-                console.log(values);
+                handleUpdateEmail(values)
             }}
         >
             {(formik) => <UpdateEmailForm {...formik} />}
@@ -87,7 +97,7 @@ const Forms = ({ type }: { type: FormTypes }) => {
             initialValues={updatePhoneInitialValues}
             validationSchema={updatePhoneSchema}
             onSubmit={(values) => {
-                console.log(values);
+                handleUpdatePhone(values)
             }}
         >
             {(formik) => <UpdatePhoneForm {...formik} />}
@@ -97,7 +107,7 @@ const Forms = ({ type }: { type: FormTypes }) => {
             initialValues={updateGenderInitialValues}
             validationSchema={updateGenderSchema}
             onSubmit={(values) => {
-                console.log(values);
+                handleUpdateGender(values)
             }}
         >
             {(formik) => <UpdateGenderForm {...formik} />}
@@ -107,7 +117,7 @@ const Forms = ({ type }: { type: FormTypes }) => {
             initialValues={updateAboutInitialValues}
             validationSchema={updateAboutSchema}
             onSubmit={(values) => {
-                console.log(values);
+                handleUpdateAbout(values)
             }}
         >
             {(formik) => <UpdateAboutForm {...formik} />}

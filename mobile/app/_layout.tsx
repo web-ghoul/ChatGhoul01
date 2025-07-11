@@ -1,39 +1,45 @@
-import { DarkTheme, ThemeProvider } from '@react-navigation/native';
-import { router, Stack, usePathname } from 'expo-router';
-import { StatusBar } from 'expo-status-bar';
-import { useFonts } from 'expo-font';
-import 'react-native-reanimated';
-import { SafeAreaView } from 'react-native-safe-area-context';
+import BackDrop from '@/components/BackDrop';
 import Header from '@/components/Headers/Header';
-import "./global.css"
-import { ModalsProvider } from '../contexts/ModalsContext';
-import Toast from 'react-native-toast-message';
-import { MenuProvider } from 'react-native-popup-menu';
 import { AppProvider } from '@/contexts/AppContext';
 import { FormsProvider } from '@/contexts/FormsContext';
-import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
-import { useEffect, useState } from 'react';
 import useSecureStore from '@/hooks/useSecureStore';
+import { DarkTheme, ThemeProvider } from '@react-navigation/native';
+import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
+import { useFonts } from 'expo-font';
+import { router, SplashScreen, Stack, usePathname } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
+import { useEffect, useState } from 'react';
+import { MenuProvider } from 'react-native-popup-menu';
+import 'react-native-reanimated';
+import { SafeAreaView } from 'react-native-safe-area-context';
+import Toast from 'react-native-toast-message';
+import { ModalsProvider } from '../contexts/ModalsContext';
+import "./global.css";
+
+SplashScreen.preventAutoHideAsync();
 
 export default function RootLayout() {
   const pathname = usePathname()
   const [queryClient] = useState(() => new QueryClient());
   const { handleFetch } = useSecureStore()
 
-  // const handleAuth = async () => {
-  //   const token = await handleFetch(`${process.env.EXPO_PUBLIC_TOKEN_STORE}`)
-  //   const authRoutes = ['/login', '/register', '/forgotpassword', '/resetpassword']
-  //   if (token) {
-  //     if (authRoutes.includes(pathname)) {
-  //       router.replace("/(tabs)/chats");
-  //     }
-  //   }
-  //   else {
-  //     if (!authRoutes.includes(pathname)) {
-  //       router.replace("/(auth)/login");
-  //     }
-  //   }
-  // }
+  const handleAuth = async () => {
+    SplashScreen.hideAsync();
+    const token = await handleFetch(`${process.env.EXPO_PUBLIC_TOKEN_STORE}`)
+    const authRoutes = ['/login', '/register', '/forgotpassword', '/resetpassword']
+    console.log(authRoutes, pathname, token)
+    if (token) {
+      if (authRoutes.includes(pathname)) {
+        router.replace("/(tabs)/chats");
+      }
+    }
+    else {
+      if (!authRoutes.includes(pathname)) {
+        router.replace("/(auth)/login");
+      }
+    }
+  }
+
   const [fontsLoaded] = useFonts({
     'Ubuntu-Light': require('../assets/fonts/Ubuntu/Ubuntu-Light.ttf'),
     'Ubuntu-Regular': require('../assets/fonts/Ubuntu/Ubuntu-Regular.ttf'),
@@ -41,12 +47,12 @@ export default function RootLayout() {
     'Ubuntu-Bold': require('../assets/fonts/Ubuntu/Ubuntu-Bold.ttf'),
   });
 
-  // useEffect(() => {
-  //   console.log(pathname)
-  //   if (pathname !== "/splash") {
-  //     handleAuth()
-  //   }
-  // }, [pathname])
+  useEffect(() => {
+    console.log(pathname)
+    if (pathname !== "/splash") {
+      handleAuth()
+    }
+  }, [pathname])
 
   if (!fontsLoaded) {
     return ""
@@ -72,6 +78,7 @@ export default function RootLayout() {
                     <Stack.Screen name="(auth)" options={{ headerShown: false }} />
                     <Stack.Screen name="welcome" options={{ headerShown: false }} />
                   </Stack>
+                  <BackDrop />
                   <StatusBar style="light" />
                 </SafeAreaView>
                 <Toast />

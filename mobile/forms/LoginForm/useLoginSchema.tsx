@@ -7,8 +7,8 @@ const useLoginSchema = () => {
     });
 
     const loginInitialValues = {
-        emailOrUsername: "webghouldev@gmail.com",
-        password: "Mahmoud2001$"
+        emailOrUsername: "",
+        password: ""
     }
 
     return { loginSchema, loginInitialValues }

@@ -1,20 +1,17 @@
-import { useForms } from "@/contexts/FormsContext";
 import useAxios from "@/hooks/useAxios";
 import useSecureStore from "@/hooks/useSecureStore";
 import { useAuthStore } from "@/store/useAuthStore";
-import { LoginTypes } from "@/types/forms";
+import { RegisterTypes } from "@/types/forms";
 import { router } from "expo-router";
 import Toast from "react-native-toast-message";
 
-const useLoginSubmit = () => {
+const useRegisterSubmit = () => {
     const { server } = useAxios(false)
-    const { dispatch: dispatchForms } = useForms()
     const { handleStore } = useSecureStore()
     const { setAuth } = useAuthStore((state) => state)
 
-    const handleLogin = async (values: LoginTypes) => {
-        dispatchForms({ type: "loading", payload: true })
-        await server.post('/auth/login', { ...values, emailOrUsername: values.emailOrUsername }).then(async (res) => {
+    const handleRegister = async (values: RegisterTypes) => {
+        await server.post('/auth/register', { ...values, email: values.email, username: values.username }).then(async (res) => {
             const { message, token } = res.data
             Toast.show({
                 type: "success",
@@ -22,13 +19,11 @@ const useLoginSubmit = () => {
             })
             await handleStore(`${process.env.EXPO_PUBLIC_TOKEN_STORE}`, token)
             setAuth({ token })
-            dispatchForms({ type: "loading", payload: false })
-            router.push("/splash")
+            router.push("/welcome")
         })
-        dispatchForms({ type: "loading", payload: false })
     }
 
-    return { handleLogin }
+    return { handleRegister }
 }
 
-export default useLoginSubmit
+export default useRegisterSubmit

@@ -1,9 +1,9 @@
-import Input from '@/components/Input'
-import { UpdateEmailFormProps } from '@/types/forms'
-import { Text, TouchableOpacity } from 'react-native'
-import CustomKeyboardView from '@/components/CustomKeyboardView';
 import Container from '@/components/Container';
+import CustomKeyboardView from '@/components/CustomKeyboardView';
+import Input from '@/components/Input';
+import { UpdateEmailFormProps } from '@/types/forms';
 import Ionicons from '@expo/vector-icons/Ionicons';
+import { Text, TouchableOpacity } from 'react-native';
 
 const UpdateEmailForm = ({
     values,
@@ -23,6 +23,7 @@ const UpdateEmailForm = ({
                     onBlur={() => handleBlur('email')}
                     error={touched.email && errors.email ? errors.email : ''}
                     placeholder='Email'
+                    type={'email'}
                 />
                 <TouchableOpacity onPress={() => handleSubmit()} className={`bg-primary px-4 py-4 rounded-full flex items-center w-full`}>
                     <Text className={`text-white font-ubuntu_regular text-xl`}>Save</Text>

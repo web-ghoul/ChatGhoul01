@@ -1,31 +1,43 @@
+import { useApp } from "@/contexts/AppContext";
 import { useForms } from "@/contexts/FormsContext";
 import { useAuthStore } from "@/store/useAuthStore";
 import axios from "axios";
 import Toast from 'react-native-toast-message';
 
-const useAxios = (authorized: boolean = true) => {
-    const { dispatch } = useForms();
+const useAxios = (authorized: boolean = true, file: boolean = false) => {
+    const { dispatch: dispatchForms } = useForms();
+    const { dispatch: dispatchApp } = useApp()
     const { auth } = useAuthStore((state) => state)
+
+    const headers: Record<string, string> = {};
+
+    if (authorized && auth?.token) {
+        headers['Authorization'] = `Bearer ${auth.token}`;
+    }
+
+    if (file) {
+        headers['Content-Type'] = 'multipart/form-data';
+    }
 
     const server = axios.create({
         baseURL: `${process.env.EXPO_PUBLIC_SERVER_URL}`,
-        headers: authorized ? {
-            Authorization: `Bearer ${auth?.token}`,
-        } : {},
+        headers,
     });
 
     server.interceptors.request.use((config) => {
-        dispatch({ type: "loading", payload: true });
+        dispatchForms({ type: "loading", payload: true });
         return config;
     });
 
     server.interceptors.response.use(
         (response) => {
-            dispatch({ type: "loading", payload: false });
+            dispatchForms({ type: "loading", payload: false });
+            dispatchApp({ type: "openBackDrop", payload: false })
             return response;
         },
         (error) => {
-            dispatch({ type: "loading", payload: false });
+            dispatchForms({ type: "loading", payload: false });
+            dispatchApp({ type: "openBackDrop", payload: false })
             if (error?.response?.data?.message) {
                 Toast.show({
                     type: 'error',

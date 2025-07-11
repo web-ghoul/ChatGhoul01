@@ -1,9 +1,9 @@
-import Input from '@/components/Input'
-import { UpdateUsernameFormProps } from '@/types/forms'
-import AntDesign from '@expo/vector-icons/AntDesign';
-import CustomKeyboardView from '@/components/CustomKeyboardView';
 import Container from '@/components/Container';
+import CustomKeyboardView from '@/components/CustomKeyboardView';
+import Input from '@/components/Input';
 import SubmitButton from '@/components/SubmitButton';
+import { UpdateUsernameFormProps } from '@/types/forms';
+import AntDesign from '@expo/vector-icons/AntDesign';
 
 const UpdateUsernameForm = ({
     values,
@@ -23,6 +23,7 @@ const UpdateUsernameForm = ({
                     onBlur={() => handleBlur('username')}
                     error={touched.username && errors.username ? errors.username : ''}
                     placeholder='Username'
+                    type={"username"}
                 />
                 <SubmitButton value={"Save"} handleSubmit={handleSubmit} />
             </Container>

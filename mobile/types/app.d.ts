@@ -3,10 +3,12 @@ type ProfileTypes = {
   username: string;
   email: string;
   phone: string;
-  gender: string;
+  gender: "male" | "female";
   about: string;
   avatar: string;
   chat_theme: string;
+  tour_status: "completed" | "undefined";
 };
 
-export type {ProfileTypes}
+export type { ProfileTypes };
+

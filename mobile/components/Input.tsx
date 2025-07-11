@@ -1,8 +1,8 @@
 // Input.tsx
-import { Pressable, Text, TextInput, TouchableOpacity, View } from 'react-native'
+import { InputTypes } from '@/types/components';
 import Ionicons from '@expo/vector-icons/Ionicons';
 import { useState } from 'react';
-import { InputTypes } from '@/types/components';
+import { Pressable, Text, TextInput, TouchableOpacity, View } from 'react-native';
 
 const Input = ({
   icon,
@@ -38,7 +38,18 @@ const Input = ({
           placeholderTextColor="#999"
           value={value}
           autoComplete={type}
-          keyboardType={type === "tel-device" ? "numeric" : "default"}
+          autoCapitalize={(type === 'username' || type === "email") ? "none" : "words"}
+          textContentType={
+            type === "email" ? "emailAddress" :
+              type === "password" ? "password" :
+                type === "username" ? "username" :
+                  undefined
+          }
+          keyboardType={
+            type === "tel-device" ? "phone-pad" :
+              type === "email" ? "email-address" :
+                "default"
+          }
           secureTextEntry={!showPassword && type === "password"}
         />
         {type === "password" && (

@@ -1,32 +1,32 @@
-import React from 'react'
-import { usePathname } from 'expo-router';
-import ChatsHeader from './ChatsHeader';
-import ChatHeader from './ChatHeader/ChatHeader';
+import { router, usePathname } from 'expo-router';
+import React from 'react';
 import BasicHeader from './BasicHeader';
+import ChatHeader from './ChatHeader/ChatHeader';
+import ChatsHeader from './ChatsHeader';
 
 const Header = () => {
     const pathname = usePathname();
 
-    console.log(pathname,123)
+    console.log(pathname, 123)
 
     return pathname === "/chats" ? (
         <ChatsHeader />
     ) : pathname === "/profile" ? (
-        <BasicHeader head={"Profile"} />
+        <BasicHeader head={"Profile"} goTo={() => router.push("/(tabs)/chats")} />
     ) : pathname === "/" ? (
         <ChatHeader />
     ) : pathname === "/link-devices" ? (
-        <BasicHeader head={"Link Devices"} />
+        <BasicHeader head={"Link Devices"} goTo={() => router.push("/(tabs)/chats")} />
     ) : pathname === "/update_username" ? (
-        <BasicHeader head={"Username"} />
+        <BasicHeader head={"Username"} goTo={() => router.push("/(tabs)/(profile)/profile")} />
     ) : pathname === "/update_email" ? (
-        <BasicHeader head={"Email"} />
-    ): pathname === "/update_about" ? (
-        <BasicHeader head={"About"} />
+        <BasicHeader head={"Email"} goTo={() => router.push("/(tabs)/(profile)/profile")} />
+    ) : pathname === "/update_about" ? (
+        <BasicHeader head={"About"} goTo={() => router.push("/(tabs)/(profile)/profile")} />
     ) : pathname === "/update_phone" ? (
-        <BasicHeader head={"Phone Number"} />
+        <BasicHeader head={"Phone Number"} goTo={() => router.push("/(tabs)/(profile)/profile")} />
     ) : pathname === "/update_gender" ? (
-        <BasicHeader head={"Gender"} />
+        <BasicHeader head={"Gender"} goTo={() => router.push("/(tabs)/(profile)/profile")} />
     ) : (<></>)
 }
 

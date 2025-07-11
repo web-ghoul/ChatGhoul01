@@ -1,6 +1,6 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import { Request, Response } from 'express';
+import { Response } from 'express';
 import { Model } from 'mongoose';
 import { User } from 'schemas/user.schema';
 import { verifyToken } from 'src/utils/auth';
@@ -17,12 +17,12 @@ export class AuthorizationMiddleware implements NestMiddleware {
         req.user = verifyToken(token)
         return next();
       }
-      return res.status(403).json({
+      return res.status(401).json({
         message: "UnAuthorized"
       })
     } catch (error) {
       console.log(error)
-      return res.status(403).json({
+      return res.status(401).json({
         message: "UnAuthorized"
       })
     }

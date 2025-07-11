@@ -1,8 +1,8 @@
-import Input from '@/components/Input'
-import { ForgotPasswordFormProps } from '@/types/forms'
-import { Text, TouchableOpacity, View } from 'react-native'
+import Input from '@/components/Input';
+import { ForgotPasswordFormProps } from '@/types/forms';
 import AntDesign from '@expo/vector-icons/AntDesign';
 import { Link } from 'expo-router';
+import { Text, TouchableOpacity, View } from 'react-native';
 import FormTemplate from '../FormTemplate';
 
 const ForgotPasswordForm = ({
@@ -27,6 +27,7 @@ const ForgotPasswordForm = ({
                     onBlur={() => handleBlur('email')}
                     error={touched.email && errors.email ? errors.email : ''}
                     placeholder='Email or Username'
+                    type={"email"}
                 />
             </View>
             <View className={`w-full flex flex-col items-center`} style={{ gap: 10 }}>

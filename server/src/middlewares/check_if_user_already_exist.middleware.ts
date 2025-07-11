@@ -1,7 +1,6 @@
-import { Injectable, NestMiddleware, Body } from '@nestjs/common';
+import { Injectable, NestMiddleware } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { plainToInstance } from 'class-transformer';
-import { validate } from 'class-validator';
 import { Response } from 'express';
 import { Model } from 'mongoose';
 import { User } from 'schemas/user.schema';
@@ -20,7 +19,7 @@ export class CheckIfUserAlreadyExistMiddleware implements NestMiddleware {
         validationHelper(validatation, res)
         const user = await this.userModel.findOne({
           $or: [
-            { email: body.email },
+            { email: body.email.toLowerCase() },
             { username: body.username },
             { phone: body.phone },
           ],

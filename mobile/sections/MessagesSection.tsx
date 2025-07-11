@@ -6,7 +6,7 @@ const MessagesSection = () => {
     return (
         <View style={{ flex: 1 }}>
             <FlatList
-                contentContainerStyle={{ paddingVertical: 5 }}
+                contentContainerStyle={{ paddingVertical: 10 }}
                 data={Array.from({ length: 100 }).map((_, i) => i)}
                 inverted
                 keyExtractor={(_, index) => index.toString()}
@@ -14,8 +14,6 @@ const MessagesSection = () => {
                 ListFooterComponent={
                     <ChatInfo />
                 }
-            // keyboardShouldPersistTaps="handled"
-            // keyboardDismissMode="on-drag"
             />
         </View>
     )
