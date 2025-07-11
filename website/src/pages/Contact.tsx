@@ -1,7 +1,9 @@
+import ContactUsSection from "../sections/ContactUsSection"
+
 const Contact = () => {
   return (
     <>
-      
+      <ContactUsSection />
     </>
   )
 }

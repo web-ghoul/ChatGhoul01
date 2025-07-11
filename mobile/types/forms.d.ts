@@ -2,7 +2,7 @@ import { FormikProps } from "formik";
 import { ReactNode } from "react";
 import { ImageSourcePropType } from "react-native";
 
-interface LoginTypes { email: string; password: string }
+interface LoginTypes { emailOrUsername: string; password: string }
 
 type LoginFormProps = FormikProps<LoginTypes>;
 
@@ -18,15 +18,25 @@ type RegisterFormProps = FormikProps<RegisterTypes>;
 
 type ForgotPasswordFormProps = FormikProps<{ email: string }>;
 
-type UpdateUsernameFormProps = FormikProps<{ username: string }>;
+interface UpdateUsernameTypes { username: string }
 
-type UpdateEmailFormProps = FormikProps<{ email: string }>;
+type UpdateUsernameFormProps = FormikProps<UpdateUsernameTypes>;
 
-type UpdateGenderFormProps = FormikProps<{ gender: string }>;
+interface UpdateEmailTypes { email: string }
 
-type UpdatePhoneFormProps = FormikProps<{ phone: string }>;
+type UpdateEmailFormProps = FormikProps<UpdateEmailTypes>;
 
-type UpdateAboutFormProps = FormikProps<{ about: string }>;
+interface UpdateGenderTypes { gender: string }
+
+type UpdateGenderFormProps = FormikProps<UpdateGenderTypes>;
+
+interface UpdatePhoneTypes { phone: string }
+
+type UpdatePhoneFormProps = FormikProps<UpdatePhoneTypes>;
+
+interface UpdateAboutTypes { about: string }
+
+type UpdateAboutFormProps = FormikProps<UpdateAboutTypes>;
 
 interface FormTemplateTypes {
     image: ImageSourcePropType;
@@ -37,4 +47,4 @@ interface FormTemplateTypes {
 
 type FormTypes = "login" | "register" | "forgotPassword" | "updateUsername" | "updateUsername" | "updateEmail" | "updatePhone" | "updateGender" | "updateAbout"
 
-export type { LoginFormProps, LoginTypes, RegisterFormProps, ForgotPasswordFormProps, UpdateUsernameFormProps, FormTemplateTypes, FormTypes, UpdateEmailFormProps, UpdateGenderFormProps, UpdatePhoneFormProps, UpdateAboutFormProps }
+export type { LoginFormProps, LoginTypes, RegisterFormProps, ForgotPasswordFormProps, UpdateUsernameFormProps, FormTemplateTypes, FormTypes, UpdateEmailFormProps, UpdateGenderFormProps, UpdatePhoneFormProps, UpdateAboutFormProps, UpdateAboutTypes, UpdatePhoneTypes, UpdateGenderTypes, UpdateEmailTypes, UpdateUsernameTypes }

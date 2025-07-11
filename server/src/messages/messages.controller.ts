@@ -1,34 +1,25 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { Controller, Post, Body, Param, Delete, Put } from '@nestjs/common';
 import { MessagesService } from './messages.service';
-import { CreateMessageDto } from './dto/create-message.dto';
-import { UpdateMessageDto } from './dto/update-message.dto';
+import { SendMessageDto } from './dto/sendMessage.dto';
+import { EditMessageDto } from './dto/editMessage.dto';
+import { DeleteMessageDto } from './dto/deleteMessages.dto';
 
 @Controller('messages')
 export class MessagesController {
-  constructor(private readonly messagesService: MessagesService) {}
+  constructor(private readonly messagesService: MessagesService) { }
 
-  @Post()
-  create(@Body() createMessageDto: CreateMessageDto) {
-    return this.messagesService.create(createMessageDto);
+  @Post(":id")
+  sendMsg(@Body() body: SendMessageDto, @Param() id: string) {
+    return this.messagesService.sendMsg(body);
   }
 
-  @Get()
-  findAll() {
-    return this.messagesService.findAll();
+  @Put(":id")
+  editMsg(@Body() body: EditMessageDto, @Param() id: string) {
+    return this.messagesService.editMsg(body);
   }
 
-  @Get(':id')
-  findOne(@Param('id') id: string) {
-    return this.messagesService.findOne(+id);
-  }
-
-  @Patch(':id')
-  update(@Param('id') id: string, @Body() updateMessageDto: UpdateMessageDto) {
-    return this.messagesService.update(+id, updateMessageDto);
-  }
-
-  @Delete(':id')
-  remove(@Param('id') id: string) {
-    return this.messagesService.remove(+id);
+  @Delete()
+  deleteMsg(@Body() body: DeleteMessageDto) {
+    return this.messagesService.deleteMsg(body);
   }
 }

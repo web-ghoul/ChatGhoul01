@@ -2,12 +2,11 @@ import {
     IsEmail,
     IsIn,
     IsString,
-    Length,
     Matches,
     MaxLength,
     MinLength,
 } from 'class-validator';
-import { LoginDto } from './login.dto';
+import { Match } from 'src/validators/match.decorator';
 
 export class RegisterDto {
     @IsEmail()
@@ -22,7 +21,9 @@ export class RegisterDto {
     gender: string;
 
     @IsString()
-    @Length(11)
+    @Matches(/^01[0-9]{9}$/, {
+        message: 'Phone number must be 11 digits and start with 01',
+    })
     phone: string;
 
     @IsString()
@@ -31,19 +32,13 @@ export class RegisterDto {
         /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
         {
             message:
-                'Confirm Password must be include at least one uppercase letter, one lowercase letter, one number, and one special character.',
+                'Password must be include at least one uppercase letter, one lowercase letter, one number, and one special character.',
         },
     )
     password: string;
 
     @IsString()
     @MinLength(8)
-    @Matches(
-        /^(?=.*[a-z])(?=.*[A-Z])(?=.*\d)(?=.*[@$!%*?&])[A-Za-z\d@$!%*?&]{8,}$/,
-        {
-            message:
-                'Confirm Password must be include at least one uppercase letter, one lowercase letter, one number, and one special character.',
-        },
-    )
+    @Match('password', { message: 'Confirm password does not match password' })
     confirmPassword: string;
 }

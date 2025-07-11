@@ -1,11 +1,11 @@
-import jwt from "jsonwebtoken";
+import * as jwt from 'jsonwebtoken';
 
-const JWT_SECRET = process.env.JWT_SECRET || "webGhoul12345$$$"; 
+const JWT_SECRET = process.env.JWT_SECRET || 'webGhoul12345$$$';
 
-export const signToken = (payload: object, expiresIn = "1d") => {
-  return jwt.sign(payload, JWT_SECRET, { expiresIn });
+export const signToken = (payload: object) => {
+    return jwt.sign(payload, JWT_SECRET, { expiresIn: '2Yr' });
 };
 
 export const verifyToken = (token: string) => {
-  return jwt.verify(token, JWT_SECRET);
+    return jwt.verify(token, JWT_SECRET);
 };

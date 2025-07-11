@@ -21,7 +21,7 @@ export class CheckPasswordMatchMiddleware implements NestMiddleware {
             message: "Invalid Credential"
           })
         }
-        next();
+        return next();
       }
       return res.status(500).json({
         message: "Server Error"

@@ -37,7 +37,7 @@ header.glassy {
 }
 
 .hero_section {
-    height: calc(100vh - 70px);
+    height: calc(100vh - 80px);
 }
 
 .no-scrollbar::-webkit-scrollbar {
@@ -48,6 +48,30 @@ header.glassy {
     -ms-overflow-style: none;
     scrollbar-width: none;
 }
+
+
+/* Input */
+
+input,
+textarea {
+    padding: 10px 20px !important;
+    border-radius: 6px;
+    outline: none;
+    background-color: #000;
+    border: 2px solid transparent;
+    color: #fff;
+}
+
+input::placeholder,
+textarea::placeholder {
+    color: #555;
+}
+
+input:focus {
+    border-color: #0092E4
+}
+
+/* Input */
 
 
 /* Scroll Bar */
@@ -72,6 +96,14 @@ header.glassy {
 @layer components {
     .primary_button {
         @apply !rounded-full !border-[2px] bg-primary text-white !px-4 !py-2 border-solid border-primary !shadow-none !outline-none flex justify-center items-center gap-2 transition-all hover:bg-white hover:text-primary;
+
+        svg {
+            @apply w-5 h-5;
+        }
+    }
+
+    .secondary_button {
+        @apply !rounded-full !border-[2px] bg-white text-black !font-[600] !px-4 !py-2 border-solid border-white !shadow-none !outline-none flex justify-center items-center gap-2 transition-all hover:bg-black hover:text-white;
 
         svg {
             @apply w-5 h-5;

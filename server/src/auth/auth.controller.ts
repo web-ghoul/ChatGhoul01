@@ -1,7 +1,6 @@
-import { Controller, Post, Body, Res } from '@nestjs/common';
+import { Controller, Post, Body, Res, Req, UnauthorizedException } from '@nestjs/common';
 import { AuthService } from './auth.service';
 import { RegisterDto } from './dto/register.dto';
-import { LoginDto } from './dto/login.dto';
 import { ForgotPasswordDto } from './dto/forgotPassword.dto';
 import { ResetPasswordDto } from './dto/resetPassword.dto';
 import { signToken } from 'src/utils/auth';
@@ -26,25 +25,17 @@ export class AuthController {
   }
 
   @Post('login')
-  async login(@Body() body: LoginDto, @Res() res) {
-    try {
-      const user = await this.authService.login(body);
-      if (!user) {
-        return res.status(404).json({
-          message: "Invalid Credential"
-        })
-      }
-      const token = signToken({ _id: user._id, email: user.email, username: user.username });
-      return res.status(200).json({
-        message: "Login successfully",
-        token
-      })
-    } catch (error) {
-      console.log(error)
-      return res.status(500).json({
-        message: "Server Error"
-      })
+  async login(@Req() req) {
+    const user = req.user;
+    if (!user) {
+      throw new UnauthorizedException("Invalid credentials");
     }
+
+    const token = signToken({ _id: user._id, email: user.email, username: user.username });
+    return {
+      message: "Login successfully",
+      token
+    };
   }
 
   @Post('forgot_password')

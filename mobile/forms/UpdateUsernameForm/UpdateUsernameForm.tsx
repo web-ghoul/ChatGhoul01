@@ -1,9 +1,9 @@
 import Input from '@/components/Input'
 import { UpdateUsernameFormProps } from '@/types/forms'
-import { Text, TouchableOpacity } from 'react-native'
 import AntDesign from '@expo/vector-icons/AntDesign';
 import CustomKeyboardView from '@/components/CustomKeyboardView';
 import Container from '@/components/Container';
+import SubmitButton from '@/components/SubmitButton';
 
 const UpdateUsernameForm = ({
     values,
@@ -24,9 +24,7 @@ const UpdateUsernameForm = ({
                     error={touched.username && errors.username ? errors.username : ''}
                     placeholder='Username'
                 />
-                <TouchableOpacity onPress={() => handleSubmit()} className={`bg-primary px-4 py-4 rounded-full flex items-center w-full`}>
-                    <Text className={`text-white font-ubuntu_regular text-xl`}>Save</Text>
-                </TouchableOpacity>
+                <SubmitButton value={"Save"} handleSubmit={handleSubmit} />
             </Container>
         </CustomKeyboardView>
     )

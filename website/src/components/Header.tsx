@@ -21,7 +21,7 @@ const Header = () => {
   })
 
   return (
-    <header class={`h-[70px] fixed top-0 z-[100] w-screen flex justify-stretch items-center ${glassy() && "glassy"}`}>
+    <header class={`h-[80px] fixed top-0 z-[100] w-screen flex justify-stretch items-center ${glassy() && "glassy"}`}>
       <Container class="flex justify-between items-center gap-4 w-full">
         <Logo />
         <nav>

@@ -2,7 +2,6 @@ import Input from '@/components/Input'
 import { useState } from 'react'
 import { LayoutChangeEvent, Pressable, View } from 'react-native'
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
-import useNotifications from '@/hooks/useNotifications';
 import Container from '@/components/Container';
 // import { useApp } from '@/contexts/AppContext';
 
@@ -10,7 +9,6 @@ const ChatInputSection = ({ onHeightChange }: {
     onHeightChange?: (height: number) => void
 }) => {
     const [message, setMessage] = useState('')
-    const { handlePushNotification } = useNotifications()
     // const { dispatch: dispatchApp } = useApp()
 
     // const handleReset = () => {
@@ -26,7 +24,6 @@ const ChatInputSection = ({ onHeightChange }: {
 
     const handleSendMessage = () => {
         console.log(message)
-        handlePushNotification()
     }
 
     const handleLayout = (e: LayoutChangeEvent) => {

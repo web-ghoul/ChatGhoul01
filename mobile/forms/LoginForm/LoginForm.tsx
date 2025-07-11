@@ -1,10 +1,11 @@
 import Input from '@/components/Input'
 import { LoginFormProps } from '@/types/forms'
-import { Text, TouchableOpacity, View } from 'react-native'
+import { Text, View } from 'react-native'
 import AntDesign from '@expo/vector-icons/AntDesign';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import { Link } from 'expo-router';
 import FormTemplate from '../FormTemplate';
+import SubmitButton from '@/components/SubmitButton';
 
 const LoginForm = ({
     values,
@@ -23,10 +24,10 @@ const LoginForm = ({
             <View className={`flex flex-col items-center w-full`} style={{ gap: 15 }}>
                 <Input
                     icon={<AntDesign name="user" size={18} color="#999" />}
-                    value={values.email}
+                    value={values.emailOrUsername}
                     onChange={handleChange('email')}
                     onBlur={() => handleBlur('email')}
-                    error={touched.email && errors.email ? errors.email : ''}
+                    error={touched.emailOrUsername && errors.emailOrUsername ? errors.emailOrUsername : ''}
                     placeholder='Email or Username'
                 />
                 <View className={`flex flex-col items-center w-full`} style={{ gap: 4 }}>
@@ -49,9 +50,7 @@ const LoginForm = ({
                 </View>
             </View>
             <View className={`w-full flex flex-col items-center`} style={{ gap: 10 }}>
-                <TouchableOpacity onPress={() => handleSubmit()} className={`bg-primary px-4 py-4 rounded-full w-full flex items-center`}>
-                    <Text className={`text-white font-ubuntu_regular text-xl`}>Sign In</Text>
-                </TouchableOpacity>
+                <SubmitButton value={"Sign In"} handleSubmit={handleSubmit} />
                 <View className={`flex flex-row items-center text-center`} style={{ gap: 10 }}>
                     <Text className='text-lg text-gray-300 font-ubuntu_regular'>Don&apos;t have account ?</Text>
                     <Link href={"/(auth)/register"} className='text-lg text-primary font-ubuntu_medium'>Sign Up</Link>

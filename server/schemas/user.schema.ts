@@ -14,8 +14,14 @@ export class User {
     @Prop({ required: true })
     phone: string;
 
-    @Prop({ default: 'https://cdn-icons-png.flaticon.com/128/3177/3177440.png' })
+    @Prop({ required: true, default: '' })
     avatar: string;
+
+    @Prop({ required: true, default: '' })
+    chat_theme: string;
+
+    @Prop({ required: true, default: '' })
+    about: string;
 
     @Prop({ required: true })
     password: string;

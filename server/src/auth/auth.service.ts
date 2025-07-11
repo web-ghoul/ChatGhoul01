@@ -18,11 +18,6 @@ export class AuthService {
     return user
   }
 
-  async login(body: LoginDto) {
-    const user = await this.userModel.findOne({ email: body.emailOrUsername })
-    return user
-  }
-
   async forgotPassword(body: ForgotPasswordDto) {
     const user = await this.userModel.findOne({ email: body.email })
     return user

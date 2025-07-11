@@ -7,19 +7,22 @@ import Ionicons from '@expo/vector-icons/Ionicons';
 import FontAwesome from '@expo/vector-icons/FontAwesome';
 import Feather from '@expo/vector-icons/Feather';
 import Container from '@/components/Container';
+import { useProfileStore } from '@/store/useProfileStore';
 
 const ProfileInfoSection = () => {
-    return (
+    const { profile } = useProfileStore((state) => state)
+
+    return profile && (
         <Container className={`flex flex-col items-center w-full`} style={{ gap: 10 }}>
-            <ProfileInfoCard icon={<AntDesign name="user" size={22} color="white" />} title={"Username"} value={"webGhoul"} handle={() => router.push("/(tabs)/(profile)/update_username")} />
+            <ProfileInfoCard icon={<AntDesign name="user" size={22} color="white" />} title={"Username"} value={profile.username} handle={() => router.push("/(tabs)/(profile)/update_username")} />
             <Divider />
-            <ProfileInfoCard icon={<Feather name="info" size={22} color="white" />} title={"About"} value={"Hello World"} handle={() => router.push("/(tabs)/(profile)/update_about")} />
+            <ProfileInfoCard icon={<Ionicons name="mail-outline" size={22} color="white" />} title={"Email"} value={profile.email} handle={() => router.push("/(tabs)/(profile)/update_email")} />
             <Divider />
-            <ProfileInfoCard icon={<Ionicons name="mail-outline" size={22} color="white" />} title={"Email"} value={"mahmoudaboraya2021@gmail.com"} handle={() => router.push("/(tabs)/(profile)/update_email")} />
+            <ProfileInfoCard icon={<Feather name="phone" size={22} color="white" />} title={"Phone Number"} value={profile.phone} handle={() => router.push("/(tabs)/(profile)/update_phone")} />
             <Divider />
-            <ProfileInfoCard icon={<FontAwesome name="transgender" size={22} color="white" />} title={"Gender"} value={"Male"} handle={() => router.push("/(tabs)/(profile)/update_gender")} />
+            <ProfileInfoCard icon={<Feather name="info" size={22} color="white" />} title={"About"} value={profile.about || "-"} handle={() => router.push("/(tabs)/(profile)/update_about")} />
             <Divider />
-            <ProfileInfoCard icon={<Feather name="phone" size={22} color="white" />} title={"Phone Number"} value={"+201094851646"} handle={() => router.push("/(tabs)/(profile)/update_phone")} />
+            <ProfileInfoCard icon={<FontAwesome name="transgender" size={22} color="white" />} title={"Gender"} value={profile.gender} handle={() => router.push("/(tabs)/(profile)/update_gender")} />
         </Container>
     )
 }

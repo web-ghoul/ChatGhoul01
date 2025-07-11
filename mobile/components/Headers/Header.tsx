@@ -7,7 +7,7 @@ import BasicHeader from './BasicHeader';
 const Header = () => {
     const pathname = usePathname();
 
-    console.log(pathname)
+    console.log(pathname,123)
 
     return pathname === "/chats" ? (
         <ChatsHeader />

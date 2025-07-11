@@ -4,9 +4,11 @@ import { Menu, MenuOptions, MenuOption, MenuTrigger } from 'react-native-popup-m
 import Entypo from '@expo/vector-icons/Entypo';
 import SimpleLineIcons from '@expo/vector-icons/SimpleLineIcons';
 import { useRouter } from 'expo-router';
+import useSecureStore from '@/hooks/useSecureStore';
 
 const HeaderMenu = () => {
     const router = useRouter();
+    const { handleDelete } = useSecureStore()
 
     return (
         <Menu>
@@ -31,7 +33,10 @@ const HeaderMenu = () => {
                 }}
             >
                 <MenuOption
-                    onSelect={() => router.push("/(auth)/login")}
+                    onSelect={async () => {
+                        await handleDelete(`${process.env.EXPO_PUBLIC_TOKEN_STORE}`)
+                        router.push("/(auth)/login")
+                    }}
                     customStyles={{
                         optionWrapper: {
                             flexDirection: 'row',

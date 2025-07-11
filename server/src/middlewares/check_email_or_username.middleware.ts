@@ -1,8 +1,11 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { plainToInstance } from 'class-transformer';
 import { Response } from 'express';
 import { Model } from 'mongoose';
 import { User } from 'schemas/user.schema';
+import { LoginDto } from 'src/auth/dto/login.dto';
+import { validationHelper } from 'src/utils/validationHelper';
 
 @Injectable()
 export class CheckEmailOrUsernameMiddleware implements NestMiddleware {
@@ -12,6 +15,8 @@ export class CheckEmailOrUsernameMiddleware implements NestMiddleware {
     try {
       const body = req.body
       if (body && body.emailOrUsername) {
+        const validatation = plainToInstance(LoginDto, body);
+        validationHelper(validatation, res)
         const emailOrUsername = body.emailOrUsername
         const user = await this.userModel.findOne({
           $or: [
@@ -25,7 +30,7 @@ export class CheckEmailOrUsernameMiddleware implements NestMiddleware {
           })
         }
         req.user = user
-        next();
+        return next();
       }
       return res.status(500).json({
         message: "Server Error"

@@ -7,7 +7,6 @@ import useRegisterSchema from './RegisterForm/useRegisterSchema';
 import { FormTypes, LoginTypes } from '@/types/forms';
 import useForgotPasswordSchema from './ForgotPasswordForm/useForgotPasswordSchema';
 import ForgotPasswordForm from './ForgotPasswordForm/ForgotPasswordForm';
-import { router } from 'expo-router';
 import useLoginSubmit from './LoginForm/useLoginSubmit';
 import useUpdateUsernameSchema from './UpdateUsernameForm/useUpdateUsernameSchema';
 import UpdateUsernameForm from './UpdateUsernameForm/UpdateUsernameForm';
@@ -19,6 +18,7 @@ import useUpdateEmailSchema from './UpdateEmailForm/useUpdateEmailSchema';
 import useUpdateGenderSchema from './UpdateGenderForm/useUpdateGenderSchema';
 import useUpdatePhoneSchema from './UpdatePhoneForm/useUpdatePhoneSchema';
 import useUpdateAboutSchema from './UpdateAboutForm/useUpdateAboutSchema';
+import useUpdateUsernameSubmit from './UpdateUsernameForm/useUpdateUsernameSubmit';
 
 const Forms = ({ type }: { type: FormTypes }) => {
     const { loginSchema, loginInitialValues } = useLoginSchema()
@@ -26,6 +26,7 @@ const Forms = ({ type }: { type: FormTypes }) => {
     const { registerSchema, registerInitialValues } = useRegisterSchema()
     const { forgotPasswordSchema, forgotPasswordInitialValues } = useForgotPasswordSchema()
     const { updateUsernameInitialValues, updateUsernameSchema } = useUpdateUsernameSchema()
+    const { handleUpdateUsername } = useUpdateUsernameSubmit()
     const { updateEmailInitialValues, updateEmailSchema } = useUpdateEmailSchema()
     const { updateGenderInitialValues, updateGenderSchema } = useUpdateGenderSchema()
     const { updatePhoneInitialValues, updatePhoneSchema } = useUpdatePhoneSchema()
@@ -37,7 +38,6 @@ const Forms = ({ type }: { type: FormTypes }) => {
             validationSchema={loginSchema}
             onSubmit={(values: LoginTypes) => {
                 handleLogin(values)
-                router.push("/(tabs)/chats")
             }}
         >
             {(formik) => <LoginForm {...formik} />}
@@ -67,7 +67,7 @@ const Forms = ({ type }: { type: FormTypes }) => {
             initialValues={updateUsernameInitialValues}
             validationSchema={updateUsernameSchema}
             onSubmit={(values) => {
-                console.log(values);
+                handleUpdateUsername(values)
             }}
         >
             {(formik) => <UpdateUsernameForm {...formik} />}
