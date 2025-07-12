@@ -1,11 +1,12 @@
 import { useModals } from '@/contexts/ModalsContext';
+import useAvatar from '@/hooks/useAvatar';
 import ChooseAvatarSection from '@/sections/ChooseAvatarSection';
 import { Pressable, Text, View } from 'react-native';
 import Modal from 'react-native-modal';
-import Toast from 'react-native-toast-message';
 
 const ChooseAvatarModal = () => {
     const { state: stateModals, dispatch: dispatchModals } = useModals()
+    const { handleChooseAvatar } = useAvatar()
 
     return (
         <Modal
@@ -23,14 +24,7 @@ const ChooseAvatarModal = () => {
                     <Pressable onPress={() => dispatchModals({ type: "chooseAvatarModal", payload: false })}>
                         <Text className={`text-primary text-lg font-ubuntu_light`}>Cancel</Text>
                     </Pressable>
-                    <Pressable onPress={() => {
-                        dispatchModals({ type: "chooseAvatarModal", payload: false })
-                        Toast.show({
-                            type: 'success',
-                            text1: 'Hello 👋',
-                            text2: 'Toast is working!',
-                        });
-                    }}>
+                    <Pressable onPress={handleChooseAvatar}>
                         <Text className={`text-primary text-lg font-ubuntu_light`}>Choose</Text>
                     </Pressable>
                 </View>

@@ -9,6 +9,11 @@ import { UpdateUserDto } from './dto/updateUser.dto';
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) { }
 
+  async getAllUsers(userId: string) {
+    const users = await this.userModel.find({ _id: { $ne: userId } });
+    return users;
+  }
+
   async profile(userId: string) {
     const user = await this.userModel.findOne({ _id: userId })
     return user;

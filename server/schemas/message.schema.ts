@@ -1,24 +1,16 @@
 import { Prop, Schema, SchemaFactory } from '@nestjs/mongoose';
-import mongoose, { ObjectId } from 'mongoose';
+import mongoose from 'mongoose';
 
 @Schema({ timestamps: true })
 export class Message {
     @Prop({ required: true })
     msg: string;
 
-    @Prop({
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        default: undefined,
-    })
-    sender: ObjectId;
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'ChatRoom', required: true })
+    chatRoom: mongoose.Types.ObjectId;
 
-    @Prop({
-        type: mongoose.Schema.Types.ObjectId,
-        ref: 'User',
-        default: undefined,
-    })
-    reciever: ObjectId;
+    @Prop({ type: mongoose.Schema.Types.ObjectId, ref: 'User', required: true })
+    sender: mongoose.Types.ObjectId;
 
     @Prop({ required: true, default: false })
     is_read: boolean;

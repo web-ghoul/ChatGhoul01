@@ -10,6 +10,21 @@ import { UsersService } from './users.service';
 export class UsersController {
   constructor(private readonly usersService: UsersService) { }
 
+  @Get()
+  async getAllUsers(@Req() req, @Res() res: Response) {
+    try {
+      const user = req.user
+      const users = await this.usersService.getAllUsers(user._id);
+      return res.status(200).json({
+        data: users
+      })
+    } catch (error) {
+      return res.status(500).json({
+        message: "Server Error"
+      })
+    }
+  }
+
   @Get("profile")
   async profile(@Req() req, @Res() res: Response) {
     try {

@@ -9,7 +9,7 @@ const Header = () => {
 
     console.log(pathname, 123)
 
-    return pathname === "/chats" ? (
+    return pathname === "/chats" || pathname === "/users" ? (
         <ChatsHeader />
     ) : pathname === "/profile" ? (
         <BasicHeader head={"Profile"} goTo={() => router.push("/(tabs)/chats")} />

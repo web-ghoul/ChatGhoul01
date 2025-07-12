@@ -1,25 +1,39 @@
-import { Controller, Post, Body, Param, Delete, Put } from '@nestjs/common';
-import { MessagesService } from './messages.service';
-import { SendMessageDto } from './dto/sendMessage.dto';
-import { EditMessageDto } from './dto/editMessage.dto';
+import { Body, Controller, Delete, Param, Post, Put, Req, Res } from '@nestjs/common';
+import { Response } from 'express';
 import { DeleteMessageDto } from './dto/deleteMessages.dto';
+import { EditMessageDto } from './dto/editMessage.dto';
+import { SendMessageDto } from './dto/sendMessage.dto';
+import { MessagesService } from './messages.service';
 
 @Controller('messages')
 export class MessagesController {
   constructor(private readonly messagesService: MessagesService) { }
 
   @Post(":id")
-  sendMsg(@Body() body: SendMessageDto, @Param() id: string) {
-    return this.messagesService.sendMsg(body);
+  async sendMsg(@Body() body: SendMessageDto, @Param() id: string, @Req() req, @Res() res: Response) {
+    try {
+      const room = req.room
+      const user = req.user
+      const { message, chatRoom } = await this.messagesService.sendMsg(body, user._id, id, room);
+      res.status(200).json({
+        message,
+        chatRoom
+      })
+    } catch (error) {
+      console.log(error)
+      res.status(500).json({
+        message: "Server Error"
+      })
+    }
   }
 
   @Put(":id")
-  editMsg(@Body() body: EditMessageDto, @Param() id: string) {
+  async editMsg(@Body() body: EditMessageDto, @Param() id: string) {
     return this.messagesService.editMsg(body);
   }
 
   @Delete()
-  deleteMsg(@Body() body: DeleteMessageDto) {
+  async deleteMsg(@Body() body: DeleteMessageDto) {
     return this.messagesService.deleteMsg(body);
   }
 }

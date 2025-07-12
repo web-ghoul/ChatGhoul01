@@ -1,4 +1,4 @@
-type ProfileTypes = {
+type UserTypes = {
   id: string;
   username: string;
   email: string;
@@ -10,5 +10,18 @@ type ProfileTypes = {
   tour_status: "completed" | "undefined";
 };
 
-export type { ProfileTypes };
+interface AvatarTypes {
+  _id: string;
+  url: string;
+  name: string;
+  gender: "male" | "female"
+}
+
+interface ChatThemeTypes {
+  _id: string;
+  url: string;
+  name: string;
+}
+
+export type { AvatarTypes, ChatThemeTypes, UserTypes };
 

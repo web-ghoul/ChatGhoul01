@@ -11,6 +11,7 @@ export class CheckIfUserUpdateUniqueInfoMiddleware implements NestMiddleware {
     async use(req: any, res: Response, next: () => void) {
         try {
             const body = req.body
+            console.log(body)
             if (body) {
                 if (!(body.username || body.email || body.phone)) {
                     return next()
@@ -21,13 +22,12 @@ export class CheckIfUserUpdateUniqueInfoMiddleware implements NestMiddleware {
                 }
                 const user = await this.userModel.findOne({
                     $or: [
-                        { email: body.email.toLowerCase() },
-                        { username: body.username },
+                        { email: body?.email?.toLowerCase() },
+                        { username: body?.username?.toLowerCase() },
                         { phone: body.phone },
                     ],
                     _id: { $ne: userId },
                 });
-                console.log(user, body.email.toLowerCase())
                 if (user) {
                     if (user.username === body.username) {
                         return res.status(400).json({

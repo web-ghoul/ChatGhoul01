@@ -17,6 +17,7 @@ export class AuthController {
       const token = signToken({ _id: user._id, email: user.email, username: user.username });
       return res.status(200).json({
         token,
+        data: user,
         message: "User is created successfully"
       })
     } catch (error) {
@@ -33,10 +34,11 @@ export class AuthController {
     if (!user) {
       throw new UnauthorizedException("Invalid credentials");
     }
-    const token = signToken({ _id: user._id, email: user.email, username: user.username });
+    const token = signToken({ _id: user._id, email: user.email, username: user.username, phone: user.phone });
     return {
       message: "Login successfully",
-      token
+      token,
+      data: user
     };
   }
 

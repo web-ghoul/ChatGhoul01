@@ -24,11 +24,11 @@ const LoginForm = ({
             <View className={`flex flex-col items-center w-full`} style={{ gap: 15 }}>
                 <Input
                     icon={<AntDesign name="user" size={18} color="#999" />}
-                    value={values.emailOrUsername}
-                    onChange={handleChange('emailOrUsername')}
-                    onBlur={() => handleBlur('emailOrUsername')}
-                    error={touched.emailOrUsername && errors.emailOrUsername ? errors.emailOrUsername : ''}
-                    placeholder='Email or Username'
+                    value={values.emailOrUsernameOrPhone}
+                    onChange={handleChange('emailOrUsernameOrPhone')}
+                    onBlur={() => handleBlur('emailOrUsernameOrPhone')}
+                    error={touched.emailOrUsernameOrPhone && errors.emailOrUsernameOrPhone ? errors.emailOrUsernameOrPhone : ''}
+                    placeholder='Email, Username or Phone'
                     type={"email"}
                 />
                 <View className={`flex flex-col items-center w-full`} style={{ gap: 4 }}>

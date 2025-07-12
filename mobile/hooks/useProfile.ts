@@ -1,5 +1,6 @@
 import { useProfileStore } from '@/store/useProfileStore';
 import { ProfileTypes } from '@/types/app';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 import { useQuery } from '@tanstack/react-query';
 import axios from 'axios';
 import { router } from 'expo-router';
@@ -8,6 +9,10 @@ import Toast from 'react-native-toast-message';
 
 const handleFetchProfile = async (token?: string): Promise<ProfileTypes> => {
     try {
+        const profile = await AsyncStorage.getItem(`${process.env.EXPO_PUBLIC_PROFILE_STORE}`);
+        if (profile) {
+            return JSON.parse(profile)
+        }
         const res = await axios.get(`${process.env.EXPO_PUBLIC_SERVER_URL}/users/profile`, { headers: { Authorization: `Bearer ${token}` } });
         return res.data.data;
     } catch (error: any) {

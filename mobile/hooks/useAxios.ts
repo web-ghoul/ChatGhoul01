@@ -4,7 +4,7 @@ import { useAuthStore } from "@/store/useAuthStore";
 import axios from "axios";
 import Toast from 'react-native-toast-message';
 
-const useAxios = (authorized: boolean = true, file: boolean = false) => {
+const useAxios = (authorized: boolean = true) => {
     const { dispatch: dispatchForms } = useForms();
     const { dispatch: dispatchApp } = useApp()
     const { auth } = useAuthStore((state) => state)
@@ -13,10 +13,6 @@ const useAxios = (authorized: boolean = true, file: boolean = false) => {
 
     if (authorized && auth?.token) {
         headers['Authorization'] = `Bearer ${auth.token}`;
-    }
-
-    if (file) {
-        headers['Content-Type'] = 'multipart/form-data';
     }
 
     const server = axios.create({

@@ -6,8 +6,10 @@ import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { AvatarsModule } from './avatars/avatars.module';
+import { ChatThemesModule } from './chatThemes/chatThemes.module';
 import { MessagesModule } from './messages/messages.module';
 import { UsersModule } from './users/users.module';
+import { ChatRoomsModule } from './chat-rooms/chat-rooms.module';
 
 dotenv.config();
 
@@ -24,6 +26,8 @@ dotenv.config();
     MessagesModule,
     AuthModule,
     AvatarsModule,
+    ChatThemesModule,
+    ChatRoomsModule,
   ],
   controllers: [AppController],
   providers: [AppService],

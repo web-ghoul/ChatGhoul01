@@ -2,7 +2,7 @@ import { FormikProps } from "formik";
 import { ReactNode } from "react";
 import { ImageSourcePropType } from "react-native";
 
-interface LoginTypes { emailOrUsername: string; password: string }
+interface LoginTypes { emailOrUsernameOrPhone: string; password: string }
 
 type LoginFormProps = FormikProps<LoginTypes>;
 
@@ -27,7 +27,7 @@ interface UpdateEmailTypes { email: string }
 
 type UpdateEmailFormProps = FormikProps<UpdateEmailTypes>;
 
-interface UpdateGenderTypes { gender: string }
+interface UpdateGenderTypes { gender: 'male' | "female" }
 
 type UpdateGenderFormProps = FormikProps<UpdateGenderTypes>;
 

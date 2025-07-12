@@ -23,6 +23,12 @@ export class User {
     @Prop({ default: '' })
     about: string;
 
+    @Prop({ default: false })
+    online: boolean;
+
+    @Prop({ default: new Date() })
+    last_seen: Date;
+
     @Prop({ enum: ['completed', "undefined"], default: "undefined" })
     tour_status: string
 

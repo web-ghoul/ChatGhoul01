@@ -21,7 +21,7 @@ interface ProfileInfoCardTypes {
 
 interface LogoTypes {
     orientation?: "vertical" |
-    "horizontal", textClassName?: string; style?: { [key: string]: string | number }; noTitle?: boolean
+    "horizontal", textClassName?: string; style?: { [key: string]: string | number }; noTitle?: boolean; subTitle?: string
 }
 
 export type { InputTypes, LogoTypes, ProfileInfoCardTypes };

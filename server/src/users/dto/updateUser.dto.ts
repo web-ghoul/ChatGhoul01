@@ -24,6 +24,13 @@ export class UpdateUserDto {
     @IsString()
     about?: string;
 
+    @IsOptional()
+    @IsString()
+    avatar?: string;
+
+    @IsOptional()
+    @IsString()
+    chat_theme?: string;
 
     @IsOptional()
     @IsString()

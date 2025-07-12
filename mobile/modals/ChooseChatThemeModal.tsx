@@ -1,11 +1,12 @@
 import { useModals } from '@/contexts/ModalsContext';
+import useChatThemes from '@/hooks/useChatThemes';
 import ChooseChatThemeSection from '@/sections/ChooseChatThemeSection';
 import { Pressable, Text, View } from 'react-native';
 import Modal from 'react-native-modal';
-import Toast from 'react-native-toast-message';
 
 const ChooseChatThemeModal = () => {
     const { state: stateModals, dispatch: dispatchModals } = useModals()
+    const { handleChooseChatTheme } = useChatThemes()
 
     return (
         <Modal
@@ -23,14 +24,7 @@ const ChooseChatThemeModal = () => {
                     <Pressable onPress={() => dispatchModals({ type: "chooseChatThemeModal", payload: false })}>
                         <Text className={`text-primary text-lg font-ubuntu_light`}>Cancel</Text>
                     </Pressable>
-                    <Pressable onPress={() => {
-                        dispatchModals({ type: "chooseChatThemeModal", payload: false })
-                        Toast.show({
-                            type: 'success',
-                            text1: 'Hello 👋',
-                            text2: 'Toast is working!',
-                        });
-                    }}>
+                    <Pressable onPress={handleChooseChatTheme}>
                         <Text className={`text-primary text-lg font-ubuntu_light`}>Choose</Text>
                     </Pressable>
                 </View>

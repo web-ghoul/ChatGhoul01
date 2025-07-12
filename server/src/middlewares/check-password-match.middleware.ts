@@ -1,6 +1,6 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
-import * as bcrypt from "bcryptjs"
+import * as bcrypt from "bcryptjs";
 import { Response } from 'express';
 import { Model } from 'mongoose';
 import { User } from 'schemas/user.schema';
@@ -12,7 +12,7 @@ export class CheckPasswordMatchMiddleware implements NestMiddleware {
   async use(req: any, res: Response, next: () => void) {
     try {
       const body = req.body
-      if (body && body.password && body.emailOrUsername && req.user) {
+      if (body && body.password && body.emailOrUsernameOrPhone && req.user) {
         const password = req.body.password
         const user = req.user
         const match = bcrypt.compareSync(password, user.password)
