@@ -10,30 +10,53 @@ export class MessagesController {
   constructor(private readonly messagesService: MessagesService) { }
 
   @Post(":id")
-  async sendMsg(@Body() body: SendMessageDto, @Param() id: string, @Req() req, @Res() res: Response) {
+  async sendMsg(@Body() body: SendMessageDto, @Param('id') id: string, @Req() req, @Res() res: Response) {
     try {
       const room = req.room
       const user = req.user
       const { message, chatRoom } = await this.messagesService.sendMsg(body, user._id, id, room);
-      res.status(200).json({
-        message,
-        chatRoom
+      return res.status(201).json({
+        message: "Message is sent successfully",
+        data: {
+          message,
+          chatRoom
+        }
       })
     } catch (error) {
       console.log(error)
-      res.status(500).json({
+      return res.status(500).json({
         message: "Server Error"
       })
     }
   }
 
   @Put(":id")
-  async editMsg(@Body() body: EditMessageDto, @Param() id: string) {
-    return this.messagesService.editMsg(body);
+  async editMsg(@Body() body: EditMessageDto, @Param("id") id: string, @Res() res: Response) {
+    try {
+      await this.messagesService.editMsg(body, id);
+      return res.status(200).json({
+        message: "Message is updated successfully"
+      })
+    } catch (error) {
+      console.log(error)
+      return res.status(500).json({
+        message: "Server Error"
+      })
+    }
   }
 
   @Delete()
-  async deleteMsg(@Body() body: DeleteMessageDto) {
-    return this.messagesService.deleteMsg(body);
+  async deleteMsg(@Body() body: DeleteMessageDto, @Res() res: Response) {
+    try {
+      await this.messagesService.deleteMsg(body);
+      return res.status(200).json({
+        message: `${body.messages.length > 1 ? "Messages are" : "Message is"} deleted successfully`
+      })
+    } catch (error) {
+      console.log(error)
+      return res.status(500).json({
+        message: "Server Error"
+      })
+    }
   }
 }

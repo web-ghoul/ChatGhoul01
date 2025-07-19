@@ -1,5 +1,5 @@
-type UserTypes = {
-  id: string;
+interface UserTypes {
+  _id: string;
   username: string;
   email: string;
   phone: string;
@@ -23,5 +23,24 @@ interface ChatThemeTypes {
   name: string;
 }
 
-export type { AvatarTypes, ChatThemeTypes, UserTypes };
+interface MessageTypes {
+  _id: string;
+  msg: string;
+  sender: UserTypes;
+  is_read: boolean;
+  is_send: boolean;
+  createdAt: Date;
+  updatedAt: Date;
+  deletedAt?: Date;
+}
+
+interface ChatRoomTypes {
+  _id: string;
+  participants: UserTypes[];
+  lastMessage: MessageTypes;
+  createdAt: Date;
+  updatedAt: Date;
+}
+
+export type { AvatarTypes, ChatRoomTypes, ChatThemeTypes, MessageTypes, UserTypes };
 

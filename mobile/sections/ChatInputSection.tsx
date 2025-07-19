@@ -1,13 +1,15 @@
-import Input from '@/components/Input'
-import { useState } from 'react'
-import { LayoutChangeEvent, Pressable, View } from 'react-native'
-import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import Container from '@/components/Container';
+import Input from '@/components/Input';
+import useRoom from '@/hooks/useRoom';
+import MaterialIcons from '@expo/vector-icons/MaterialIcons';
+import { useState } from 'react';
+import { LayoutChangeEvent, Pressable, View } from 'react-native';
 // import { useApp } from '@/contexts/AppContext';
 
 const ChatInputSection = ({ onHeightChange }: {
     onHeightChange?: (height: number) => void
 }) => {
+    const { handleSendMessage } = useRoom()
     const [message, setMessage] = useState('')
     // const { dispatch: dispatchApp } = useApp()
 
@@ -18,12 +20,12 @@ const ChatInputSection = ({ onHeightChange }: {
     // }
 
     const handleChange = (value: string) => {
-        console.log(value)
         setMessage(value)
     }
 
-    const handleSendMessage = () => {
-        console.log(message)
+    const handleSend = async () => {
+        await handleSendMessage(message)
+        setMessage("")
     }
 
     const handleLayout = (e: LayoutChangeEvent) => {
@@ -41,7 +43,7 @@ const ChatInputSection = ({ onHeightChange }: {
                         onChange={handleChange}
                     />
                 </View>
-                <Pressable onPress={handleSendMessage}>
+                <Pressable onPress={handleSend}>
                     <View className={`bg-primary p-4 flex items-center justify-center rounded-full`}>
                         <MaterialIcons name="send" size={23} color="white" />
                     </View>

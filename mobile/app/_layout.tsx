@@ -27,7 +27,6 @@ export default function RootLayout() {
     SplashScreen.hideAsync();
     const token = await handleFetch(`${process.env.EXPO_PUBLIC_TOKEN_STORE}`)
     const authRoutes = ['/login', '/register', '/forgotpassword', '/resetpassword']
-    console.log(authRoutes, pathname, token)
     if (token) {
       if (authRoutes.includes(pathname)) {
         router.replace("/(tabs)/chats");
@@ -48,7 +47,6 @@ export default function RootLayout() {
   });
 
   useEffect(() => {
-    console.log(pathname)
     if (pathname !== "/splash") {
       handleAuth()
     }

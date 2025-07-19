@@ -12,6 +12,7 @@ export class CheckChatRoomExistMiddleware implements NestMiddleware {
       const user = req.user
       const id = req.params.id
       const body = req.body
+      console.log(id, body)
       if (body && user && id) {
         const room = await this.chatRoomModel.findOne({ participants: [user._id, id].sort() })
         if (room) {

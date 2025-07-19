@@ -1,4 +1,4 @@
-import { Body, Controller, Get, Put, Req, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
+import { Body, Controller, Get, Put, Query, Req, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
 import { FileSizeValidation } from 'src/pipes/file_size_validation.pipe';
@@ -11,13 +11,11 @@ export class UsersController {
   constructor(private readonly usersService: UsersService) { }
 
   @Get()
-  async getAllUsers(@Req() req, @Res() res: Response) {
+  async getAllUsers(@Req() req, @Res() res: Response, @Query() query) {
     try {
       const user = req.user
-      const users = await this.usersService.getAllUsers(user._id);
-      return res.status(200).json({
-        data: users
-      })
+      const data = await this.usersService.getAllUsers(user._id, query);
+      return res.status(200).json(data)
     } catch (error) {
       return res.status(500).json({
         message: "Server Error"

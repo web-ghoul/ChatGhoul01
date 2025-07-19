@@ -7,7 +7,6 @@ export class AuthorizationMiddleware implements NestMiddleware {
   async use(req, res: Response, next: () => void) {
     try {
       const token = req?.headers?.authorization?.split(" ")?.[1]
-      console.log(token)
       if (token) {
         req.user = verifyToken(token)
         return next();

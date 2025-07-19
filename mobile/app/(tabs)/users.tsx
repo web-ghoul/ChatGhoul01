@@ -1,8 +1,8 @@
-import UsersSection from "@/sections/UsersSection"
+import UsersScreen from "@/screens/UsersScreen"
 
 const users = () => {
     return (
-        <UsersSection />
+        <UsersScreen />
     )
 }
 

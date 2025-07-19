@@ -1,26 +1,147 @@
 import { Injectable } from '@nestjs/common';
-import { CreateChatRoomDto } from './dto/create-chat-room.dto';
-import { UpdateChatRoomDto } from './dto/update-chat-room.dto';
+import { InjectModel } from '@nestjs/mongoose';
+import mongoose, { Model } from 'mongoose';
+import { ChatRoom } from 'schemas/chatRoom.schema';
+import { Message } from 'schemas/message.schema';
+import { handlePaginationQueries } from 'src/utils/pagination';
 
 @Injectable()
 export class ChatRoomsService {
-  async create(body: CreateChatRoomDto) {
-    return 'This action adds a new chatRoom';
+  constructor(@InjectModel(ChatRoom.name) private chatRoomsModel: Model<ChatRoom>, @InjectModel(Message.name) private messagesModel: Model<Message>) { }
+
+  async getAllChatRooms(userId: string, query) {
+    const { page, limit, skip } = handlePaginationQueries(query);
+    const search = query.search?.trim();
+
+    const userObjectId = new mongoose.Types.ObjectId(userId);
+
+    const basePipeline: any[] = [
+      {
+        $match: {
+          participants: userObjectId,
+        },
+      },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'participants',
+          foreignField: '_id',
+          as: 'participants',
+        },
+      },
+      {
+        $lookup: {
+          from: 'messages',
+          localField: 'lastMessage',
+          foreignField: '_id',
+          as: 'lastMessage',
+        },
+      },
+      {
+        $unwind: {
+          path: '$lastMessage',
+          preserveNullAndEmptyArrays: true,
+        },
+      },
+      {
+        $lookup: {
+          from: 'users',
+          localField: 'blockedBy',
+          foreignField: '_id',
+          as: 'blockedBy',
+        },
+      },
+    ];
+
+    if (search) {
+      basePipeline.push(
+        {
+          $addFields: {
+            otherParticipant: {
+              $first: {
+                $filter: {
+                  input: '$participants',
+                  as: 'participant',
+                  cond: {
+                    $ne: ['$$participant._id', userObjectId],
+                  },
+                },
+              },
+            },
+          },
+        },
+        {
+          $match: {
+            $or: [
+              { 'otherParticipant.username': { $regex: search, $options: 'i' } },
+              { 'otherParticipant.email': { $regex: search, $options: 'i' } },
+              { 'otherParticipant.phone': { $regex: search, $options: 'i' } },
+            ],
+          },
+        }
+      );
+    }
+
+    const paginatedPipeline = [
+      ...basePipeline,
+      {
+        $sort: {
+          'lastMessage.createdAt': -1,
+        },
+      },
+      {
+        $skip: skip,
+      },
+      {
+        $limit: limit,
+      },
+    ];
+
+    const countPipeline = [
+      ...basePipeline,
+      {
+        $count: 'total',
+      },
+    ];
+
+    const [data, totalCountResult] = await Promise.all([
+      this.chatRoomsModel.aggregate(paginatedPipeline),
+      this.chatRoomsModel.aggregate(countPipeline),
+    ]);
+
+    const total = totalCountResult[0]?.total || 0;
+
+    return {
+      data,
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+    };
   }
 
-  async getAllChatRooms() {
-    return `This action returns all chatRooms`;
-  }
+  async getChatRoom(id: string, query) {
+    const { page, limit, skip } = handlePaginationQueries(query)
 
-  async findOne(id: number) {
-    return `This action returns a #${id} chatRoom`;
-  }
+    const filter: any = { chatRoom: id };
 
-  async update(id: number, updateChatRoomDto: UpdateChatRoomDto) {
-    return `This action updates a #${id} chatRoom`;
-  }
+    if (query.search) {
+      filter.msg = { $regex: query.search, $options: 'i' };
+    }
 
-  async remove(id: number) {
-    return `This action removes a #${id} chatRoom`;
+    const [messages, total] = await Promise.all([
+      this.messagesModel.find(filter).sort({ createdAt: -1 }).skip(skip).limit(limit).populate('sender', 'username email avatar gender online'),
+      this.messagesModel.countDocuments(filter),
+    ]);
+
+    const room = await this.chatRoomsModel.findOne({ _id: id }).populate('participants', 'username email avatar gender online').populate('blockedBy', 'username email avatar gender online');
+
+    return {
+      data: { messages, room },
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+    };
   }
 }

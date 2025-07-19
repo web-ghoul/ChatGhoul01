@@ -2,6 +2,7 @@ import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
 import { User } from 'schemas/user.schema';
+import { handlePaginationQueries } from 'src/utils/pagination';
 import { uploadImage } from 'src/utils/upload.util';
 import { UpdateUserDto } from './dto/updateUser.dto';
 
@@ -9,9 +10,27 @@ import { UpdateUserDto } from './dto/updateUser.dto';
 export class UsersService {
   constructor(@InjectModel(User.name) private userModel: Model<User>) { }
 
-  async getAllUsers(userId: string) {
-    const users = await this.userModel.find({ _id: { $ne: userId } });
-    return users;
+  async getAllUsers(userId: string, query) {
+    const { page, limit, skip } = handlePaginationQueries(query)
+
+    const filter: any = { _id: { $ne: userId } };
+
+    if (query.search) {
+      filter.username = { $regex: query.search, $options: 'i' };
+    }
+
+    const [users, total] = await Promise.all([
+      this.userModel.find(filter).skip(skip).limit(limit),
+      this.userModel.countDocuments(filter),
+    ]);
+
+    return {
+      data: users,
+      total,
+      page,
+      limit,
+      totalPages: Math.ceil(total / limit),
+    };
   }
 
   async profile(userId: string) {

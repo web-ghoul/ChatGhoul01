@@ -1,4 +1,4 @@
-import { router, usePathname } from 'expo-router';
+import { router, usePathname, useSegments } from 'expo-router';
 import React from 'react';
 import BasicHeader from './BasicHeader';
 import ChatHeader from './ChatHeader/ChatHeader';
@@ -6,14 +6,16 @@ import ChatsHeader from './ChatsHeader';
 
 const Header = () => {
     const pathname = usePathname();
+    const segments = useSegments() as string[];
+    const path = segments.join("/");
 
-    console.log(pathname, 123)
+    console.log(pathname, 123, path, `/${12}`)
 
     return pathname === "/chats" || pathname === "/users" ? (
         <ChatsHeader />
     ) : pathname === "/profile" ? (
         <BasicHeader head={"Profile"} goTo={() => router.push("/(tabs)/chats")} />
-    ) : pathname === "/" ? (
+    ) : path === `(chat)/[id]` ? (
         <ChatHeader />
     ) : pathname === "/link-devices" ? (
         <BasicHeader head={"Link Devices"} goTo={() => router.push("/(tabs)/chats")} />

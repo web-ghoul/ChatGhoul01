@@ -1,38 +1,34 @@
-import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
+import { Controller, Get, Param, Query, Req, Res } from '@nestjs/common';
 import { ChatRoomsService } from './chat-rooms.service';
-import { CreateChatRoomDto } from './dto/create-chat-room.dto';
-import { UpdateChatRoomDto } from './dto/update-chat-room.dto';
 
 @Controller('chat-rooms')
 export class ChatRoomsController {
   constructor(private readonly chatRoomsService: ChatRoomsService) { }
 
-  @Post()
-  async create(@Body() body: CreateChatRoomDto) {
+  @Get()
+  async getAllChatRooms(@Req() req, @Res() res, @Query() query) {
     try {
-      const room = this.chatRoomsService.create(body);
+      const user = req.user
+      const data = await this.chatRoomsService.getAllChatRooms(user._id, query);
+      return res.status(200).json(data)
     } catch (error) {
-
+      console.log(error)
+      return res.status(500).json({
+        message: "Server Error"
+      })
     }
   }
 
-  @Get()
-  async getAllChatRooms() {
-    return this.chatRoomsService.getAllChatRooms();
-  }
-
-  @Get(':id')
-  async findOne(@Param('id') id: string) {
-    return this.chatRoomsService.findOne(+id);
-  }
-
-  @Patch(':id')
-  async update(@Param('id') id: string, @Body() updateChatRoomDto: UpdateChatRoomDto) {
-    return this.chatRoomsService.update(+id, updateChatRoomDto);
-  }
-
-  @Delete(':id')
-  async remove(@Param('id') id: string) {
-    return this.chatRoomsService.remove(+id);
+  @Get(":id")
+  async getChatRoom(@Res() res, @Query() query, @Param("id") id) {
+    try {
+      const data = await this.chatRoomsService.getChatRoom(id, query);
+      return res.status(200).json(data)
+    } catch (error) {
+      console.log(error)
+      return res.status(500).json({
+        message: "Server Error"
+      })
+    }
   }
 }

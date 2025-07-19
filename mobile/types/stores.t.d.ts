@@ -1,4 +1,4 @@
-import { AvatarTypes, ChatThemeTypes, UserTypes } from "./app";
+import { AvatarTypes, ChatRoomTypes, ChatThemeTypes, MessageTypes, UserTypes } from "./app";
 interface AuthStoreTypes {
     auth?: { token?: string };
     setAuth: (profile: { token?: string }) => void;
@@ -14,6 +14,7 @@ interface ProfileStoreTypes {
 };
 
 interface UsersStoreTypes {
+    loading: boolean;
     users: UserTypes[];
     setUsers: (users: UserTypes[]) => void;
     appendUsers: (users: UserTypes[]) => void;
@@ -37,7 +38,25 @@ interface ChatThemesStoreTypes {
     clearChatThemes: () => void;
 };
 
+interface ChatRoomsStoreTypes {
+    loading: boolean
+    rooms: ChatRoomTypes[];
+    setRooms: (rooms: ChatRoomTypes[]) => void;
+    appendRooms: (rooms: ChatRoomTypes[]) => void;
+    getRooms: () => ChatRoomTypes[];
+    clearRooms: () => void;
+}
+
+interface ChatRoomStoreTypes {
+    loading: boolean;
+    room?: ChatRoomTypes;
+    messages: MessageTypes[];
+    setRoom: (room: { room?: ChatRoomTypes; messages: MessageTypes[] }) => void;
+    appendMessage: (message: MessageTypes) => void;
+    getRoom: () => { room?: ChatRoomTypes, messages: MessageTypes[] };
+    clearRoom: () => void;
+}
 
 
-export type { AuthStoreTypes, AvatarsStoreTypes, ChatThemesStoreTypes, ProfileStoreTypes, UsersStoreTypes };
+export type { AuthStoreTypes, AvatarsStoreTypes, ChatRoomsStoreTypes, ChatRoomStoreTypes, ChatThemesStoreTypes, ProfileStoreTypes, UsersStoreTypes };
 
