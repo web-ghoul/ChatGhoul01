@@ -3,7 +3,7 @@ interface AuthStoreTypes {
     auth?: { token?: string };
     setAuth: (profile: { token?: string }) => void;
     getAuth: () => { token?: string } | undefined;
-    clearAuth: () => void;
+    clearAuth: () => void
 }
 
 interface ProfileStoreTypes {
@@ -16,9 +16,12 @@ interface ProfileStoreTypes {
 interface UsersStoreTypes {
     loading: boolean;
     users: UserTypes[];
+    user?: UserTypes;
     setUsers: (users: UserTypes[]) => void;
-    appendUsers: (users: UserTypes[]) => void;
+    setUser: (user: UserTypes) => void;
     getUsers: () => UserTypes[];
+    appendUsers: (users: UserTypes[]) => void;
+    removeUser: (id: string) => void;
     clearUsers: () => void;
 }
 
@@ -41,22 +44,27 @@ interface ChatThemesStoreTypes {
 interface ChatRoomsStoreTypes {
     loading: boolean
     rooms: ChatRoomTypes[];
+    lastMessages: { [key: string]: MessageTypes };
     setRooms: (rooms: ChatRoomTypes[]) => void;
-    appendRooms: (rooms: ChatRoomTypes[]) => void;
-    getRooms: () => ChatRoomTypes[];
+    addRoom: (room: ChatRoomTypes) => void;
+    addlastMessage: (id: string, message: MessageTypes) => void;
+    topRoom: (id: string) => void;
     clearRooms: () => void;
 }
 
-interface ChatRoomStoreTypes {
+interface RoomStoreTypes {
     loading: boolean;
     room?: ChatRoomTypes;
     messages: MessageTypes[];
-    setRoom: (room: { room?: ChatRoomTypes; messages: MessageTypes[] }) => void;
-    appendMessage: (message: MessageTypes) => void;
-    getRoom: () => { room?: ChatRoomTypes, messages: MessageTypes[] };
-    clearRoom: () => void;
-}
+    messagesMap: { [key: string]: MessageTypes }
+    setRoom: (room: ChatRoomTypes) => void;
+    setMessages: (messages: MessageTypes[]) => void;
+    appendMessages: (messages: MessageTypes[]) => void;
+    addMessage: (message: MessageTypes) => void;
+    replaceMessage: (message: MessageTypes) => void;
+    addMessageToMap: (message: MessageTypes) => void;
+    clearMessages: () => void;
+};
 
-
-export type { AuthStoreTypes, AvatarsStoreTypes, ChatRoomsStoreTypes, ChatRoomStoreTypes, ChatThemesStoreTypes, ProfileStoreTypes, UsersStoreTypes };
+export type { AuthStoreTypes, AvatarsStoreTypes, ChatRoomsStoreTypes, ChatThemesStoreTypes, ProfileStoreTypes, RoomStoreTypes, UsersStoreTypes };
 

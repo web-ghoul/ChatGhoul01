@@ -14,6 +14,7 @@ export class CheckEmailOrUsernameOrPhoneMiddleware implements NestMiddleware {
   async use(req: any, res: Response, next: () => void) {
     try {
       const body = req.body
+      console.log(body)
       if (body && body.emailOrUsernameOrPhone) {
         const validatation = plainToInstance(LoginDto, body);
         validationHelper(validatation, res)

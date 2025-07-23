@@ -12,7 +12,6 @@ const UsersSearch = () => {
                 <TextInput
                     onChangeText={(value) => {
                         setSearch(value)
-                        console.log(value)
                     }}
                     className={`text-white text-xl w-full`}
                     placeholder="Search..."

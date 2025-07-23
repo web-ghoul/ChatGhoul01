@@ -1,6 +1,6 @@
-import React, { useState } from 'react'
-import { TextInput, View } from 'react-native'
 import Feather from '@expo/vector-icons/Feather';
+import React, { useState } from 'react';
+import { TextInput, View } from 'react-native';
 
 const ChatsSearch = () => {
     const [search, setSearch] = useState<string>('')
@@ -12,7 +12,6 @@ const ChatsSearch = () => {
                 <TextInput
                     onChangeText={(value) => {
                         setSearch(value)
-                        console.log(value)
                     }}
                     className={`text-white text-xl w-full`}
                     placeholder="Search..."

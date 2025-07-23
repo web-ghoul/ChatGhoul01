@@ -2,6 +2,8 @@ import { useApp } from "@/contexts/AppContext";
 import { useProfileStore } from "@/store/useProfileStore";
 import { MessageTypes } from "@/types/app";
 import Ionicons from '@expo/vector-icons/Ionicons';
+import MaterialIcons from "@expo/vector-icons/MaterialIcons";
+import dayjs from "dayjs";
 import { useState } from "react";
 import { Pressable, Text, View } from "react-native";
 import Container from "./Container";
@@ -71,10 +73,10 @@ const MessageCard = ({ data }: { data: MessageTypes }) => {
                     gap: 1
                 }}>
                     <Text className='text-white text-lg font-ubuntu_medium self-start pr-4'>{data.msg}</Text>
-                    <View className={`flex flex-row justify-end items-end self-end`} style={{ gap: 3 }}>
-                        <Text className='text-gray-300 text-sm font-ubuntu_light self-end'>16:45</Text>
+                    <View className={`flex flex-row justify-end items-end self-end`} style={{ gap: 10 }}>
+                        <Text className='text-gray-300 text-sm font-ubuntu_light self-end'>{dayjs(data.updatedAt).format('HH:mm')}</Text>
                         {
-                            sender && <Ionicons name="checkmark-outline" size={17} color="#999" />
+                            sender && (data.is_read ? <Ionicons name="checkmark-done" size={17} color="#0092E4FF" /> : data.is_send ? <Ionicons name="checkmark-done" size={17} color="#999" /> : data.is_save ? <Ionicons name="checkmark-outline" size={17} color="#999" /> : <MaterialIcons name="error-outline" size={17} color="#999" />)
                         }
                     </View>
                 </View>

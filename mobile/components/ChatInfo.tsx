@@ -1,7 +1,7 @@
 import { ActivityIndicator, Text, View } from 'react-native'
 import ChatDate from './ChatDate'
 
-const ChatInfo = ({ loading }: { loading: boolean }) => {
+const ChatInfo = ({ loading }: { loading?: boolean }) => {
   return (
     <View className={`flex flex-col items-center pb-4`} style={{ gap: 8 }}>
       <View className={`flex flex-col items-center`} style={{ gap: 6 }}>

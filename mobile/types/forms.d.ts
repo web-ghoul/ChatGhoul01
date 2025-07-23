@@ -27,7 +27,7 @@ interface UpdateEmailTypes { email: string }
 
 type UpdateEmailFormProps = FormikProps<UpdateEmailTypes>;
 
-interface UpdateGenderTypes { gender: 'male' | "female" }
+interface UpdateGenderTypes { gender: string }
 
 type UpdateGenderFormProps = FormikProps<UpdateGenderTypes>;
 

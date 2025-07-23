@@ -1,20 +1,23 @@
 import { Injectable, NestMiddleware } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
+import { plainToInstance } from 'class-transformer';
 import { Model } from 'mongoose';
 import { ChatRoom } from 'schemas/chatRoom.schema';
+import { CreateChatRoomDto } from 'src/chat-rooms/dto/create-chat-room.dto';
+import { validationHelper } from 'src/utils/validationHelper';
 
 @Injectable()
-export class CheckChatRoomExistMiddleware implements NestMiddleware {
+export class CheckIfChatRoomAlreadyExistMiddleware implements NestMiddleware {
   constructor(@InjectModel(ChatRoom.name) private chatRoomModel: Model<ChatRoom>) { }
 
   async use(req: any, res: any, next: () => void) {
     try {
       const user = req.user
-      const id = req.params.id
       const body = req.body
-      console.log(id, body)
-      if (body && user && id) {
-        const room = await this.chatRoomModel.findOne({ participants: [user._id, id].sort() }).populate("participants")
+      if (body && body.participants && user) {
+        const validatation = plainToInstance(CreateChatRoomDto, body);
+        validationHelper(validatation, res)
+        const room = await this.chatRoomModel.findOne({ participants: body.participants.sort() }).populate("participants").populate("lastMessage").populate("blockedBy")
         if (room) {
           req.room = room
         } else {

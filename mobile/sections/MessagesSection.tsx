@@ -1,8 +1,8 @@
 import ChatInfo from '@/components/ChatInfo'
 import MessageCard from '@/components/MessageCard'
 import useRoom from '@/hooks/useRoom'
-import { useChatRoomStore } from '@/store/useChatRoomStore'
-import { ChatRoomTypes, MessageTypes } from '@/types/app'
+import useStore from '@/hooks/useStore'
+import { useRoomStore } from '@/store/useRoomStore'
 import { useInfiniteQuery } from '@tanstack/react-query'
 import { useLocalSearchParams } from 'expo-router'
 import { useEffect } from 'react'
@@ -10,34 +10,33 @@ import { FlatList, View } from 'react-native'
 
 const MessagesSection = () => {
     const { handleFetchRoom } = useRoom()
-    const { setRoom, loading, messages } = useChatRoomStore((state) => state)
+    const { messages, room, loading } = useRoomStore((state) => state)
     const { id } = useLocalSearchParams()
+    const { handleSetData } = useStore()
 
-    const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
+    const { fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
         queryKey: ['chat-rooms', id],
         queryFn: ({ pageParam }) => handleFetchRoom({ pageParam }),
         getNextPageParam: (lastPage, allPages) => {
-            if (lastPage.length < 10) return undefined;
+            if (!lastPage || lastPage.data.messages.length >= lastPage.total) return undefined;
             return allPages.length + 1;
         },
         initialPageParam: 1,
     });
 
-    useEffect(() => {
-        if (data?.pages) {
-            const allData = data.pages.flat().filter(Boolean);
-            console.log(allData, '122')
-            setRoom(allData[0] as unknown as { messages: MessageTypes[], room: ChatRoomTypes })
-        }
-    }, [data]);
-
     const loadMore = () => {
         if (hasNextPage && !isFetchingNextPage) fetchNextPage();
     };
 
-    return !loading && messages && messages.length > 0 && (
+    useEffect(() => {
+        if (messages && room) {
+            handleSetData(room._id, messages)
+        }
+    }, [messages])
+
+    return (
         <View style={{ flex: 1 }}>
-            <FlatList
+            {!loading && messages && messages.length > 0 ? <FlatList
                 contentContainerStyle={{ paddingVertical: 10 }}
                 data={messages.map((message) => message)}
                 inverted
@@ -46,9 +45,9 @@ const MessagesSection = () => {
                 ListFooterComponent={
                     <ChatInfo loading={isFetchingNextPage} />
                 }
-                onEndReached={messages.length >= 10 ? loadMore : () => { }}
+                onEndReached={loadMore}
                 onEndReachedThreshold={0.3}
-            />
+            /> : <ChatInfo />}
         </View>
     )
 }

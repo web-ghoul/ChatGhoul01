@@ -20,17 +20,31 @@ export class MessagesService {
       chatRoom = await this.chatRoomModel.create({
         participants: sortedParticipants
       })
+      chatRoom = await chatRoom.populate("participants")
     }
-    const newMessage = await this.messageModel.create({
-      ...body,
-      chatRoom: room ? room._id : chatRoom._id,
+    let message = await this.messageModel.create({
+      msg: body.msg,
+      createdAt: body.createdAt,
+      updatedAt: body.createdAt,
+      is_save: true,
+      chatRoom: room ? room : chatRoom,
       sender: userId
     })
+    message = await message.populate("sender")
     await this.chatRoomModel.updateOne({
       _id: room ? room._id : chatRoom._id
-    }, { lastMessage: newMessage._id })
-    const message = await newMessage.populate("sender")
+    }, { lastMessage: message._id })
     return { message, chatRoom: room || chatRoom }
+  }
+
+  async readMsg(msgId: string) {
+    const message = await this.messageModel.updateOne({ _id: msgId }, { is_read: true })
+    return message;
+  }
+
+  async seenMsg(msgId: string) {
+    const message = await this.messageModel.updateOne({ _id: msgId }, { is_seen: true, is_read: true })
+    return message;
   }
 
   async editMsg(body: EditMessageDto, msgId: string) {

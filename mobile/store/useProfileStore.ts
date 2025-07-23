@@ -6,8 +6,10 @@ export const useProfileStore = create<ProfileStoreTypes>((set, get) => ({
     profile: undefined,
 
     setProfile: async (profile) => {
+        console.log(profile, 1234)
         await AsyncStorage.setItem(`${process.env.EXPO_PUBLIC_PROFILE_STORE}`, JSON.stringify(profile));
-        set({ profile: profile })
+        console.log(profile, 12304)
+        set({ profile })
     },
 
     getProfile: () => get().profile,

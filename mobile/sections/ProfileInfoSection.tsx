@@ -1,13 +1,13 @@
-import ProfileInfoCard from '@/components/ProfileInfoCard'
-import React from 'react'
-import { router } from 'expo-router';
-import AntDesign from '@expo/vector-icons/AntDesign';
-import Divider from '@/components/Divider';
-import Ionicons from '@expo/vector-icons/Ionicons';
-import FontAwesome from '@expo/vector-icons/FontAwesome';
-import Feather from '@expo/vector-icons/Feather';
 import Container from '@/components/Container';
+import Divider from '@/components/Divider';
+import ProfileInfoCard from '@/components/ProfileInfoCard';
 import { useProfileStore } from '@/store/useProfileStore';
+import AntDesign from '@expo/vector-icons/AntDesign';
+import Feather from '@expo/vector-icons/Feather';
+import FontAwesome from '@expo/vector-icons/FontAwesome';
+import Ionicons from '@expo/vector-icons/Ionicons';
+import { router } from 'expo-router';
+import React from 'react';
 
 const ProfileInfoSection = () => {
     const { profile } = useProfileStore((state) => state)

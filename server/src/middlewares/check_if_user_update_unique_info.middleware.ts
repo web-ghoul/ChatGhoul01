@@ -11,7 +11,6 @@ export class CheckIfUserUpdateUniqueInfoMiddleware implements NestMiddleware {
     async use(req: any, res: Response, next: () => void) {
         try {
             const body = req.body
-            console.log(body)
             if (body) {
                 if (!(body.username || body.email || body.phone)) {
                     return next()

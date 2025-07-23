@@ -8,6 +8,7 @@ type ModalsState = {
   isOpenChooseChatThemeModal: boolean;
   isOpenChooseAvatarModal: boolean;
   isOpenDeleteMessagesModal: boolean;
+  isOpenReadyToChatModal: boolean;
   isOpenBlockModal: boolean;
 };
 
@@ -18,6 +19,7 @@ type ModalsAction =
   | { type: "chooseChatThemeModal"; payload: boolean }
   | { type: "chooseAvatarModal"; payload: boolean }
   | { type: "deleteMessagesModal"; payload: boolean }
+  | { type: "readyToChat"; payload: boolean }
   | { type: "blockModal"; payload: boolean }
 
 type ModalsContextType = {
@@ -34,6 +36,7 @@ const initialState: ModalsState = {
   isOpenChooseChatThemeModal: false,
   isOpenChooseAvatarModal: false,
   isOpenDeleteMessagesModal: false,
+  isOpenReadyToChatModal: false,
   isOpenBlockModal: false,
 };
 
@@ -51,6 +54,8 @@ function ModalsReducer(state: ModalsState, action: ModalsAction): ModalsState {
       return { ...state, isOpenChooseAvatarModal: action.payload };
     case "deleteMessagesModal":
       return { ...state, isOpenDeleteMessagesModal: action.payload };
+    case "readyToChat":
+      return { ...state, isOpenReadyToChatModal: action.payload };
     case "blockModal":
       return { ...state, isOpenBlockModal: action.payload };
     default:

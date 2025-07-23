@@ -1,8 +1,8 @@
 import { os } from "@/constants";
+import Constants from 'expo-constants';
+import * as Device from 'expo-device';
 import * as Notifications from 'expo-notifications';
 import { useState } from "react";
-import * as Device from 'expo-device';
-import Constants from 'expo-constants';
 
 const useNotifications = () => {
     const [expoPushToken, setExpoPushToken] = useState('');
@@ -45,7 +45,6 @@ const useNotifications = () => {
                         projectId,
                     })
                 ).data;
-                console.log(token);
             } catch (e) {
                 token = `${e}`;
             }

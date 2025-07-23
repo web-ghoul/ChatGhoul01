@@ -4,7 +4,6 @@ import useSecureStore from "@/hooks/useSecureStore";
 import { useAuthStore } from "@/store/useAuthStore";
 import { useProfileStore } from "@/store/useProfileStore";
 import { LoginTypes } from "@/types/forms";
-import AsyncStorage from "@react-native-async-storage/async-storage";
 import { router } from "expo-router";
 import Toast from "react-native-toast-message";
 
@@ -17,9 +16,9 @@ const useLoginSubmit = () => {
 
     const handleLogin = async (values: LoginTypes) => {
         dispatchForms({ type: "loading", payload: true })
-        await server.post('/auth/login', { ...values, emailOrUsername: values.emailOrUsername }).then(async (res) => {
+        await server.post('/auth/login', { ...values, emailOrUsername: values.emailOrUsernameOrPhone }).then(async (res) => {
             const { message, token, data } = res.data
-            await AsyncStorage.setItem(`${process.env.EXPO_PUBLIC_PROFILE_STORE}`, JSON.stringify(data));
+            console.log(data)
             setProfile(data)
             Toast.show({
                 type: "success",
@@ -28,7 +27,7 @@ const useLoginSubmit = () => {
             await handleStore(`${process.env.EXPO_PUBLIC_TOKEN_STORE}`, token)
             setAuth({ token })
             dispatchForms({ type: "loading", payload: false })
-            router.push("/splash")
+            router.replace("/ready");
         })
         dispatchForms({ type: "loading", payload: false })
     }

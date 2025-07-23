@@ -17,7 +17,6 @@ const useAvatar = () => {
     const handleFetchAvatars = async ({ pageParam = 1 }) => {
         try {
             const res = await server.get(`/avatars?page=${pageParam}&limit=10&gender=${profile?.gender}`);
-            console.log(res.data.data)
             return res.data.data || [];
         } catch (err) {
             console.error("Fetch avatars error:", err);

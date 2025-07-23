@@ -4,28 +4,21 @@ import useRoom from '@/hooks/useRoom';
 import MaterialIcons from '@expo/vector-icons/MaterialIcons';
 import { useState } from 'react';
 import { LayoutChangeEvent, Pressable, View } from 'react-native';
-// import { useApp } from '@/contexts/AppContext';
 
 const ChatInputSection = ({ onHeightChange }: {
     onHeightChange?: (height: number) => void
 }) => {
     const { handleSendMessage } = useRoom()
     const [message, setMessage] = useState('')
-    // const { dispatch: dispatchApp } = useApp()
-
-    // const handleReset = () => {
-    //     dispatchApp({ type: "chosenMessages", payload: {} })
-    //     dispatchApp({ type: "chosenMessagesLength", payload: 0 })
-    //     dispatchApp({ type: "chosenMsgsOwnLength", payload: 0 })
-    // }
 
     const handleChange = (value: string) => {
         setMessage(value)
     }
 
     const handleSend = async () => {
-        await handleSendMessage(message)
+        if (!message.trim()) return
         setMessage("")
+        await handleSendMessage(message)
     }
 
     const handleLayout = (e: LayoutChangeEvent) => {

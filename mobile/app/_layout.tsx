@@ -3,6 +3,7 @@ import Header from '@/components/Headers/Header';
 import { AppProvider } from '@/contexts/AppContext';
 import { FormsProvider } from '@/contexts/FormsContext';
 import useSecureStore from '@/hooks/useSecureStore';
+import useSocket from '@/hooks/useSocket';
 import { DarkTheme, ThemeProvider } from '@react-navigation/native';
 import { QueryClient, QueryClientProvider } from '@tanstack/react-query';
 import { useFonts } from 'expo-font';
@@ -22,6 +23,7 @@ export default function RootLayout() {
   const pathname = usePathname()
   const [queryClient] = useState(() => new QueryClient());
   const { handleFetch } = useSecureStore()
+  const { handleConnection, handleRecieveMessage, handleDisconnect } = useSocket()
 
   const handleAuth = async () => {
     SplashScreen.hideAsync();
@@ -52,6 +54,16 @@ export default function RootLayout() {
     }
   }, [pathname])
 
+  useEffect(() => {
+    handleConnection()
+
+    handleRecieveMessage()
+
+    return () => {
+      handleDisconnect()
+    }
+  }, [])
+
   if (!fontsLoaded) {
     return ""
   }
@@ -71,6 +83,7 @@ export default function RootLayout() {
                   <Header />
                   <Stack>
                     <Stack.Screen name="splash" options={{ headerShown: false }} />
+                    <Stack.Screen name="ready" options={{ headerShown: false }} />
                     <Stack.Screen name="(tabs)" options={{ headerShown: false }} />
                     <Stack.Screen name="(chat)" options={{ headerShown: false }} />
                     <Stack.Screen name="(auth)" options={{ headerShown: false }} />

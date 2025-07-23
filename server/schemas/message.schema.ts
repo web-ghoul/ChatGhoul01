@@ -18,6 +18,9 @@ export class Message {
     @Prop({ required: true, default: false })
     is_send: boolean;
 
+    @Prop({ required: true, default: false })
+    is_save: boolean;
+
     @Prop({ type: Date, default: null })
     deletedAt: Date | null;
 }

@@ -1,12 +1,19 @@
 import { avatarSize } from '@/constants'
+import { useModals } from '@/contexts/ModalsContext'
+import { useUsersStore } from '@/store/useUsersStore'
 import { UserTypes } from '@/types/app'
 import Feather from '@expo/vector-icons/Feather'
-import { router } from 'expo-router'
 import { Image, Text, TouchableHighlight, View } from 'react-native'
 
 const UserCard = ({ data }: { data: UserTypes }) => {
+    const { setUser } = useUsersStore((state) => state)
+    const { dispatch: dispatchModals } = useModals()
+
     return (
-        <TouchableHighlight onPress={() => router.push("/(chat)")}>
+        <TouchableHighlight onPress={() => {
+            setUser(data)
+            dispatchModals({ type: "readyToChat", payload: true })
+        }}>
             <View className='flex flex-row justify-center items-center my-2' style={{ gap: 10 }}>
                 {data.avatar ?
                     <Image className={`bg-[#222222] rounded-full flex justify-center items-center`} style={{ ...avatarSize }} source={{ uri: data.avatar }} />

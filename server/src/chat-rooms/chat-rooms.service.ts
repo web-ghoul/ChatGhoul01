@@ -4,12 +4,14 @@ import mongoose, { Model } from 'mongoose';
 import { ChatRoom } from 'schemas/chatRoom.schema';
 import { Message } from 'schemas/message.schema';
 import { handlePaginationQueries } from 'src/utils/pagination';
+import { CreateChatRoomDto } from './dto/create-chat-room.dto';
 
 @Injectable()
 export class ChatRoomsService {
   constructor(@InjectModel(ChatRoom.name) private chatRoomsModel: Model<ChatRoom>, @InjectModel(Message.name) private messagesModel: Model<Message>) { }
 
   async getAllChatRooms(userId: string, query) {
+    console.log(userId)
     const { page, limit, skip } = handlePaginationQueries(query);
     const search = query.search?.trim();
 
@@ -85,8 +87,15 @@ export class ChatRoomsService {
     const paginatedPipeline = [
       ...basePipeline,
       {
+        $addFields: {
+          sortDate: {
+            $ifNull: ['$lastMessage.createdAt', '$createdAt'],
+          },
+        },
+      },
+      {
         $sort: {
-          'lastMessage.createdAt': -1,
+          sortDate: -1,
         },
       },
       {
@@ -130,11 +139,11 @@ export class ChatRoomsService {
     }
 
     const [messages, total] = await Promise.all([
-      this.messagesModel.find(filter).sort({ createdAt: -1 }).skip(skip).limit(limit).populate('sender', 'username email avatar gender online'),
+      this.messagesModel.find(filter).sort({ createdAt: -1 }).skip(skip).limit(limit).populate('sender').populate('chatRoom'),
       this.messagesModel.countDocuments(filter),
     ]);
 
-    const room = await this.chatRoomsModel.findOne({ _id: id }).populate('participants', 'username email avatar gender online').populate('blockedBy', 'username email avatar gender online');
+    const room = await this.chatRoomsModel.findOne({ _id: id }).populate('participants').populate('blockedBy').populate('lastMessage');
 
     return {
       data: { messages, room },
@@ -143,5 +152,11 @@ export class ChatRoomsService {
       limit,
       totalPages: Math.ceil(total / limit),
     };
+  }
+
+  async createChatRoom(body: CreateChatRoomDto) {
+    const room = await this.chatRoomsModel.create({ ...body })
+    const newRoom = await room.populate('participants')
+    return newRoom
   }
 }

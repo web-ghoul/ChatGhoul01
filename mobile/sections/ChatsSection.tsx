@@ -8,33 +8,28 @@ import { useInfiniteQuery } from '@tanstack/react-query'
 import { LinearGradient } from 'expo-linear-gradient'
 import { router } from 'expo-router'
 import LottieView from 'lottie-react-native'
-import React, { useEffect } from 'react'
+import React from 'react'
 import { ActivityIndicator, FlatList, Text, TouchableHighlight, View } from 'react-native'
 
 const ChatsSection = () => {
     const { handleFetchChats } = useChats()
-    const { setRooms, loading, rooms } = useChatRoomsStore((state) => state)
+    const { rooms } = useChatRoomsStore((state) => state)
 
-    const { data, fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
+    const { fetchNextPage, hasNextPage, isFetchingNextPage } = useInfiniteQuery({
         queryKey: ['chat-rooms'],
         queryFn: ({ pageParam }) => handleFetchChats({ pageParam }),
         getNextPageParam: (lastPage, allPages) => {
-            if (lastPage.length < 10) return undefined;
+            if (lastPage && lastPage.length < 10) return undefined;
             return allPages.length + 1;
         },
         initialPageParam: 1,
     });
 
-    useEffect(() => {
-        if (data?.pages) {
-            const allRooms = data.pages.flat().filter(Boolean);
-            setRooms(allRooms);
-        }
-    }, [data]);
-
     const loadMore = () => {
         if (hasNextPage && !isFetchingNextPage) fetchNextPage();
     };
+
+
 
     return rooms.length > 0 ? (
         <LinearGradient colors={['#000', '#111', '#222']} end={{ x: 0, y: 0.5 }} className='flex-1'>
@@ -43,7 +38,7 @@ const ChatsSection = () => {
                     contentContainerStyle={{ paddingVertical: 10 }}
                     data={rooms.map((room) => room)}
                     keyExtractor={(_, index) => index.toString()}
-                    renderItem={({ item }) => <ChatCard data={item} />}
+                    renderItem={({ item, index }) => <ChatCard data={item} />}
                     ListHeaderComponent={
                         <ChatsSearch />
                     }

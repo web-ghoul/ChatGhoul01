@@ -13,7 +13,6 @@ const useChatThemes = () => {
     const handleFetchChatThemes = async ({ pageParam = 1 }) => {
         try {
             const res = await server.get(`/chat_themes?page=${pageParam}&limit=10`);
-            console.log(res.data.data)
             return res.data.data || [];
         } catch (err) {
             console.error("Fetch avatars error:", err);

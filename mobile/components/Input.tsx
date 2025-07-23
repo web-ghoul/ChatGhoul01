@@ -39,12 +39,6 @@ const Input = ({
           value={value}
           autoComplete={type}
           autoCapitalize={(type === 'username' || type === "email") ? "none" : "words"}
-          textContentType={
-            type === "email" ? "emailAddress" :
-              type === "password" ? "password" :
-                type === "username" ? "username" :
-                  undefined
-          }
           keyboardType={
             type === "tel-device" ? "phone-pad" :
               type === "email" ? "email-address" :

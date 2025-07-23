@@ -1,15 +1,19 @@
-import { Module } from '@nestjs/common';
+import { MiddlewareConsumer, Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
 import { ThrottlerModule } from '@nestjs/throttler';
 import * as dotenv from "dotenv";
+import { ChatRoom, ChatRoomSchema } from 'schemas/chatRoom.schema';
+import { Message, MessageSchema } from 'schemas/message.schema';
+import { User, UserSchema } from 'schemas/user.schema';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
 import { AuthModule } from './auth/auth.module';
 import { AvatarsModule } from './avatars/avatars.module';
+import { ChatRoomsModule } from './chat-rooms/chat-rooms.module';
 import { ChatThemesModule } from './chatThemes/chatThemes.module';
 import { MessagesModule } from './messages/messages.module';
+import { AuthorizationMiddleware } from './middlewares/authorization.middleware';
 import { UsersModule } from './users/users.module';
-import { ChatRoomsModule } from './chat-rooms/chat-rooms.module';
 
 dotenv.config();
 
@@ -28,8 +32,17 @@ dotenv.config();
     AvatarsModule,
     ChatThemesModule,
     ChatRoomsModule,
+    MongooseModule.forFeature([{ name: User.name, schema: UserSchema }]),
+    MongooseModule.forFeature([{ name: Message.name, schema: MessageSchema }]),
+    MongooseModule.forFeature([{ name: ChatRoom.name, schema: ChatRoomSchema }]),
   ],
   controllers: [AppController],
   providers: [AppService],
 })
-export class AppModule { }
+export class AppModule {
+  configure(consumer: MiddlewareConsumer) {
+    consumer
+      .apply(AuthorizationMiddleware)
+      .forRoutes("/all")
+  }
+}

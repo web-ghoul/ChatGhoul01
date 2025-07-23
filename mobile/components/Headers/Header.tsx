@@ -9,8 +9,6 @@ const Header = () => {
     const segments = useSegments() as string[];
     const path = segments.join("/");
 
-    console.log(pathname, 123, path, `/${12}`)
-
     return pathname === "/chats" || pathname === "/users" ? (
         <ChatsHeader />
     ) : pathname === "/profile" ? (

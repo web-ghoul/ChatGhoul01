@@ -8,6 +8,7 @@ import { CheckIfMessagesBelongToUserMiddleware } from 'src/middlewares/check-if-
 import { CheckMongoIdMiddleware } from 'src/middlewares/check-mongo-id.middleware';
 import { CheckChatRoomExistMiddleware } from 'src/middlewares/check_chat_room_exist.middleware';
 import { MessagesController } from './messages.controller';
+import { MessagesGateway } from './messages.gateway';
 import { MessagesService } from './messages.service';
 
 @Module({
@@ -16,7 +17,7 @@ import { MessagesService } from './messages.service';
     MongooseModule.forFeature([{ name: ChatRoom.name, schema: ChatRoomSchema }]),
   ],
   controllers: [MessagesController],
-  providers: [MessagesService],
+  providers: [MessagesService, MessagesGateway],
 })
 export class MessagesModule {
   configure(consumer: MiddlewareConsumer) {
@@ -24,11 +25,19 @@ export class MessagesModule {
       .apply(AuthorizationMiddleware)
       .forRoutes("messages")
       .apply(CheckMongoIdMiddleware)
-      .forRoutes({ path: 'messages/:id', method: RequestMethod.ALL })
+      .forRoutes(
+        { path: 'messages/:id', method: RequestMethod.ALL },
+        { path: 'messages/read/:id', method: RequestMethod.ALL },
+        { path: 'messages/seen/:id', method: RequestMethod.ALL }
+      )
       .apply(CheckChatRoomExistMiddleware)
       .forRoutes({ path: 'messages/:id', method: RequestMethod.POST })
       .apply(CheckIfMessageBelongToUserMiddleware)
-      .forRoutes({ path: 'messages/:id', method: RequestMethod.PUT })
+      .forRoutes(
+        { path: 'messages/:id', method: RequestMethod.PUT },
+        { path: 'messages/read/:id', method: RequestMethod.PUT },
+        { path: 'messages/seen/:id', method: RequestMethod.PUT }
+      )
       .apply(CheckIfMessagesBelongToUserMiddleware)
       .forRoutes({ path: 'messages', method: RequestMethod.DELETE })
   }
