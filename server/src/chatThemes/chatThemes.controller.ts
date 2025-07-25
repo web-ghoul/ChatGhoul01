@@ -1,8 +1,8 @@
 import { Controller, Get, Post, Query, Res, UploadedFiles, UseInterceptors } from '@nestjs/common';
 import { FilesInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
-import { FileSizeValidation } from 'src/pipes/file_size_validation.pipe';
-import multerOptions from 'src/utils/multerConfig.util';
+import { FileSizeValidation } from '../pipes/file_size_validation.pipe';
+import multerOptions from '../utils/multerConfig.util';
 import { ChatThemesService } from './chatThemes.service';
 
 @Controller('chat_themes')

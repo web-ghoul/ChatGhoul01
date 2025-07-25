@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { handlePaginationQueries } from 'src/utils/pagination';
-import { uploadImage } from 'src/utils/upload.util';
 import { User } from '../schemas/user.schema';
+import { handlePaginationQueries } from '../utils/pagination';
+import { uploadImage } from '../utils/upload.util';
 import { UpdateUserDto } from './dto/updateUser.dto';
 
 @Injectable()

@@ -2,9 +2,9 @@ import { Injectable, NestMiddleware } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { plainToInstance } from 'class-transformer';
 import { Model } from 'mongoose';
-import { CreateChatRoomDto } from 'src/chat-rooms/dto/create-chat-room.dto';
-import { validationHelper } from 'src/utils/validationHelper';
+import { CreateChatRoomDto } from '../chat-rooms/dto/create-chat-room.dto';
 import { ChatRoom } from '../schemas/chatRoom.schema';
+import { validationHelper } from '../utils/validationHelper';
 
 @Injectable()
 export class CheckIfChatRoomAlreadyExistMiddleware implements NestMiddleware {

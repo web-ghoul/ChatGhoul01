@@ -3,9 +3,9 @@ import { InjectModel } from '@nestjs/mongoose';
 import { plainToInstance } from 'class-transformer';
 import { Response } from 'express';
 import { Model } from 'mongoose';
-import { RegisterDto } from 'src/auth/dto/register.dto';
-import { validationHelper } from 'src/utils/validationHelper';
+import { RegisterDto } from '../auth/dto/register.dto';
 import { User } from '../schemas/user.schema';
+import { validationHelper } from '../utils/validationHelper';
 
 @Injectable()
 export class CheckIfUserAlreadyExistMiddleware implements NestMiddleware {

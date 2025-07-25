@@ -1,5 +1,5 @@
 import { Body, Controller, Post, Req, Res, UnauthorizedException } from '@nestjs/common';
-import { signToken } from 'src/utils/auth';
+import { signToken } from '../utils/auth';
 import { AuthService } from './auth.service';
 import { ForgotPasswordDto } from './dto/forgotPassword.dto';
 import { RegisterDto } from './dto/register.dto';

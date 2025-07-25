@@ -1,8 +1,8 @@
 import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { AuthorizationMiddleware } from 'src/middlewares/authorization.middleware';
-import { CheckMongoIdMiddleware } from 'src/middlewares/check-mongo-id.middleware';
-import { CheckIfUserUpdateUniqueInfoMiddleware } from 'src/middlewares/check_if_user_update_unique_info.middleware';
+import { AuthorizationMiddleware } from '../middlewares/authorization.middleware';
+import { CheckMongoIdMiddleware } from '../middlewares/check-mongo-id.middleware';
+import { CheckIfUserUpdateUniqueInfoMiddleware } from '../middlewares/check_if_user_update_unique_info.middleware';
 import { User, UserSchema } from '../schemas/user.schema';
 import { UsersController } from './users.controller';
 import { UsersService } from './users.service';

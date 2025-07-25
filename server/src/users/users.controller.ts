@@ -1,8 +1,8 @@
 import { Body, Controller, Get, Put, Query, Req, Res, UploadedFile, UseInterceptors } from '@nestjs/common';
 import { FileInterceptor } from '@nestjs/platform-express';
 import { Response } from 'express';
-import { FileSizeValidation } from 'src/pipes/file_size_validation.pipe';
-import multerOptions from 'src/utils/multerConfig.util';
+import { FileSizeValidation } from '../pipes/file_size_validation.pipe';
+import multerOptions from '../utils/multerConfig.util';
 import { UpdateUserDto } from './dto/updateUser.dto';
 import { UsersService } from './users.service';
 
