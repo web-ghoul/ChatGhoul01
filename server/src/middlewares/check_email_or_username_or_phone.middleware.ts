@@ -4,8 +4,8 @@ import { plainToInstance } from 'class-transformer';
 import { Response } from 'express';
 import { Model } from 'mongoose';
 import { LoginDto } from 'src/auth/dto/login.dto';
-import { User } from 'src/schemas/user.schema';
 import { validationHelper } from 'src/utils/validationHelper';
+import { User } from '../schemas/user.schema';
 
 @Injectable()
 export class CheckEmailOrUsernameOrPhoneMiddleware implements NestMiddleware {

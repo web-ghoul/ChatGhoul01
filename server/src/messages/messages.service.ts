@@ -1,8 +1,8 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model } from 'mongoose';
-import { ChatRoom } from 'src/schemas/chatRoom.schema';
-import { Message } from 'src/schemas/message.schema';
+import { ChatRoom } from '../schemas/chatRoom.schema';
+import { Message } from '../schemas/message.schema';
 import { DeleteMessageDto } from './dto/deleteMessages.dto';
 import { EditMessageDto } from './dto/editMessage.dto';
 import { SendMessageDto } from './dto/sendMessage.dto';

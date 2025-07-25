@@ -1,9 +1,9 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import mongoose, { Model } from 'mongoose';
-import { ChatRoom } from 'src/schemas/chatRoom.schema';
-import { Message } from 'src/schemas/message.schema';
 import { handlePaginationQueries } from 'src/utils/pagination';
+import { ChatRoom } from '../schemas/chatRoom.schema';
+import { Message } from '../schemas/message.schema';
 import { CreateChatRoomDto } from './dto/create-chat-room.dto';
 
 @Injectable()
