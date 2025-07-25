@@ -3,7 +3,7 @@ import { InjectModel } from '@nestjs/mongoose';
 import * as bcrypt from "bcryptjs";
 import { Response } from 'express';
 import { Model } from 'mongoose';
-import { User } from 'schemas/user.schema';
+import { User } from 'src/schemas/user.schema';
 
 @Injectable()
 export class CheckPasswordMatchMiddleware implements NestMiddleware {

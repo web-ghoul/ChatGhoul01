@@ -1,12 +1,12 @@
 import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ChatRoom, ChatRoomSchema } from 'schemas/chatRoom.schema';
-import { Message, MessageSchema } from 'schemas/message.schema';
 import { AuthorizationMiddleware } from 'src/middlewares/authorization.middleware';
 import { CheckIfMessageBelongToUserMiddleware } from 'src/middlewares/check-if-message-belong-to-user.middleware';
 import { CheckIfMessagesBelongToUserMiddleware } from 'src/middlewares/check-if-messages-belong-to-user.middleware';
 import { CheckMongoIdMiddleware } from 'src/middlewares/check-mongo-id.middleware';
 import { CheckChatRoomExistMiddleware } from 'src/middlewares/check_chat_room_exist.middleware';
+import { ChatRoom, ChatRoomSchema } from 'src/schemas/chatRoom.schema';
+import { Message, MessageSchema } from 'src/schemas/message.schema';
 import { MessagesController } from './messages.controller';
 import { MessagesGateway } from './messages.gateway';
 import { MessagesService } from './messages.service';

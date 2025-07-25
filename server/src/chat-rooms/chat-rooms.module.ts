@@ -1,10 +1,10 @@
 import { MiddlewareConsumer, Module, RequestMethod } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ChatRoom, ChatRoomSchema } from 'schemas/chatRoom.schema';
-import { Message, MessageSchema } from 'schemas/message.schema';
 import { AuthorizationMiddleware } from 'src/middlewares/authorization.middleware';
 import { CheckIfChatRoomAlreadyExistMiddleware } from 'src/middlewares/check-if-chat-room-already-exist.middleware';
 import { CheckMongoIdMiddleware } from 'src/middlewares/check-mongo-id.middleware';
+import { ChatRoom, ChatRoomSchema } from 'src/schemas/chatRoom.schema';
+import { Message, MessageSchema } from 'src/schemas/message.schema';
 import { ChatRoomsController } from './chat-rooms.controller';
 import { ChatRoomsService } from './chat-rooms.service';
 

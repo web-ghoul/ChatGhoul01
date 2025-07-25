@@ -1,6 +1,6 @@
 import { Module } from '@nestjs/common';
 import { MongooseModule } from '@nestjs/mongoose';
-import { ChatTheme, ChatThemeSchema } from 'schemas/chattheme.schema';
+import { ChatTheme, ChatThemeSchema } from 'src/schemas/chattheme.schema';
 import { ChatThemesController } from './chatThemes.controller';
 import { ChatThemesService } from './chatThemes.service';
 

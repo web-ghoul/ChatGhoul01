@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { Model } from 'mongoose';
-import { ChatTheme } from 'schemas/chattheme.schema';
+import { ChatTheme } from 'src/schemas/chattheme.schema';
 import { uploadImage } from 'src/utils/upload.util';
 
 @Injectable()

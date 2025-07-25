@@ -2,8 +2,8 @@ import { Injectable, NestMiddleware } from '@nestjs/common';
 import { InjectModel } from '@nestjs/mongoose';
 import { plainToInstance } from 'class-transformer';
 import { Model } from 'mongoose';
-import { ChatRoom } from 'schemas/chatRoom.schema';
 import { CreateChatRoomDto } from 'src/chat-rooms/dto/create-chat-room.dto';
+import { ChatRoom } from 'src/schemas/chatRoom.schema';
 import { validationHelper } from 'src/utils/validationHelper';
 
 @Injectable()
