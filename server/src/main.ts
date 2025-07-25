@@ -1,8 +1,8 @@
-import { NestFactory } from '@nestjs/core';
-import { AppModule } from './app.module';
-import helmet from 'helmet';
 import { ValidationPipe } from '@nestjs/common';
+import { NestFactory } from '@nestjs/core';
 import * as dotenv from 'dotenv';
+import helmet from 'helmet';
+import { AppModule } from './app.module';
 
 dotenv.config();
 
@@ -16,7 +16,7 @@ async function bootstrap() {
   );
   app.setGlobalPrefix('api');
   app.enableCors({
-    origin: [`${process.env.CLIENT_URL}`],
+    origin: "*",
     credentials: true,
   });
   app.use(helmet());
