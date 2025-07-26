@@ -1,9 +1,10 @@
 import Container from '@/components/Container';
 import CustomKeyboardView from '@/components/CustomKeyboardView';
 import Input from '@/components/Input';
+import SubmitButton from '@/components/SubmitButton';
+import { useProfileStore } from '@/store/useProfileStore';
 import { UpdateEmailFormProps } from '@/types/forms';
 import Ionicons from '@expo/vector-icons/Ionicons';
-import { Text, TouchableOpacity } from 'react-native';
 
 const UpdateEmailForm = ({
     values,
@@ -13,6 +14,7 @@ const UpdateEmailForm = ({
     handleBlur,
     handleSubmit,
 }: UpdateEmailFormProps) => {
+    const { profile } = useProfileStore((state) => state)
     return (
         <CustomKeyboardView>
             <Container className={`flex-1 py-4 flex-col justify-stretch items-center`} style={{ gap: 30 }}>
@@ -25,9 +27,7 @@ const UpdateEmailForm = ({
                     placeholder='Email'
                     type={'email'}
                 />
-                <TouchableOpacity onPress={() => handleSubmit()} className={`bg-primary px-4 py-4 rounded-full flex items-center w-full`}>
-                    <Text className={`text-white font-ubuntu_regular text-xl`}>Save</Text>
-                </TouchableOpacity>
+                <SubmitButton disabled={values.email === profile?.email} value={"Save"} handleSubmit={handleSubmit} />
             </Container>
         </CustomKeyboardView>
     )

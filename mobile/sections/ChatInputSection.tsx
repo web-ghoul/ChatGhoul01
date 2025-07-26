@@ -16,6 +16,7 @@ const ChatInputSection = ({ onHeightChange }: {
     }
 
     const handleSend = async () => {
+        console.log(message)
         if (!message.trim()) return
         setMessage("")
         await handleSendMessage(message)

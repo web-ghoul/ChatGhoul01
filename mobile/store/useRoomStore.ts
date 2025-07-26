@@ -27,15 +27,27 @@ export const useRoomStore = create<RoomStoreTypes>((set, get) => ({
     replaceMessage: (message) => set(() => {
         const msgs = [...get().messages]
         for (let i = 0; i < msgs.length; i++) {
-            if (msgs[i]._id.includes(":") && (i === msgs.length - 1 || (i < msgs.length - 1 && !msgs[i + 1]._id.includes(":")))) {
-                msgs[i] = message
-                break;
+            if (msgs[i]._id.includes(":")) {
+                if ((i === msgs.length - 1 || (i < msgs.length - 1 && !msgs[i + 1]._id.includes(":")))) {
+                    msgs[i] = message
+                    break;
+                }
             }
         }
         return { messages: msgs, messagesMap: { ...get().messagesMap, [message._id]: message } }
     }),
 
     addMessageToMap: (message) => set({ messagesMap: { ...get().messagesMap, [message._id]: message } }),
+
+    deleteMessages: (messages) => set(() => {
+        let msgs = [...get().messages]
+        let msgsMap = { ...get().messagesMap }
+        msgs = msgs.filter((msg) => !messages.includes(msg._id))
+        messages.map((id) => {
+            delete msgsMap[id]
+        })
+        return { messages: msgs, messagesMap: msgsMap }
+    }),
 
     clearMessages: () => set({ messages: [], messagesMap: {}, room: undefined }),
 }))
