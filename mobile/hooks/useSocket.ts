@@ -50,6 +50,26 @@ const useSocket = () => {
         });
     }
 
+    const handleReadMessage = async () => {
+        socket.on('readMessage', async (data: MessageTypes) => {
+            const profileData = await handleGetData(`${process.env.EXPO_PUBLIC_PROFILE_STORE}`);
+            const arr = pathname.split("/")
+            const id = arr[arr.length - 1]
+            if (profileData && data.sender._id !== profileData._id) {
+            }
+        });
+    }
+
+    const handleSeenMessage = async () => {
+        socket.on('seenMessage', async (data: MessageTypes) => {
+            const profileData = await handleGetData(`${process.env.EXPO_PUBLIC_PROFILE_STORE}`);
+            const arr = pathname.split("/")
+            const id = arr[arr.length - 1]
+            if (profileData && data.sender._id !== profileData._id) {
+            }
+        });
+    }
+
     const handleDisconnect = () => {
         socket.disconnect();
     }
@@ -58,7 +78,7 @@ const useSocket = () => {
         socket.emit('message', message);
     }
 
-    return { handleConnection, handleRecieveMessage, handleDisconnect, handleEmitMessage }
+    return { handleConnection, handleRecieveMessage, handleDisconnect, handleEmitMessage, handleReadMessage, handleSeenMessage }
 }
 
 export default useSocket
