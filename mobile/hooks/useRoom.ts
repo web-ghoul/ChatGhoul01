@@ -1,8 +1,11 @@
+import { useApp } from "@/contexts/AppContext";
+import { useModals } from "@/contexts/ModalsContext";
 import { useChatRoomsStore } from "@/store/useChatRoomsStore";
 import { useProfileStore } from "@/store/useProfileStore";
 import { useRoomStore } from "@/store/useRoomStore";
 import { ChatRoomTypes, MessageTypes } from "@/types/app";
 import { useLocalSearchParams } from "expo-router";
+import Toast from "react-native-toast-message";
 import useAxios from "./useAxios";
 import useStore from "./useStore";
 
@@ -13,13 +16,13 @@ const useRoom = () => {
     const { messages, setMessages, appendMessages, setRoom, replaceMessage, room } = useRoomStore((state) => state)
     const { addlastMessage, topRoom } = useChatRoomsStore((state) => state)
     const { handleSetData } = useStore()
+    const { dispatch: dispatchModals } = useModals()
+    const { state: stateApp, dispatch: dispatchApp } = useApp()
 
     const handleCaching = (limit: number) => {
         if (messages.length > limit) {
-            console.log(13)
             return true
         }
-        console.log(11)
         return false
     }
 
@@ -34,7 +37,6 @@ const useRoom = () => {
             if (handleCaching(limit)) return
             const res = await server.get(`/chat-rooms/${id}?page=${pageParam}&limit=20`);
             const { data: { messages: allMessages, room } } = res.data
-            console.log(allMessages.length)
             appendMessages(allMessages)
             setRoom(room)
             return res.data || { data: { messages: [], room: undefined } };
@@ -50,6 +52,30 @@ const useRoom = () => {
 
     const handleSeenMessage = async (id: string) => {
         await server.put(`/messages/seen/${id}`)
+    }
+
+    const handleDeleteMessage = async () => {
+        try {
+            console.log(stateApp.chosenMessages)
+            await server.post(`messages/delete`, { messages: stateApp.chosenMessages }).then((res) => {
+                console.log(res)
+                dispatchModals({ type: "deleteMessagesModal", payload: false })
+                dispatchApp({ type: "chosenMessages", payload: {} })
+                dispatchApp({ type: "chosenMsgsOwnLength", payload: 0 })
+                dispatchApp({ type: "chosenMessagesLength", payload: 0 })
+
+                Toast.show({
+                    type: 'success',
+                    text1: res.data.message,
+                });
+            })
+        } catch (error) {
+            console.log(error)
+            Toast.show({
+                type: 'error',
+                text1: "Server Error",
+            });
+        }
     }
 
     const handleSendMessage = async (msg: string) => {
@@ -104,7 +130,7 @@ const useRoom = () => {
         }
     };
 
-    return { handleFetchRoom, handleSendMessage, handleReadMessage, handleSeenMessage }
+    return { handleFetchRoom, handleSendMessage, handleReadMessage, handleSeenMessage, handleDeleteMessage }
 }
 
 export default useRoom

@@ -23,7 +23,7 @@ export default function RootLayout() {
   const pathname = usePathname()
   const [queryClient] = useState(() => new QueryClient());
   const { handleFetch } = useSecureStore()
-  const { handleConnection, handleRecieveMessage, handleDisconnect } = useSocket()
+  const { handleConnection, handleRecieveMessage, handleDisconnect, handleReadMessage, handleSeenMessage } = useSocket()
 
   const handleAuth = async () => {
     SplashScreen.hideAsync();
@@ -58,6 +58,10 @@ export default function RootLayout() {
     handleConnection()
 
     handleRecieveMessage()
+
+    handleReadMessage()
+
+    handleSeenMessage()
 
     return () => {
       handleDisconnect()
