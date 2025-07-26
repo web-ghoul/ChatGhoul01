@@ -1,12 +1,13 @@
 import { useApp } from '@/contexts/AppContext';
 import { useModals } from '@/contexts/ModalsContext';
+import useRoom from '@/hooks/useRoom';
 import { Pressable, Text, View } from 'react-native';
 import Modal from 'react-native-modal';
-import Toast from 'react-native-toast-message';
 
 const DeleteMessagesModal = () => {
     const { state: stateModals, dispatch: dispatchModals } = useModals()
-    const { state: stateApp, dispatch: dispatchApp } = useApp()
+    const { state: stateApp } = useApp()
+    const { handleDeleteMessage } = useRoom()
 
     return (
         <Modal
@@ -23,17 +24,7 @@ const DeleteMessagesModal = () => {
                     <Pressable onPress={() => dispatchModals({ type: "deleteMessagesModal", payload: false })}>
                         <Text className={`text-primary text-lg font-ubuntu_light`}>Cancel</Text>
                     </Pressable>
-                    <Pressable onPress={() => {
-                        dispatchModals({ type: "deleteMessagesModal", payload: false })
-                        Toast.show({
-                            type: 'success',
-                            text1: 'Hello 👋',
-                            text2: 'Toast is working!',
-                        });
-                        dispatchApp({ type: "chosenMessages", payload: {} })
-                        dispatchApp({ type: "chosenMsgsOwnLength", payload: 0 })
-                        dispatchApp({ type: "chosenMessagesLength", payload: 0 })
-                    }}>
+                    <Pressable onPress={handleDeleteMessage}>
                         <Text className={`text-primary text-lg font-ubuntu_light`}>Delete for me</Text>
                     </Pressable>
                 </View>

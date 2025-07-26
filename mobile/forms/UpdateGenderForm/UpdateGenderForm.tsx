@@ -1,9 +1,11 @@
 import Container from '@/components/Container';
 import CustomKeyboardView from '@/components/CustomKeyboardView';
 import Radio from '@/components/Radio';
+import SubmitButton from '@/components/SubmitButton';
+import { useProfileStore } from '@/store/useProfileStore';
 import { UpdateGenderFormProps } from '@/types/forms';
 import Fontisto from '@expo/vector-icons/Fontisto';
-import { Text, TouchableOpacity, View } from 'react-native';
+import { Text, View } from 'react-native';
 import { widthPercentageToDP as wp } from 'react-native-responsive-screen';
 
 const UpdateGenderForm = ({
@@ -13,6 +15,7 @@ const UpdateGenderForm = ({
     handleSubmit,
     setFieldValue
 }: UpdateGenderFormProps & { setFieldValue: (field: string, value: any) => void }) => {
+    const { profile } = useProfileStore((state) => state)
     return (
         <CustomKeyboardView>
             <Container className={`flex-1 py-4 flex-col justify-stretch items-center`} style={{ gap: 30 }}>
@@ -44,9 +47,7 @@ const UpdateGenderForm = ({
                         </View>
                     )}
                 </Container>
-                <TouchableOpacity onPress={() => handleSubmit()} className={`bg-primary px-4 py-4 rounded-full flex items-center w-full`}>
-                    <Text className={`text-white font-ubuntu_regular text-xl`}>Save</Text>
-                </TouchableOpacity>
+                <SubmitButton disabled={values.gender === profile?.gender} value={"Save"} handleSubmit={handleSubmit} />
             </Container>
         </CustomKeyboardView>
     )

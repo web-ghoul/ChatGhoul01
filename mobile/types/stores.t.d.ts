@@ -63,6 +63,7 @@ interface RoomStoreTypes {
     addMessage: (message: MessageTypes) => void;
     replaceMessage: (message: MessageTypes) => void;
     addMessageToMap: (message: MessageTypes) => void;
+    deleteMessages: (messages: string[]) => void;
     clearMessages: () => void;
 };
 

@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Param, Post, Put, Req, Res } from '@nestjs/common';
+import { Body, Controller, Param, Post, Put, Req, Res } from '@nestjs/common';
 import { Response } from 'express';
 import { DeleteMessageDto } from './dto/deleteMessages.dto';
 import { EditMessageDto } from './dto/editMessage.dto';
@@ -77,7 +77,7 @@ export class MessagesController {
     }
   }
 
-  @Delete()
+  @Post('delete')
   async deleteMsg(@Body() body: DeleteMessageDto, @Res() res: Response) {
     try {
       await this.messagesService.deleteMsg(body);

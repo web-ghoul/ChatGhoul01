@@ -6,7 +6,9 @@ const useStore = () => {
     }
 
     const handleGetData = async (key: string) => {
+        console.log(key)
         const data = await AsyncStorage.getItem(key);
+        console.log(data)
         if (data) {
             return JSON.parse(data)
         }
